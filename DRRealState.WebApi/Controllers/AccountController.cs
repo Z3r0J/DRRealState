@@ -25,14 +25,8 @@ namespace DRRealState.WebApi.Controllers
             return Ok(await _accountServices.AuthenticateAsync(request));
         }
 
-        [Authorize(Roles = "ADMINISTRATOR")]
-        [HttpPost("register-waiter")]
-        public async Task<IActionResult> RegisterWaiterAsync(RegisterRequest request) {
 
-            return Ok(await _accountServices.RegisterWaiterAsync(request));
-        }
-
-        [Authorize(Roles = "ADMINISTRATOR")]
+        [Authorize(Roles = "ADMINISTRATOR,DEVELOPER")]
         [HttpPost("register-administrator")]
         public async Task<IActionResult> RegisterAdministratorAsync(RegisterRequest request) {
 

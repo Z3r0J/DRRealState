@@ -15,9 +15,9 @@ namespace DRRealState.Core.Application.ViewModel.User
         [Required(ErrorMessage = "LastName is Required")]
         [DataType(DataType.Text)]
         public string LastName { get; set; }
-        [Required(ErrorMessage = "Documents is Required")]
+        [Required(ErrorMessage = "Photo is Required")]
         [DataType(DataType.Text)]
-        public string Documents { get; set; }
+        public string PhotoURL { get; set; }
         [Required(ErrorMessage = "Email is Required")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
@@ -36,10 +36,7 @@ namespace DRRealState.Core.Application.ViewModel.User
         [Required(ErrorMessage = "Phone is Required")]
         [DataType(DataType.PhoneNumber)]
         public string Phone { get; set; }
-        public string UserType { get; set; }
-
-        [DataType(DataType.Currency)]
-        public double? Amount { get; set; }
+        public int UserType { get; set; }
         public string Error { get; set; }
         public bool HasError { get; set; }
 

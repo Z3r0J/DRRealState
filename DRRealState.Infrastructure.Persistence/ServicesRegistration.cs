@@ -30,12 +30,6 @@ namespace DRRealState.Infrastructure.Persistence
             #region Repository
 
             service.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            service.AddTransient<IIngredientRepository, IngredientRepository>();
-            service.AddTransient<IDishRepository, DishRepository>();
-            service.AddTransient<IDishIngredientRepository, DishIngredientRepository>();
-            service.AddTransient<ITableRepository, TableRepository>();
-            service.AddTransient<IDishOrderRepository, DishOrderRepository>();
-            service.AddTransient<IOrderRepository, OrderRepository>();
 
             #endregion
         }

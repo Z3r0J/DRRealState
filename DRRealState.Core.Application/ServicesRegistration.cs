@@ -14,12 +14,7 @@ namespace DRRealState.Core.Application
 
             #region Services
             service.AddTransient(typeof(IGenericServices<,,>), typeof(GenericServices<,,>));
-            service.AddTransient<IIngredientServices, IngredientServices>();
-            service.AddTransient<IDishServices, DishServices>();
-            service.AddTransient<IDishIngredientServices, DishIngredientServices>();
-            service.AddTransient<ITableServices, TableServices>();
-            service.AddTransient<IDishOrderServices, DishOrderServices>();
-            service.AddTransient<IOrderServices, OrderServices>();
+
             #endregion
 
         }
