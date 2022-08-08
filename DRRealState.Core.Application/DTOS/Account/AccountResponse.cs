@@ -13,6 +13,7 @@ namespace DRRealState.Core.Application.DTOS.Account
         public string LastName { get; set; }
         public string Email { get; set; }
         public string UserName { get; set; }
+        public string Documents { get; set; }
         public string PhotoUrl { get; set; }
         public string Phone { get; set; }
         public List<string> Roles { get; set; }

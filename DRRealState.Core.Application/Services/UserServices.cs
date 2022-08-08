@@ -45,7 +45,18 @@ namespace DominicanBanking.Core.Application.Services
             return _mapper.Map<List<UserViewModel>>(response);
         
         }
+        public async Task<ActivateResponse> ActivateAsync(ActivateViewModel model)
+        {
 
+            return await _accountServices.ActivateAsync(_mapper.Map<ActivateRequest>(model));
+
+        }
+        public async Task<ActivateResponse> DeactivateAsync(ActivateViewModel model)
+        {
+
+            return await _accountServices.DeactivateAsync(_mapper.Map<ActivateRequest>(model));
+
+        }
         public async Task LogOutAsync() {
             await _accountServices.LogOutAsync();    
 

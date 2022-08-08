@@ -78,6 +78,7 @@ namespace DRRealState.Infrastructure.Identity.Services
             response.UserName = user.UserName;
             response.Phone = user.PhoneNumber;
             response.PhotoUrl = user.PhotoUrl;
+            response.Documents = user.Documents;
 
             var RoleList = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
 
@@ -111,7 +112,8 @@ namespace DRRealState.Infrastructure.Identity.Services
                 Roles = roles.ToList(),
                 UserName=user.UserName,
                 IsVerified = user.EmailConfirmed,
-                Phone = user.PhoneNumber
+                Phone = user.PhoneNumber,
+                Documents = user.Documents
                 };
 
                 accounts.Add(account);
@@ -148,7 +150,8 @@ namespace DRRealState.Infrastructure.Identity.Services
                 LastName = request.LastName,
                 PhoneNumber = request.Phone,
                 PhotoUrl = request.PhotoUrl,
-                UserName = request.Username                
+                UserName = request.Username,
+                Documents = request.Documents
             };
 
             var result = await _userManager.CreateAsync(user, request.Password);
@@ -232,7 +235,8 @@ namespace DRRealState.Infrastructure.Identity.Services
             PhotoUrl = request.PhotoUrl,
             EmailConfirmed = true,
             PhoneNumber = request.Phone,
-            UserName = request.Username
+            UserName = request.Username,
+            Documents = request.Documents
             };
 
             var result = await _userManager.CreateAsync(user, request.Password);
@@ -247,6 +251,136 @@ namespace DRRealState.Infrastructure.Identity.Services
             }
 
             return new() { HasError=false};
+
+        }
+        public async Task<RegisterResponse> RegisterDeveloperAsync(RegisterRequest request) {
+
+            var userWithSameEmail = await _userManager.FindByEmailAsync(request.Email);
+
+            if (userWithSameEmail !=null )
+            {
+                return new() { HasError = true, Error = $"This email {request.Email} already used." };
+            }
+            
+            var userWithSameUsername = await _userManager.FindByNameAsync(request.Username);
+
+            if (userWithSameUsername !=null )
+            {
+                return new() { HasError = true, Error = "This username has been taken." };
+            }
+
+            var user = new RealStateUser {
+            Email = request.Email,
+            LastName = request.LastName,
+            Name = request.Name,
+            PhotoUrl = request.PhotoUrl,
+            EmailConfirmed = true,
+            PhoneNumber = request.Phone,
+            UserName = request.Username,
+            Documents = request.Documents
+            };
+
+            var result = await _userManager.CreateAsync(user, request.Password);
+
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, Roles.DEVELOPER.ToString());
+            }
+            else
+            {
+                return new() { HasError=true,Error= $"An Error ocurred, please try again." };
+            }
+
+            return new() { HasError=false};
+
+        }public async Task<RegisterResponse> RegisterAgentAsync(RegisterRequest request) {
+
+            var userWithSameEmail = await _userManager.FindByEmailAsync(request.Email);
+
+            if (userWithSameEmail !=null )
+            {
+                return new() { HasError = true, Error = $"This email {request.Email} already used." };
+            }
+            
+            var userWithSameUsername = await _userManager.FindByNameAsync(request.Username);
+
+            if (userWithSameUsername !=null )
+            {
+                return new() { HasError = true, Error = "This username has been taken." };
+            }
+
+            var user = new RealStateUser {
+            Email = request.Email,
+            LastName = request.LastName,
+            Name = request.Name,
+            PhotoUrl = request.PhotoUrl,
+            PhoneNumber = request.Phone,
+            UserName = request.Username,
+            Documents = request.Documents
+            };
+
+            var result = await _userManager.CreateAsync(user, request.Password);
+
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, Roles.AGENT.ToString());
+            }
+            else
+            {
+                return new() { HasError=true,Error= $"An Error ocurred, please try again." };
+            }
+
+            return new() { HasError=false};
+
+        }
+
+        public async Task<ActivateResponse> ActivateAsync(ActivateRequest request)
+        {
+
+            ActivateResponse response = new()
+            {
+                HasError = false
+            };
+
+            var user = await _userManager.FindByIdAsync(request.UserId);
+
+            if (user == null)
+            {
+                response.HasError = true;
+                response.Error = $"The user with this Id {request.UserId} doesn't exist";
+                return response;
+            }
+
+            user.EmailConfirmed = true;
+
+            await _userManager.UpdateAsync(user);
+
+            return response;
+
+        }
+
+        public async Task<ActivateResponse> DeactivateAsync(ActivateRequest request)
+        {
+
+            ActivateResponse response = new()
+            {
+                HasError = false
+            };
+
+            var user = await _userManager.FindByIdAsync(request.UserId);
+
+            if (user == null)
+            {
+                response.HasError = true;
+                response.Error = $"The user with this Id {request.UserId} doesn't exist";
+                return response;
+            }
+
+            user.EmailConfirmed = false;
+
+            await _userManager.UpdateAsync(user);
+
+            return response;
 
         }
 

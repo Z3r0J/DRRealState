@@ -12,7 +12,8 @@ namespace DRRealState.Core.Application.Interfaces.Services
     {
         Task<AuthenticationResponse> LoginAsync(LoginViewModel model);
         Task<RegisterResponse> RegisterAdministratorAsync(SaveUserViewModel model);
-
+        Task<ActivateResponse> ActivateAsync(ActivateViewModel model);
+        Task<ActivateResponse> DeactivateAsync(ActivateViewModel model);
         Task LogOutAsync();
         Task<List<UserViewModel>> GetAllUserAsync();
 
