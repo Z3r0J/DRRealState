@@ -30,7 +30,9 @@ namespace DRRealState.Infrastructure.Persistence
             #region Repository
 
             service.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-
+            service.AddTransient<IPropertiesTypeRepository,PropertiesTypeRepository>();
+            service.AddTransient<ISaleTypeRepository,SaleTypeRepository>();
+            service.AddTransient<IEstateRepository,EstateRepository>();
             #endregion
         }
 

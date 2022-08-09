@@ -14,7 +14,10 @@ namespace DRRealState.Core.Application
 
             #region Services
             service.AddTransient(typeof(IGenericServices<,,>), typeof(GenericServices<,,>));
-
+            service.AddTransient<IPropertiesTypeServices, PropertiesTypeServices>();
+            service.AddTransient<ISaleTypeServices, SaleTypeServices>();
+            service.AddTransient<IUserServices, UserServices>();
+            service.AddTransient<IEstateServices, EstateServices>();
             #endregion
 
         }

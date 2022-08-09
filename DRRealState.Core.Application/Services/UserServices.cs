@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DominicanBanking.Core.Application.Services
+namespace DRRealState.Core.Application.Services
 {
     public class UserServices : IUserServices
     {
