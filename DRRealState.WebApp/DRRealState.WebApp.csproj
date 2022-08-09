@@ -20,4 +20,11 @@
     <Folder Include="Views\User\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\User\Login.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
