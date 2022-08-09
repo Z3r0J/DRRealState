@@ -21,5 +21,11 @@ namespace DRRealState.Core.Application.Services
             _propertiesTypeRepository = propertiesTypeRepository;
             _mapper = mapper;
         }
+        public async Task<List<PropertiesTypeViewModel>> GetAllViewModelWithInclude()
+        {
+            var listSale = await _propertiesTypeRepository.GetWithIncludeAsync(new() { "Estates" });
+
+            return _mapper.Map<List<PropertiesTypeViewModel>>(listSale);
+        }
     }
 }

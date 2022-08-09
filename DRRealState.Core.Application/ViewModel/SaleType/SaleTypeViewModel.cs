@@ -11,7 +11,6 @@ namespace DRRealState.Core.Application.ViewModel.SaleType
     {
         public string Name { get; set; }
         public string Description { get; set; }
-
-        public List<Estate> Estates { get; set; }
+        public int EstatesQuantity { get; set; }
     }
 }

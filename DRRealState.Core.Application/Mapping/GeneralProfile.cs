@@ -33,8 +33,8 @@ namespace DRRealState.Core.Application.Mapping
                 .ReverseMap();
 
             CreateMap<PropertiesType, PropertiesTypeViewModel>()
-                   .ReverseMap()
-                   .ForMember(x => x.Estates, opt => opt.Ignore())
+                   .ForMember(x=> x.EstatesQuantity, opt => opt.MapFrom(pt=>pt.Estates.Count))
+                   .ReverseMap()                   
                    .ForMember(x => x.Created, opt => opt.Ignore())
                    .ForMember(x => x.CreatedBy, opt => opt.Ignore())
                    .ForMember(x => x.Modified, opt => opt.Ignore())
@@ -48,8 +48,8 @@ namespace DRRealState.Core.Application.Mapping
                    .ForMember(x => x.ModifiedBy, opt => opt.Ignore());
 
             CreateMap<SaleType, SaleTypeViewModel>()
-                   .ReverseMap()
-                   .ForMember(x => x.Estates, opt => opt.Ignore())
+                   .ForMember(x => x.EstatesQuantity, opt => opt.MapFrom(pt => pt.Estates.Count))
+                   .ReverseMap()                   
                    .ForMember(x => x.Created, opt => opt.Ignore())
                    .ForMember(x => x.CreatedBy, opt => opt.Ignore())
                    .ForMember(x => x.Modified, opt => opt.Ignore())

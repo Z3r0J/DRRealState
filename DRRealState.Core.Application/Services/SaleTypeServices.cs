@@ -21,5 +21,12 @@ namespace DRRealState.Core.Application.Services
             _saleTypeRepository = saleTypeRepository;
             _mapper = mapper;
         }
+
+        public async Task<List<SaleTypeViewModel>> GetAllViewModelWithInclude()
+        {
+            var listSale = await _saleTypeRepository.GetWithIncludeAsync(new() { "Estates" });
+
+            return _mapper.Map<List<SaleTypeViewModel>>(listSale);
+        }
     }
 }
