@@ -1,18 +1,26 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - DRRealState.WebApp</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cdbootstrap/css/cdb.min.css" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg bg-black">
+
+
+        <nav class="navbar navbar-expand-lg  " style="background-color: #2BC78F;">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Sonic_the_Movie_Logo.png/640px-Sonic_the_Movie_Logo.png" alt="" width="120" height="40" class="d-inline-block align-text-top">
+                    <img src="./imagenes/zYferb7.ico" alt="" width="90" height="50" class="d-inline-block align-text-top">
                 </a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,36 +32,33 @@
                             <a class="nav-link text-white active" aria-current="page" [routerLink]="['home']">Home</a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link text-white" [routerLink]="['heroes']">Heroes</a>
+                            <a class="nav-link text-white">Heroes</a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link text-white" [routerLink]="['about']">About</a>
+                            <a class="nav-link text-white active">About</a>
                         </li>
 
                     </ul>
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
+
                 </div>
             </div>
         </nav>
+
+
+
 
     </header>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
-    </div>
+   </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - DRRealState.WebApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
+    <script src="https://cdn.jsdelivr.net/npm/cdbootstrap/js/cdb.min.js"></script>
 </body>
 </html>

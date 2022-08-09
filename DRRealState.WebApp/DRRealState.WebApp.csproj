@@ -16,4 +16,8 @@
     <ProjectReference Include="..\DRRealState.Infrastructure.Shared\DRRealState.Infrastructure.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\User\" />
+  </ItemGroup>
+
 </Project>
