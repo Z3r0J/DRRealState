@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -23,6 +23,10 @@
     <ProjectReference Include="..\DRRealState.Infrastructure.Identity\DRRealState.Infrastructure.Identity.csproj" />
     <ProjectReference Include="..\DRRealState.Infrastructure.Persistence\DRRealState.Infrastructure.Persistence.csproj" />
     <ProjectReference Include="..\DRRealState.Infrastructure.Shared\DRRealState.Infrastructure.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\User\" />
   </ItemGroup>
 
 </Project>
