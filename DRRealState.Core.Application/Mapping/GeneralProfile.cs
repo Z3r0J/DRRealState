@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DRRealState.Core.Application.ViewModel.User;
+using DRRealState.Core.Application.ViewModel.PropertiesType;
+using DRRealState.Core.Application.ViewModel.SaleType;
+using DRRealState.Core.Domain.Entities;
 
 namespace DRRealState.Core.Application.Mapping
 {
@@ -28,6 +31,36 @@ namespace DRRealState.Core.Application.Mapping
             CreateMap<AccountResponse, UserViewModel>()
                 .ForMember(x => x.Roles, opt => opt.MapFrom(ac => ac.Roles))
                 .ReverseMap();
+
+            CreateMap<PropertiesType, PropertiesTypeViewModel>()
+                   .ReverseMap()
+                   .ForMember(x => x.Estates, opt => opt.Ignore())
+                   .ForMember(x => x.Created, opt => opt.Ignore())
+                   .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+                   .ForMember(x => x.Modified, opt => opt.Ignore())
+                   .ForMember(x => x.ModifiedBy, opt => opt.Ignore());
+
+            CreateMap<PropertiesType, SavePropertiesTypeViewModel>()
+                   .ReverseMap()
+                   .ForMember(x => x.Created, opt => opt.Ignore())
+                   .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+                   .ForMember(x => x.Modified, opt => opt.Ignore())
+                   .ForMember(x => x.ModifiedBy, opt => opt.Ignore());
+
+            CreateMap<SaleType, SaleTypeViewModel>()
+                   .ReverseMap()
+                   .ForMember(x => x.Estates, opt => opt.Ignore())
+                   .ForMember(x => x.Created, opt => opt.Ignore())
+                   .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+                   .ForMember(x => x.Modified, opt => opt.Ignore())
+                   .ForMember(x => x.ModifiedBy, opt => opt.Ignore());
+
+            CreateMap<SaleType, SaveSaleTypeViewModel>()
+                   .ReverseMap()
+                   .ForMember(x => x.Created, opt => opt.Ignore())
+                   .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+                   .ForMember(x => x.Modified, opt => opt.Ignore())
+                   .ForMember(x => x.ModifiedBy, opt => opt.Ignore());
 
         }
     }
