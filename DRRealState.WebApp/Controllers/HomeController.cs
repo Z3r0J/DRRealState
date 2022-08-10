@@ -1,5 +1,6 @@
 ﻿using DRRealState.Core.Application.Interfaces.Services;
 using DRRealState.WebApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
