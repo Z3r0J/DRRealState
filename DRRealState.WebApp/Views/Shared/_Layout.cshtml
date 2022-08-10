@@ -15,12 +15,10 @@
 </head>
 <body>
     <header>
-
-
-        <nav class="navbar navbar-expand-lg  " style="background-color: #2BC78F;">
+        <nav class="navbar navbar-expand-lg" style="background-color: #2BC78F;">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
-                    <img src="./imagenes/zYferb7.ico" alt="" width="90" height="50" class="d-inline-block align-text-top">
+                    <img src="~/imagenes/zYferb7.ico" alt="" class="d-inline-block align-text-top w-50">
                 </a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,13 +27,13 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item" routerLinkActive="active">
-                            <a class="nav-link text-white active" aria-current="page" [routerLink]="['home']">Home</a>
+                            <a class="nav-link text-white fs-5 active" aria-current="page">Home</a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link text-white">Heroes</a>
+                            <a class="nav-link text-white fs-5">Heroes</a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link text-white active">About</a>
+                            <a class="nav-link text-white active fs-5">About</a>
                         </li>
 
                     </ul>
@@ -56,7 +54,5 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
-
-    <script src="https://cdn.jsdelivr.net/npm/cdbootstrap/js/cdb.min.js"></script>
 </body>
 </html>

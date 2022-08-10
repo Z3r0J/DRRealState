@@ -4,14 +4,16 @@ using DRRealState.Infrastructure.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DRRealState.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20220810011600_Update1")]
+    partial class Update1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,6 +61,9 @@ namespace DRRealState.Infrastructure.Persistence.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
+                    b.Property<int?>("PropertiesTypeId")
+                        .HasColumnType("int");
+
                     b.Property<int>("PropertyTypeId")
                         .HasColumnType("int");
 
@@ -74,7 +79,7 @@ namespace DRRealState.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PropertyTypeId");
+                    b.HasIndex("PropertiesTypeId");
 
                     b.HasIndex("SaleTypeId");
 
@@ -271,9 +276,8 @@ namespace DRRealState.Infrastructure.Persistence.Migrations
                 {
                     b.HasOne("DRRealState.Core.Domain.Entities.PropertiesType", "PropertiesType")
                         .WithMany("Estates")
-                        .HasForeignKey("PropertyTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PropertiesTypeId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("DRRealState.Core.Domain.Entities.SaleType", "SaleType")
                         .WithMany("Estates")

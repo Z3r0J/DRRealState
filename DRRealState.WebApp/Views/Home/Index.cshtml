@@ -1,71 +1,62 @@
-﻿@{
+﻿@using DRRealState.Core.Application.ViewModel.Estate
+@using System.Globalization
+@model List<EstateViewModel>
+
+@{
     ViewData["Title"] = "Home Page";
+    CultureInfo.DefaultThreadCurrentCulture = new("es-DO");
 }
         <div class="row">
-            <div class="property-item col-lg-4 col-md-6 col-12 mb-40 p-5">
+            @if(Model.Count==0 || Model == null ){
+
+                <div class="col-6 justify-content-center text-center">
+
+                    <h1>No Estate(s) in the app</h1>
+
+                </div>
+            }
+            else{
+            
+                 @foreach(EstateViewModel item in Model)
+                    {
+                    <div class="property-item col-lg-4 col-md-6 col-12 mb-40 p-5">
                 <div class="property-inner">
                     <div class="image">
                         <span class="label">Feature</span>
                         <a href="single-properties.html"><img src="https://htmldemo.net/khonike/khonike/assets/images/property/property-2.jpg" alt=""></a>
                         <ul class="property-feature">
                             <li>
-                                <span class="area"><i class="fa-solid fa-house"></i> 550 M<sup>2</sup></span>
+                                <span class="area"><i class="fa-solid fa-house"></i> @item.SizeInMeters M<sup>2</sup></span>
                             </li>
                             <li>
-                                <span class="bed"><i class="fa-solid fa-bed"></i> 6</span>
+                                <span class="bed"><i class="fa-solid fa-bed"></i> @item.BedRoomQuantity</span>
                             </li>
                             <li>
-                                <span class="bath"><i class="fa-solid fa-bath"></i> 4</span>
+                                <span class="bath"><i class="fa-solid fa-bath"></i> @item.BathroomQuantity</span>
                             </li>
                             
                         </ul>
                     </div>
                     <div class="content">
                         <div class="left">
-                            <h3 class="title"><a href="single-properties.html">APARTAMENTO</a></h3>
-                            <span class="location"><i class="fa-solid fa-clipboard-list"></i>&nbsp;&nbsp;Code: 100078</span>
-                            <span class="location"><i class="fa-solid fa-location-dot"></i>&nbsp;&nbsp;450 E 1st Ave, New Jersey</span>
+                            <h3><a href="single-properties.html" class="title">@item.PropertiesType.Name.ToUpper()</a></h3>
+                            <span class="location"><i class="fa-solid fa-clipboard-list"></i>&nbsp;&nbsp;Code: @item.Code</span>
+                            <span class="location"><i class="fa-solid fa-location-dot"></i>&nbsp;&nbsp;@item.Ubication</span>
                         </div>
                         <div class="right">
                             <div class="type-wrap">
-                                <span class="price">RD$2,000,550</span>
-                                <span class="type">ALQUILER</span>
+                                <span class="price">@item.Price.ToString("C")</span>
+                                <span class="type">@item.SaleType.Name</span>
                             </div>
                         </div>
                     </div>
                     </div>
                 </div>
-                <div class="property-item col-lg-4 col-md-6 col-12 mb-40 p-5">
-                    <div class="property-inner">
-                        <div class="image">
-                            <span class="label">Feature</span>
-                            <a href="single-properties.html"><img src="https://htmldemo.net/khonike/khonike/assets/images/property/property-2.jpg" alt=""></a>
-                            <ul class="property-feature">
-                                <li>
-                                    <span class="area"><i class="fa-solid fa-house"></i> 550 M<sup>2</sup></span>
-                                </li>
-                                <li>
-                                    <span class="bed"><i class="fa-solid fa-bed"></i> 6</span>
-                                </li>
-                                <li>
-                                    <span class="bath"><i class="fa-solid fa-bath"></i> 4</span>
-                                </li>
-                                
-                            </ul>
-                        </div>
-                        <div class="content">
-                            <div class="left">
-                                <h3 class="title"><a href="single-properties.html">APARTAMENTO</a></h3>
-                                <span class="location"><i class="fa-solid fa-clipboard-list"></i>&nbsp;&nbsp;Code: 100078</span>
-                                <span class="location"><i class="fa-solid fa-location-dot"></i>&nbsp;&nbsp;450 E 1st Ave, New Jersey</span>
-                            </div>
-                            <div class="right">
-                                <div class="type-wrap">
-                                    <span class="price">RD$2,000,550</span>
-                                    <span class="type">ALQUILER</span>
-                                </div>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
+
+
+    }
+
+            }
+
+   
 </div>

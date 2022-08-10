@@ -10,7 +10,8 @@ namespace DRRealState.Core.Application.Interfaces.Services
 {
     public interface IUserServices
     {
-        Task<AuthenticationResponse> LoginAsync(LoginViewModel model);
+        Task<AuthenticationResponse> LoginApiAsync(LoginViewModel model);
+        Task<AuthenticationResponse> LoginWebAppAsync(LoginViewModel model);
         Task<RegisterResponse> RegisterAdministratorAsync(SaveUserViewModel model);
         Task<ActivateResponse> ActivateAsync(ActivateViewModel model);
         Task<ActivateResponse> DeactivateAsync(ActivateViewModel model);

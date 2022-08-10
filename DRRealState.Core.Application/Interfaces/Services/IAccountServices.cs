@@ -7,6 +7,7 @@ namespace DRRealState.Core.Application.Interfaces.Services
     public interface IAccountServices
     {
         Task<AuthenticationResponse> AuthenticateAsync(AuthenticationRequest request);
+        Task<AuthenticationResponse> AuthenticateWebAppAsync(AuthenticationRequest request);
         Task<ActivateResponse> ActivateAsync(ActivateRequest request);
         Task<ActivateResponse> DeactivateAsync(ActivateRequest request);
 

@@ -15,9 +15,9 @@ namespace DRRealState.Infrastructure.Identity.Seeds
         {
             RealStateUser agentUser = new() {
                 UserName = "DefaultAgent",
-                Name = "Client",
+                Name = "Agent",
                 LastName = "DR REAL STATE",
-                Email = "client@drrealstate.com.do",
+                Email = "agent@drrealstate.com.do",
                 EmailConfirmed = true,
                 PhoneNumber="+1 809 935 0913",
                 PhoneNumberConfirmed = true

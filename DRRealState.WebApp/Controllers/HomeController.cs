@@ -1,4 +1,5 @@
-﻿using DRRealState.WebApp.Models;
+﻿using DRRealState.Core.Application.Interfaces.Services;
+using DRRealState.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,27 +12,18 @@ namespace DRRealState.WebApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IEstateServices _estateServices;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IEstateServices estateServices)
         {
-            _logger = logger;
+            _estateServices = estateServices;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
-        }
+            var response = await _estateServices.GetAllViewModelWithInclude();
 
-        public IActionResult Login()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(response);
         }
     }
 }

@@ -116,6 +116,7 @@ namespace DRRealState.Infrastructure.Persistence.Contexts
             builder.Entity<PropertiesType>()
                 .HasMany(x => x.Estates)
                 .WithOne(x => x.PropertiesType)
+                .HasForeignKey(x=>x.PropertyTypeId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<SaleType>()
@@ -131,6 +132,10 @@ namespace DRRealState.Infrastructure.Persistence.Contexts
 
             builder.Entity<Estate>()
                 .Property(x => x.BathroomQuantity)
+                .IsRequired();
+
+            builder.Entity<Estate>()
+                .Property(x => x.Code)
                 .IsRequired();
 
             builder.Entity<Estate>()

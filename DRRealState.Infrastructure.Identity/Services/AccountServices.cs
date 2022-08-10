@@ -28,7 +28,7 @@ namespace DRRealState.Infrastructure.Identity.Services
         private readonly JWTSettings _jWTSettings;
         private readonly IEmailServices _emailService;
 
-        public AccountServices(UserManager<RealStateUser> userManager, 
+        public AccountServices(UserManager<RealStateUser> userManager,
             SignInManager<RealStateUser> signInManager,
             IOptions<JWTSettings> jWTSettings,
             IEmailServices emailService)
@@ -68,6 +68,14 @@ namespace DRRealState.Infrastructure.Identity.Services
                 response.Error = $"Your Account is disable, Contact an Administrator.";
                 return response;
             }
+            var RoleList = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
+
+            if (RoleList.Any(r => r == "AGENT" || r=="CLIENT"))
+            {
+                response.HasError = true;
+                response.Error = $"You cannot access here. Please use the Web APP";
+                return response;
+            }
 
             JwtSecurityToken jwtSecurityToken = await GenerateJWToken(user);
 
@@ -80,8 +88,6 @@ namespace DRRealState.Infrastructure.Identity.Services
             response.PhotoUrl = user.PhotoUrl;
             response.Documents = user.Documents;
 
-            var RoleList = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
-
             response.Roles = RoleList.ToList();
             response.IsVerified = user.EmailConfirmed;
             response.JWToken = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
@@ -89,6 +95,59 @@ namespace DRRealState.Infrastructure.Identity.Services
             var generateRefreshToken = GenerateRefreshToken();
 
             response.RefreshToken = generateRefreshToken.Token;
+
+            return response;
+        }
+
+        public async Task<AuthenticationResponse> AuthenticateWebAppAsync(AuthenticationRequest request)
+        {
+
+            AuthenticationResponse response = new();
+
+            var user = await _userManager.FindByEmailAsync(request.Email);
+
+            if (user == null)
+            {
+                response.HasError = true;
+                response.Error = $"You don't have an account with this email {request.Email}";
+                return response;
+            }
+
+            var result = await _signInManager.PasswordSignInAsync(user.UserName, request.Password, false, false);
+
+            if (!result.Succeeded)
+            {
+                response.HasError = true;
+                response.Error = $"Invalid credential for {request.Email}";
+                return response;
+            }
+
+            if (!user.EmailConfirmed)
+            {
+                response.HasError = true;
+                response.Error = $"Your Account is disable, Contact an Administrator.";
+                return response;
+            }
+
+            var RoleList = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
+
+            if (RoleList.Any(r => r == "DEVELOPER"))
+            {
+                response.HasError = true;
+                response.Error = $"You cannot access here. Please use the API";
+                return response;
+            }
+
+            response.Id = user.Id;
+            response.FirstName = user.Name;
+            response.LastName = user.LastName;
+            response.Email = user.Email;
+            response.UserName = user.UserName;
+            response.Phone = user.PhoneNumber;
+            response.PhotoUrl = user.PhotoUrl;
+            response.Documents = user.Documents;
+            response.Roles = RoleList.ToList();
+            response.IsVerified = user.EmailConfirmed;
 
             return response;
         }

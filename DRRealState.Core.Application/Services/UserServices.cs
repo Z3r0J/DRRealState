@@ -21,11 +21,21 @@ namespace DRRealState.Core.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<AuthenticationResponse> LoginAsync(LoginViewModel model) {
+        public async Task<AuthenticationResponse> LoginApiAsync(LoginViewModel model) {
 
             AuthenticationRequest request = _mapper.Map<AuthenticationRequest>(model);
 
             AuthenticationResponse response = await _accountServices.AuthenticateAsync(request);
+
+            return response;
+        }
+        
+
+        public async Task<AuthenticationResponse> LoginWebAppAsync(LoginViewModel model) {
+
+            AuthenticationRequest request = _mapper.Map<AuthenticationRequest>(model);
+
+            AuthenticationResponse response = await _accountServices.AuthenticateWebAppAsync(request);
 
             return response;
         }
