@@ -20,7 +20,8 @@ namespace DRRealState.Infrastructure.Identity.Seeds
                 Email = "agent@drrealstate.com.do",
                 EmailConfirmed = true,
                 PhoneNumber="+1 809 935 0913",
-                PhoneNumberConfirmed = true
+                PhoneNumberConfirmed = true,
+                Code = "000001"
             };
 
 

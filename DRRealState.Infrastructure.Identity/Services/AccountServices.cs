@@ -17,6 +17,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.WebUtilities;
 using DRRealState.Core.Application.DTOS.Email;
+using DRRealState.Core.Application.Helpers;
 
 namespace DRRealState.Infrastructure.Identity.Services
 {
@@ -172,7 +173,8 @@ namespace DRRealState.Infrastructure.Identity.Services
                 UserName=user.UserName,
                 IsVerified = user.EmailConfirmed,
                 Phone = user.PhoneNumber,
-                Documents = user.Documents
+                Documents = user.Documents,
+                Code = user.Code
                 };
 
                 accounts.Add(account);
@@ -369,13 +371,14 @@ namespace DRRealState.Infrastructure.Identity.Services
             }
 
             var user = new RealStateUser {
-            Email = request.Email,
-            LastName = request.LastName,
-            Name = request.Name,
-            PhotoUrl = request.PhotoUrl,
-            PhoneNumber = request.Phone,
-            UserName = request.Username,
-            Documents = request.Documents
+                Email = request.Email,
+                LastName = request.LastName,
+                Name = request.Name,
+                PhotoUrl = request.PhotoUrl,
+                PhoneNumber = request.Phone,
+                UserName = request.Username,
+                Documents = request.Documents,
+                Code = GenerateRandomCode.GenerateCode()
             };
 
             var result = await _userManager.CreateAsync(user, request.Password);

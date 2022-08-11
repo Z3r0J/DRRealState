@@ -12,6 +12,7 @@ namespace DRRealState.Infrastructure.Identity.Entities
         public string Name { get; set; }
         public string LastName { get; set; }
         public string Documents { get; set; }
+        public string Code { get; set; }
         public string PhotoUrl { get; set; }
     }
 }

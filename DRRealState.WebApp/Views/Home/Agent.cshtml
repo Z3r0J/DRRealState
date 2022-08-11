@@ -1,0 +1,57 @@
+﻿@using DRRealState.Core.Application.DTOS.Account
+
+@model List<AccountResponse>
+
+
+@{
+    ViewData["Title"] = "Agent";
+}
+
+<div class="container-fluid">
+    <div class="row mt-3">
+        @foreach(AccountResponse account in Model){ 
+                <div class="col-xl-4 col-sm-6">
+                <div class="single-agents style-agents">
+                    <div class="agents-img">
+                        <img src="https://templates.envytheme.com/rello/default/assets/images/agents/agent-9.jpg" alt="Image">
+                        <span>CODE: @account.Code</span>
+                        <p>DR REAL ESTATE</p>
+                    </div>
+
+                    <div class="agents-content">
+                        <div class="d-flex justify-content-between align-items-center align-items-center">
+                            <h3>
+                                <a href="single-agents.html">@account.FirstName @account.LastName</a>
+                            </h3>
+
+                            
+                        </div>
+
+                        <ul class="info">
+                            <li>
+                                <a href="tel:@account.Phone">
+                                    <i class="fa-solid fa-phone"></i>
+                                    @account.Phone
+                                </a>
+                            </li>
+                            <li>
+                                <a href="mailto:@account.Email">
+                                    <i class="fa-solid fa-envelope"></i>
+                                    @account.Email
+                                </a>
+                            </li>
+                        </ul>
+
+                        <a asp-action="Details" asp-controller="Agent" asp-route-id="@account.Id" class="read-more">
+                            Read More
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+    
+
+}
+    </div>
+</div>
+
