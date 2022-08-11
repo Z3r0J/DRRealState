@@ -24,6 +24,12 @@ namespace DRRealState.WebApp.Controllers
 
             return View(new LoginViewModel());
         }
+        public IActionResult Register()
+        {
+
+
+            return View(new SaveUserViewModel());
+        }
 
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel vm)
