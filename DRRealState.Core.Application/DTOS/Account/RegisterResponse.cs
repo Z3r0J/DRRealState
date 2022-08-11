@@ -8,6 +8,7 @@ namespace DRRealState.Core.Application.DTOS.Account
 {
     public class RegisterResponse
     {
+        public string Id { get; set; }
         public string Error { get; set; }
         public bool HasError { get; set; }
     }

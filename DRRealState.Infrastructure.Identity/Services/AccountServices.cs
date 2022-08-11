@@ -208,11 +208,11 @@ namespace DRRealState.Infrastructure.Identity.Services
             {
                 Email = request.Email,
                 Name = request.Name,
+                EmailConfirmed =false,
                 LastName = request.LastName,
                 PhoneNumber = request.Phone,
                 PhotoUrl = request.PhotoUrl,
-                UserName = request.Username,
-                Documents = request.Documents
+                UserName = request.Username
             };
 
             var result = await _userManager.CreateAsync(user, request.Password);
@@ -237,7 +237,7 @@ namespace DRRealState.Infrastructure.Identity.Services
                 };
             }
 
-            return new() { HasError=false};
+            return new() { Id = await _userManager.GetUserIdAsync(user), HasError = false };
         }
 
         private async Task<string> SendVerificationEmailUri(RealStateUser user, string origin)
@@ -354,7 +354,8 @@ namespace DRRealState.Infrastructure.Identity.Services
 
             return new() { HasError=false};
 
-        }public async Task<RegisterResponse> RegisterAgentAsync(RegisterRequest request) {
+        }
+        public async Task<RegisterResponse> RegisterAgentAsync(RegisterRequest request) {
 
             var userWithSameEmail = await _userManager.FindByEmailAsync(request.Email);
 
@@ -374,10 +375,10 @@ namespace DRRealState.Infrastructure.Identity.Services
                 Email = request.Email,
                 LastName = request.LastName,
                 Name = request.Name,
+                EmailConfirmed = false,
                 PhotoUrl = request.PhotoUrl,
                 PhoneNumber = request.Phone,
                 UserName = request.Username,
-                Documents = request.Documents,
                 Code = GenerateRandomCode.GenerateCode()
             };
 
@@ -392,8 +393,29 @@ namespace DRRealState.Infrastructure.Identity.Services
                 return new() { HasError=true,Error= $"An Error ocurred, please try again." };
             }
 
-            return new() { HasError=false};
+            
 
+            return new() {Id= await _userManager.GetUserIdAsync(user), HasError =false};
+
+        }
+
+        public async Task<RegisterResponse> AddPhotoAsync(string photoUrl,string Id) {
+
+            var user = await _userManager.FindByIdAsync(Id);
+
+            user.PhotoUrl = photoUrl;
+
+            var response = await _userManager.UpdateAsync(user);
+
+            if (response.Succeeded)
+            {
+                return new() { HasError = false };
+            }
+            else
+            {
+                return new() { Error = "Oops, an error occurred try again", HasError = true };
+            }
+        
         }
 
         public async Task<ActivateResponse> ActivateAsync(ActivateRequest request)

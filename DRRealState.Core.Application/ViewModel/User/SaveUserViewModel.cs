@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -15,9 +16,9 @@ namespace DRRealState.Core.Application.ViewModel.User
         [Required(ErrorMessage = "LastName is Required")]
         [DataType(DataType.Text)]
         public string LastName { get; set; }
-        [Required(ErrorMessage = "Photo is Required")]
-        [DataType(DataType.Text)]
-        public string PhotoURL { get; set; }
+
+        public string Documents { get; set; }
+
         [Required(ErrorMessage = "Email is Required")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
@@ -39,6 +40,11 @@ namespace DRRealState.Core.Application.ViewModel.User
         public int UserType { get; set; }
         public string Error { get; set; }
         public bool HasError { get; set; }
+
+        [DataType(DataType.Upload)]
+        public IFormFile Photo { get; set; }
+
+        public string PhotoURL { get; set; }
 
     }
 }
