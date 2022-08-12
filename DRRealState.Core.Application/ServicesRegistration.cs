@@ -18,6 +18,9 @@ namespace DRRealState.Core.Application
             service.AddTransient<ISaleTypeServices, SaleTypeServices>();
             service.AddTransient<IUserServices, UserServices>();
             service.AddTransient<IEstateServices, EstateServices>();
+            service.AddTransient<IUpgradeServices, UpgradeServices>();
+            service.AddTransient<IUpEstateServices, UpEstateServices>();
+            service.AddTransient<IEstateFavoriteServices, EstateFavoriteServices>();
             #endregion
 
         }
