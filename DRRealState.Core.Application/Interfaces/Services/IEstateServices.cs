@@ -8,5 +8,6 @@ namespace DRRealState.Core.Application.Interfaces.Services
     public interface IEstateServices : IGenericServices<SaveEstateViewModel, EstateViewModel, Estate>
     {
         Task<List<EstateViewModel>> GetAllViewModelWithInclude();
+        Task<List<EstateViewModel>> FilterAsync(FilterEstateViewModel filter);
     }
 }

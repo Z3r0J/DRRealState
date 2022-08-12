@@ -12,7 +12,7 @@ namespace DRRealState.Core.Application.Helpers
 
             Random rnd = new Random();
 
-            return rnd.Next(0, 2147483647).ToString("D6");
+            return rnd.Next(0, 2147483647).ToString().Substring(0,6);
 
         }
     }

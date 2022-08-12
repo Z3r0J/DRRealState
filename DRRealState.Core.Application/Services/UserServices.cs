@@ -48,6 +48,42 @@ namespace DRRealState.Core.Application.Services
 
         }
 
+        public async Task<RegisterResponse> RegisterDeveloper(SaveUserViewModel model) {
+
+            RegisterRequest request = _mapper.Map<RegisterRequest>(model);
+
+            return await _accountServices.RegisterDeveloperAsync(request);
+
+        }
+
+        public async Task<RegisterResponse> RegisterAgent(SaveUserViewModel model) {
+
+            RegisterRequest request = _mapper.Map<RegisterRequest>(model);
+
+            return await _accountServices.RegisterAgentAsync(request);
+
+        }
+
+        public async Task<string> ConfirmEmailAsync(string userId, string token) {
+
+            return await _accountServices.ConfirmAccountAsync(userId, token);
+        }
+
+        public async Task<RegisterResponse> RegisterClient(SaveUserViewModel model,string origin) {
+
+            RegisterRequest request = _mapper.Map<RegisterRequest>(model);
+
+            return await _accountServices.RegisterClientAsync(request,origin);
+
+        }
+        
+        public async Task<RegisterResponse> AddPhoto(string PhotoUrl,string Id) {
+
+            return await _accountServices.AddPhotoAsync(PhotoUrl,Id);
+
+        }
+
+
         public async Task<List<UserViewModel>> GetAllUserAsync() {
 
             var response = await _accountServices.GetUsersAsync();

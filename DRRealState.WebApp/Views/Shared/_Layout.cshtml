@@ -1,4 +1,13 @@
-﻿
+﻿@using Microsoft.AspNetCore.Http
+@using DRRealState.Core.Application.Helpers
+@using DRRealState.Core.Application.DTOS.Account
+@inject IHttpContextAccessor httpContextAccesor
+
+@{
+    AuthenticationResponse? user = httpContextAccesor.HttpContext.Session.Get<AuthenticationResponse?>("user");
+}
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,10 +24,10 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg" style="background-color: #2BC78F;">
+        <nav class="navbar navbar-expand-lg bg-custom">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
-                    <img src="~/imagenes/zYferb7.ico" alt="" class="d-inline-block align-text-top w-50">
+                    <img src="~/imagenes/zYferb7.ico" alt="" class="d-inline-block align-text-top w-25">
                 </a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,25 +35,97 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item" routerLinkActive="active">
-                            <a class="nav-link text-white fs-5 active" aria-current="page">Home</a>
+                        @if (user == null)
+                        {
+                        <li class="nav-item">
+                            <a class="nav-link text-white fs-5 active" aria-current="page" asp-action="Index" asp-controller="Home">Home</a>
                         </li>
-                        <li class="nav-item ">
-                            <a class="nav-link text-white fs-5">Heroes</a>
+                        <li class="nav-item">
+                            <a class="nav-link text-white fs-5 active" aria-current="page" asp-action="Agent" asp-controller="Home">Agents</a>
                         </li>
-                        <li class="nav-item ">
-                            <a class="nav-link text-white active fs-5">About</a>
+                        }
+                        @{else if (user.Roles.Any(r => r == "CLIENT"))
+                        {
+                            
+                                <li class="nav-item">
+                                    <a class="nav-link text-white fs-5 active" aria-current="page" asp-action="Index" asp-controller="Home">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white fs-5 active" aria-current="page" asp-action="Agent" asp-controller="Home">Agents</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white fs-5 active" aria-current="page" asp-action="MyFavorite" asp-controller="User">My Favorites</a>
+                                </li>
+
+                        }
+                        }
+                        @{else if (user.Roles.Any(r => r == "AGENT"))
+                        {
+                            
+                                <li class="nav-item">
+                                    <a class="nav-link text-white fs-5 active" aria-current="page" asp-action="Index" asp-controller="Agent">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white fs-5 active" aria-current="page" asp-action="Profile" asp-controller="Agent">My Profile</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white fs-5 active" aria-current="page" asp-action="Estates" asp-controller="Agent">Estates</a>
+                                </li>
+
+                        }
+                        }
+                        @{else if (user.Roles.Any(r => r == "ADMINISTRATOR"))
+                        {
+                            
+                                <li class="nav-item">
+                                    <a class="nav-link text-white fs-5 active" aria-current="page" asp-action="Index" asp-controller="Administrator">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white fs-5 active" aria-current="page" asp-action="ListAgent" asp-controller="Administrator">Agent</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white fs-5 active" aria-current="page" asp-action="List" asp-controller="Developer">Developer</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white fs-5 active" aria-current="page" asp-action="List" asp-controller="EstatesType">Estate Type</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white fs-5 active" aria-current="page" asp-action="List" asp-controller="SaleType">Sales Type</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white fs-5 active" aria-current="page" asp-action="List" asp-controller="Upgrade">Upgrade</a>
+                                </li>
+
+                            }
+                        }
+                    </ul>
+                    <ul class="navbar-nav ms-auto">
+                        @if (user != null)
+                        {
+                            <li>
+                            <a class="nav-link text-white fs-5 active">@user.FirstName @user.LastName</a>
+                            </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white fs-5 active" aria-current="page" asp-action="Logout" asp-controller="User">Logout</a>
                         </li>
+                        }
+                        else
+                        {
+                                                    
+                        <li class="nav-item">
+                            <a class="nav-link text-white fs-5 active" aria-current="page" asp-action="Login" asp-controller="User">Login</a>
+                        </li>
+                                                    
+                        <li class="nav-item">
+                            <a class="nav-link text-white fs-5 active" aria-current="page" asp-action="Register" asp-controller="User">Join</a>
+                        </li>
+                        }
 
                     </ul>
 
                 </div>
             </div>
         </nav>
-
-
-
-
     </header>
     <div class="container-fluid">
             @RenderBody()

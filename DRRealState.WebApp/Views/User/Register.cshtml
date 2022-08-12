@@ -1,0 +1,133 @@
+﻿@using DRRealState.Core.Application.ViewModel.User
+@model SaveUserViewModel
+@{
+    ViewBag.Title= "Register";
+}
+
+	<img class="wave" src="~/imagenes/wave.png">
+	<div class="container">
+		<div class="img">
+			<img src="~/imagenes/bg.svg">
+		</div>
+		<div class="login-content ">
+			<form asp-action="Register" asp-controller="User" enctype="multipart/form-data">
+				<img src="~/imagenes/avatar.svg">
+				<h2 class="title">Register</h2>
+
+                <div class="container-fluid ">
+
+                    <div class="row">
+                        <div class="col input-div one me-2">
+                            <div class="i">
+                                <i class="fas fa-user"></i>
+                            </div>
+
+                            <div class="div">
+                                <h5>Name</h5>
+                                <input asp-for="Name" class="input">
+                            </div>
+                        </div>
+
+                        <div class="col input-div one ">
+                            <div class="i">
+                                <i class="fas fa-user"></i>
+                            </div>
+
+                            <div class="div">
+                                <h5>Lastname</h5>
+                                <input asp-for="LastName" class="input">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col input-div one me-2">
+                            <div class="i">
+                                <i class="fas fa-user"></i>
+                            </div>
+
+                            <div class="div">
+                                <h5>Phone Number</h5>
+                                <input asp-for="Phone" class="input">
+                            </div>
+                        </div>
+
+                        <div class="col input-div one ">
+                            <div class="i">
+                                <i class="fas fa-user"></i>
+                            </div>
+
+                            <div class="div">
+                                <h5>Email Address</h5>
+                                <input asp-for="Email" class="form-control">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col input-div one me-2">
+                            <div class="i">
+                                <i class="fas fa-user"></i>
+                            </div>
+
+                            <div class="div">
+                                <h5>Username</h5>
+                                <input asp-for="Username" class="input">
+                            </div>
+                        </div>
+
+                        <div class="col ">
+
+
+                            <div class="div mt-3">
+
+                                <input asp-for="Photo" class="form-control" required>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col input-div one me-2">
+                            <div class="i">
+                                <i class="fas fa-user"></i>
+                            </div>
+
+                            <div class="div">
+                                <h5>Password</h5>
+                                <input asp-for="Password" class="input">
+                            </div>
+                        </div>
+
+                        <div class="col input-div one ">
+                            <div class="i">
+                                <i class="fas fa-user"></i>
+                            </div>
+
+                            <div class="div">
+                                <h5>Confirm Password</h5>
+                                <input asp-for="ConfirmPassword" class="input">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+                        <div class="col">
+                            <select class="form-select" asp-for="UserType">
+                                <option value="" selected>Open this select menu</option>
+                                <option value="1">Client</option>
+                                <option value="2">Agent</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            	
+            	<input type="submit" class="btn btn-block text-white" value="Login">
+            </form>
+        </div>
+    </div>

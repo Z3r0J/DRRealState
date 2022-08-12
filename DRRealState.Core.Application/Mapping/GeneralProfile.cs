@@ -12,6 +12,8 @@ using DRRealState.Core.Application.ViewModel.SaleType;
 using DRRealState.Core.Domain.Entities;
 using DRRealState.Core.Application.ViewModel.Estate;
 using DRRealState.Core.Application.ViewModel.Upgrade;
+using DRRealState.Core.Application.ViewModel.UpgradeEstate;
+using DRRealState.Core.Application.ViewModel.EstateFavorite;
 
 namespace DRRealState.Core.Application.Mapping
 {
@@ -92,6 +94,48 @@ namespace DRRealState.Core.Application.Mapping
                 .ForMember(x => x.Modified, opt => opt.Ignore())
                 .ForMember(x => x.ModifiedBy, opt => opt.Ignore())
                 .ForMember(x => x.Estates, opt => opt.Ignore());
+
+            CreateMap<Upgrade, SaveUpgradeViewModel>()
+                .ReverseMap()
+                .ForMember(x => x.Created, opt => opt.Ignore())
+                .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+                .ForMember(x => x.Modified, opt => opt.Ignore())
+                .ForMember(x => x.ModifiedBy, opt => opt.Ignore())
+                .ForMember(x => x.Estates, opt => opt.Ignore());
+
+            CreateMap<Upgrade_Estate, UpEstateViewModel>()
+                .ReverseMap()
+                .ForMember(x => x.Created, opt => opt.Ignore())
+                .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+                .ForMember(x => x.Modified, opt => opt.Ignore())
+                .ForMember(x => x.ModifiedBy, opt => opt.Ignore())
+                .ForMember(x => x.Estate, opt => opt.Ignore())
+                .ForMember(x => x.Upgrade, opt => opt.Ignore());
+
+            CreateMap<Upgrade_Estate, SaveUpEstateViewModel>()
+                .ReverseMap()
+                .ForMember(x => x.Created, opt => opt.Ignore())
+                .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+                .ForMember(x => x.Modified, opt => opt.Ignore())
+                .ForMember(x => x.ModifiedBy, opt => opt.Ignore())
+                .ForMember(x => x.Estate, opt => opt.Ignore())
+                .ForMember(x => x.Upgrade, opt => opt.Ignore());
+
+            CreateMap<EstateFavorite, EstateFavoriteViewModel>()
+                .ReverseMap()
+                .ForMember(x => x.Created, opt => opt.Ignore())
+                .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+                .ForMember(x => x.Modified, opt => opt.Ignore())
+                .ForMember(x => x.ModifiedBy, opt => opt.Ignore())
+                .ForMember(x => x.Estate, opt => opt.Ignore());
+
+            CreateMap<EstateFavorite, SaveEstateFavoriteViewModel>()
+                .ReverseMap()
+                .ForMember(x => x.Created, opt => opt.Ignore())
+                .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+                .ForMember(x => x.Modified, opt => opt.Ignore())
+                .ForMember(x => x.ModifiedBy, opt => opt.Ignore())
+                .ForMember(x => x.Estate, opt => opt.Ignore());
         }
     }
 }
