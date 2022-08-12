@@ -33,6 +33,9 @@ namespace DRRealState.Infrastructure.Persistence
             service.AddTransient<IPropertiesTypeRepository,PropertiesTypeRepository>();
             service.AddTransient<ISaleTypeRepository,SaleTypeRepository>();
             service.AddTransient<IEstateRepository,EstateRepository>();
+            service.AddTransient<IUpgradeRepository, UpgradeRepository>();
+            service.AddTransient<IUpEstateRepository, UpEstateRepository>();
+            service.AddTransient<IEstateFavoriteRepository, EstateFavoriteRepository>();
             #endregion
         }
 
