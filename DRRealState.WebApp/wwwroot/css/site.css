@@ -1,5 +1,7 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
+@import url("https://fonts.googleapis.com/css?family=Bungee");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 a.navbar-brand {
   white-space: normal;
@@ -687,3 +689,69 @@ a:hover {
         color: #006766;
         letter-spacing: 1px;
     }
+
+.container-access {
+    background: #1b1b1b !important;
+    color: white;
+    font-family: "Bungee", cursive !important;
+    text-align: center !important;
+    width: 100vw;
+    height: 100vh;
+}
+
+.a {
+    color: #2aa7cc !important;
+    text-decoration: none !important;
+    font-family: "Bungee", cursive !important;
+}
+
+    .a:hover {
+        color: white !important;
+    }
+
+svg {
+    width: 50vw !important;
+}
+
+.lightblue {
+    fill: #444 !important;
+}
+
+.eye {
+    cx: calc(115px + 30px * var(--mouse-x));
+    cy: calc(50px + 30px * var(--mouse-y));
+}
+
+#eye-wrap {
+    overflow: hidden !important;
+}
+
+.error-text {
+    font-size: 120px !important;
+    font-family: "Bungee", cursive !important;
+}
+
+.alarm {
+    animation: alarmOn 0.5s infinite;
+}
+
+.border-left {
+    border-top: 0px !important;
+    border-left-width: 5px !important;
+    border-right: 0px !important;
+    border-bottom: 0px !important;
+}
+
+.border-morado {
+    border-color: #8834d0 !important;
+}
+
+.text-morado {
+    color: #8834d0 !important;
+}
+
+@keyframes alarmOn {
+    to {
+        fill: darkred;
+    }
+}

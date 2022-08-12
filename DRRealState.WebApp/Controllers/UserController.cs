@@ -88,6 +88,11 @@ namespace DRRealState.WebApp.Controllers
 
         }
 
+        public IActionResult AccessDenied() {
+
+            return View();
+        }
+
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel vm)
         {
