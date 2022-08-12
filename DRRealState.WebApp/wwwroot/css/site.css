@@ -6,6 +6,11 @@ a.navbar-brand {
   text-align: center;
   word-break: break-all;
 }
+
+.bg-custom {
+    background-color: #2BC78F;
+}
+
 * {
     padding: 0;
     margin: 0;

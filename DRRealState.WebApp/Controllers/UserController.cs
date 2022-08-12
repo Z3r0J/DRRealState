@@ -32,6 +32,16 @@ namespace DRRealState.WebApp.Controllers
 
             return View(new SaveUserViewModel());
         }
+
+        public async Task<IActionResult> Logout() {
+
+            HttpContext.Session.Remove("user");
+
+            await _userServices.LogOutAsync();
+
+            return RedirectToRoute(new { action="Index", controller="Home"});
+        }
+
         [HttpPost]
         public async Task<IActionResult> Register(SaveUserViewModel vm) {
 

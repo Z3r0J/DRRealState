@@ -8,6 +8,7 @@ namespace DRRealState.Core.Application.ViewModel.SaleType
 {
     public class SaveSaleTypeViewModel
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
     }

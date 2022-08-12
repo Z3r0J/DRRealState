@@ -9,6 +9,7 @@ namespace DRRealState.Core.Application.ViewModel.PropertiesType
 {
     public class PropertiesTypeViewModel
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
 

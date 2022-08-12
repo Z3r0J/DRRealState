@@ -94,7 +94,7 @@ namespace DRRealState.Core.Application.Services
                     && filter.MaximumPrice != null
                     && filter.MinimumPrice == null)
                 {
-                    return newList.Where(x => x.BedRoomQuantity == filter.BedQuantity && filter.MaximumPrice >= x.Price).ToList();
+                    return newList.Where(x => x.BedRoomQuantity == filter.BedQuantity && x.Price <= filter.MaximumPrice).ToList();
                 }
                 if (filter.BedQuantity != null
                     && filter.BathQuantity == null
@@ -125,7 +125,7 @@ namespace DRRealState.Core.Application.Services
                     && filter.MaximumPrice == null
                     && filter.MinimumPrice != null)
                 {
-                    return newList.Where(x => x.BathroomQuantity == filter.BathQuantity && filter.MinimumPrice >= x.Price).ToList();
+                    return newList.Where(x => x.BathroomQuantity == filter.BathQuantity && x.Price >= filter.MinimumPrice).ToList();
                 }
 
                 if (filter.BedQuantity == null
@@ -211,7 +211,7 @@ namespace DRRealState.Core.Application.Services
                 && filter.MaximumPrice != null
                 && filter.MinimumPrice == null)
             {
-                return estateList.Where(x => x.BedRoomQuantity == filter.BedQuantity && filter.MaximumPrice >= x.Price).ToList();
+                return estateList.Where(x => x.BedRoomQuantity == filter.BedQuantity && x.Price<=filter.MaximumPrice).ToList();
             }
             if (filter.BedQuantity != null
                 && filter.BathQuantity == null

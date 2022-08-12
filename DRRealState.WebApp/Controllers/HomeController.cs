@@ -16,15 +16,19 @@ namespace DRRealState.WebApp.Controllers
     {
         private readonly IEstateServices _estateServices;
         private readonly IAccountServices _accountServices;
-        public HomeController(IEstateServices estateServices, IAccountServices accountServices)
+        private readonly IPropertiesTypeServices _propertiesTypeServices;
+        public HomeController(IEstateServices estateServices, IAccountServices accountServices,IPropertiesTypeServices propertiesType)
         {
             _estateServices = estateServices;
             _accountServices = accountServices;
+            _propertiesTypeServices = propertiesType;
         }
 
         public async Task<IActionResult> Index()
         {
             var response = await _estateServices.GetAllViewModelWithInclude();
+
+            ViewBag.PropertyType = await _propertiesTypeServices.GetAllViewModel();
 
             return View(response);
         }
@@ -34,11 +38,21 @@ namespace DRRealState.WebApp.Controllers
         
             var response = await _estateServices.GetAllViewModelWithInclude();
 
+            if (string.IsNullOrEmpty(Code))
+            {
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.PropertyType = await _propertiesTypeServices.GetAllViewModel();
+
+
             return View("Index",response.Where(c => c.Code == Code).ToList());
         
         }
         [HttpPost]
         public async Task<IActionResult> AdvancedFilter(FilterEstateViewModel filter) {
+
+            ViewBag.PropertyType = await _propertiesTypeServices.GetAllViewModel();
 
             return View("Index", await _estateServices.FilterAsync(filter));
 
