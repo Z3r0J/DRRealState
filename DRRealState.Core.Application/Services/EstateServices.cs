@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace DRRealState.Core.Application.Services
 {
-    public class EstateServices:GenericServices<SaveEstateViewModel,EstateViewModel,Estate>,IEstateServices
+    public class EstateServices : GenericServices<SaveEstateViewModel, EstateViewModel, Estate>, IEstateServices
     {
         private readonly IEstateRepository _estateRepository;
         public readonly IMapper _mapper;
 
-        public EstateServices(IEstateRepository estateRepository, IMapper mapper):base(estateRepository,mapper)
+        public EstateServices(IEstateRepository estateRepository, IMapper mapper) : base(estateRepository, mapper)
         {
             _estateRepository = estateRepository;
             _mapper = mapper;
@@ -28,6 +28,258 @@ namespace DRRealState.Core.Application.Services
 
             return _mapper.Map<List<EstateViewModel>>(estateList);
 
+        }
+
+        public async Task<List<EstateViewModel>> FilterAsync(FilterEstateViewModel filter) {
+
+            var estateList = await GetAllViewModelWithInclude();
+
+            var newList = new List<EstateViewModel>();
+
+            if (filter.EstateType != null && filter.EstateType.Count > 0)
+            {
+                foreach (int Id in filter.EstateType)
+                {
+                    var es = estateList.Where(x => x.PropertyTypeId == Id).ToList();
+
+                    foreach (EstateViewModel item in es)
+                    {
+                        newList.Add(item);
+                    }
+                }
+
+                #region General If
+                if (filter.BedQuantity != null
+                    && filter.BathQuantity != null
+                    && filter.MaximumPrice != null
+                    && filter.MinimumPrice != null)
+                {
+                    return newList.Where(x => x.BedRoomQuantity == filter.BedQuantity
+                    && x.BathroomQuantity == filter.BathQuantity &&
+                    (x.Price >= filter.MinimumPrice && x.Price <= filter.MaximumPrice)).ToList();
+                }
+                if (filter.BedQuantity != null
+                    && filter.BathQuantity == null
+                    && filter.MaximumPrice == null
+                    && filter.MinimumPrice == null)
+                {
+                    return newList.Where(x => x.BedRoomQuantity == filter.BedQuantity).ToList();
+                }
+                if (filter.BedQuantity == null
+                    && filter.BathQuantity != null
+                    && filter.MaximumPrice == null
+                    && filter.MinimumPrice == null)
+                {
+                    return newList.Where(x => x.BathroomQuantity == filter.BathQuantity).ToList();
+                }
+                if (filter.BedQuantity == null
+                    && filter.BathQuantity == null
+                    && filter.MaximumPrice != null
+                    && filter.MinimumPrice == null)
+                {
+                    return newList.Where(x => x.Price <= filter.MaximumPrice).ToList();
+                }
+                if (filter.BedQuantity == null
+                    && filter.BathQuantity == null
+                    && filter.MaximumPrice == null
+                    && filter.MinimumPrice != null)
+                {
+                    return newList.Where(x => x.Price >= filter.MinimumPrice).ToList();
+                }
+                #endregion
+
+                #region Bed IF
+                if (filter.BedQuantity != null
+                    && filter.BathQuantity == null
+                    && filter.MaximumPrice != null
+                    && filter.MinimumPrice == null)
+                {
+                    return newList.Where(x => x.BedRoomQuantity == filter.BedQuantity && filter.MaximumPrice >= x.Price).ToList();
+                }
+                if (filter.BedQuantity != null
+                    && filter.BathQuantity == null
+                    && filter.MaximumPrice == null
+                    && filter.MinimumPrice != null)
+                {
+                    return newList.Where(x => x.BedRoomQuantity == filter.BedQuantity && x.Price >= filter.MinimumPrice).ToList();
+                }
+                if (filter.BedQuantity != null
+                    && filter.BathQuantity == null
+                    && filter.MaximumPrice != null
+                    && filter.MinimumPrice != null)
+                {
+                    return newList.Where(x => x.BedRoomQuantity == filter.BedQuantity && x.Price >= filter.MinimumPrice && x.Price <= filter.MaximumPrice).ToList();
+                }
+                #endregion
+
+                #region Bath IF
+                if (filter.BedQuantity == null
+                        && filter.BathQuantity != null
+                        && filter.MaximumPrice != null
+                        && filter.MinimumPrice == null)
+                {
+                    return newList.Where(x => x.BathroomQuantity == filter.BathQuantity && x.Price <= filter.MaximumPrice).ToList();
+                }
+                if (filter.BedQuantity == null
+                    && filter.BathQuantity != null
+                    && filter.MaximumPrice == null
+                    && filter.MinimumPrice != null)
+                {
+                    return newList.Where(x => x.BathroomQuantity == filter.BathQuantity && filter.MinimumPrice >= x.Price).ToList();
+                }
+
+                if (filter.BedQuantity == null
+                    && filter.BathQuantity != null
+                    && filter.MaximumPrice != null
+                    && filter.MinimumPrice != null)
+                {
+                    return newList.Where(x => x.BathroomQuantity == filter.BathQuantity && (x.Price >= filter.MinimumPrice && x.Price <= filter.MaximumPrice)).ToList();
+                }
+
+                #endregion
+                if (filter.BedQuantity == null
+                    && filter.BathQuantity == null
+                    && filter.MaximumPrice != null
+                    && filter.MinimumPrice != null)
+                {
+                    return newList.Where(x => (x.Price >= filter.MinimumPrice && x.Price <= filter.MaximumPrice)).ToList();
+                }
+                if (filter.BedQuantity != null
+                    && filter.BathQuantity != null
+                    && filter.MaximumPrice != null
+                    && filter.MinimumPrice == null)
+                {
+                    return newList.Where(x => x.BedRoomQuantity == filter.BedQuantity && x.BathroomQuantity == filter.BathQuantity && x.Price <= filter.MaximumPrice).ToList();
+                }
+                if (filter.BedQuantity != null
+                    && filter.BathQuantity != null
+                    && filter.MaximumPrice == null
+                    && filter.MinimumPrice != null)
+                {
+                    return newList.Where(x => x.BathroomQuantity == filter.BathQuantity && x.BedRoomQuantity == filter.BedQuantity && x.Price >= filter.MinimumPrice).ToList();
+                }
+                else
+                {
+
+                    return newList;
+                }
+            }
+
+            #region General If
+            if (filter.BedQuantity != null
+                && filter.BathQuantity != null
+                && filter.MaximumPrice != null
+                && filter.MinimumPrice != null)
+            {
+                return estateList.Where(x => x.BedRoomQuantity == filter.BedQuantity
+                && x.BathroomQuantity == filter.BathQuantity &&
+                (x.Price >= filter.MinimumPrice && x.Price <= filter.MaximumPrice)).ToList();
+            }
+            if (filter.BedQuantity != null
+                && filter.BathQuantity == null
+                && filter.MaximumPrice == null
+                && filter.MinimumPrice == null)
+            {
+                return estateList.Where(x => x.BedRoomQuantity == filter.BedQuantity).ToList();
+            }
+            if (filter.BedQuantity == null
+                && filter.BathQuantity != null
+                && filter.MaximumPrice == null
+                && filter.MinimumPrice == null)
+            {
+                return estateList.Where(x => x.BathroomQuantity == filter.BathQuantity).ToList();
+            }
+            if (filter.BedQuantity == null
+                && filter.BathQuantity == null
+                && filter.MaximumPrice != null
+                && filter.MinimumPrice == null)
+            {
+                return estateList.Where(x => x.Price <= filter.MaximumPrice).ToList();
+            }
+            if (filter.BedQuantity == null
+                && filter.BathQuantity == null
+                && filter.MaximumPrice == null
+                && filter.MinimumPrice != null)
+            {
+                return estateList.Where(x => x.Price >= filter.MinimumPrice).ToList();
+            }
+            #endregion
+
+            #region Bed IF
+            if (filter.BedQuantity != null
+                && filter.BathQuantity == null
+                && filter.MaximumPrice != null
+                && filter.MinimumPrice == null)
+            {
+                return estateList.Where(x => x.BedRoomQuantity == filter.BedQuantity && filter.MaximumPrice >= x.Price).ToList();
+            }
+            if (filter.BedQuantity != null
+                && filter.BathQuantity == null
+                && filter.MaximumPrice == null
+                && filter.MinimumPrice != null)
+            {
+                return estateList.Where(x => x.BedRoomQuantity == filter.BedQuantity && x.Price >= filter.MinimumPrice).ToList();
+            }
+            if (filter.BedQuantity != null
+                && filter.BathQuantity == null
+                && filter.MaximumPrice != null
+                && filter.MinimumPrice != null)
+            {
+                return estateList.Where(x => x.BedRoomQuantity == filter.BedQuantity && x.Price >= filter.MinimumPrice && x.Price <= filter.MaximumPrice).ToList();
+            }
+            #endregion
+
+            #region Bath IF
+            if (filter.BedQuantity == null
+                    && filter.BathQuantity != null
+                    && filter.MaximumPrice != null
+                    && filter.MinimumPrice == null)
+            {
+                return estateList.Where(x => x.BathroomQuantity == filter.BathQuantity && x.Price <= filter.MaximumPrice).ToList();
+            }
+            if (filter.BedQuantity == null
+                && filter.BathQuantity != null
+                && filter.MaximumPrice == null
+                && filter.MinimumPrice != null)
+            {
+                return estateList.Where(x => x.BathroomQuantity == filter.BathQuantity && filter.MinimumPrice >= x.Price).ToList();
+            }
+
+            if (filter.BedQuantity == null
+                && filter.BathQuantity != null
+                && filter.MaximumPrice != null
+                && filter.MinimumPrice != null)
+            {
+                return estateList.Where(x => x.BathroomQuantity == filter.BathQuantity && (x.Price >= filter.MinimumPrice && x.Price <= filter.MaximumPrice)).ToList();
+            }
+
+            #endregion
+            if (filter.BedQuantity == null
+                && filter.BathQuantity == null
+                && filter.MaximumPrice != null
+                && filter.MinimumPrice != null)
+            {
+                return estateList.Where(x => (x.Price >= filter.MinimumPrice && x.Price <= filter.MaximumPrice)).ToList();
+            }
+            if (filter.BedQuantity != null
+                && filter.BathQuantity != null
+                && filter.MaximumPrice != null
+                && filter.MinimumPrice == null)
+            {
+                return estateList.Where(x => x.BedRoomQuantity==filter.BedQuantity&&x.BathroomQuantity==filter.BathQuantity&&x.Price <= filter.MaximumPrice).ToList();
+            }
+            if (filter.BedQuantity != null
+                && filter.BathQuantity != null
+                && filter.MaximumPrice == null
+                && filter.MinimumPrice != null)
+            {
+                return estateList.Where(x => x.BathroomQuantity==filter.BathQuantity&&x.BedRoomQuantity==filter.BedQuantity&&x.Price >= filter.MinimumPrice).ToList();
+            }
+            else {
+
+                return estateList;
+            }
+            
         }
     }
 }
