@@ -10,6 +10,6 @@ namespace DRRealState.Core.Application.Interfaces.Services
 {
     public interface IEstateFavoriteServices : IGenericServices<SaveEstateFavoriteViewModel,EstateFavoriteViewModel,EstateFavorite>
     {
-
+        Task<List<EstateFavoriteViewModel>> GetAllViewModelWithInclude();
     }
 }

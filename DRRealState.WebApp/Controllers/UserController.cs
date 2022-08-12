@@ -2,6 +2,7 @@
 using DRRealState.Core.Application.Helpers;
 using DRRealState.Core.Application.Interfaces.Services;
 using DRRealState.Core.Application.ViewModel.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -15,21 +16,19 @@ namespace DRRealState.WebApp.Controllers
     public class UserController : Controller
     {
         private readonly IUserServices _userServices;
-        public UserController(IUserServices userServices)
+        private readonly IEstateFavoriteServices _favoriteServices;
+        public UserController(IUserServices userServices,IEstateFavoriteServices favoriteServices)
         {
             _userServices = userServices;
+            _favoriteServices = favoriteServices;
         }
 
         public IActionResult Login()
         {
-
-
             return View(new LoginViewModel());
         }
         public IActionResult Register()
         {
-
-
             return View(new SaveUserViewModel());
         }
 
@@ -123,6 +122,17 @@ namespace DRRealState.WebApp.Controllers
 
 
             return RedirectToRoute(new { action="Index",controller="Home"});
+        }
+
+        [Authorize(Roles="CLIENT")]
+        public async Task<IActionResult> MyFavorite() {
+
+            var clientId = HttpContext.Session.Get<AuthenticationResponse>("user").Id;
+
+            var house = await _favoriteServices.GetAllViewModelWithInclude();
+
+            return View(house.Where(x=>x.ClientId == clientId).ToList());
+        
         }
 
         public async Task<IActionResult> ConfirmEmail(string userId, string token)

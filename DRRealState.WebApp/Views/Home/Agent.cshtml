@@ -1,6 +1,6 @@
-﻿@using DRRealState.Core.Application.DTOS.Account
+﻿@using DRRealState.Core.Application.ViewModel.User
 
-@model List<AccountResponse>
+@model List<UserViewModel>
 
 
 @{
@@ -9,6 +9,18 @@
 
 <div class="container-fluid">
     <div class="row mt-3">
+        <div class="col-xl-3 col-sm-6">
+            <div class="card rounded rounded-1 shadow shadow-1">
+                <div class="card-header bg-custom text-white text-center">Filter</div>
+                <div class="card-body">
+                    <form class="w-100" asp-action="SearchAgentByName" asp-controller="Home">
+                        <h5 class="card-title">Filter By Name: </h5>
+                        <input type="text" class="form-control" name="Name" id="Name">
+                        <button class="btn btn-block text-white wh-50">Search</button>
+                    </form>
+                    </div>
+                    </div>
+        </div>
                     @if(Model.Count==0 || Model == null ){
 
                 <div class="col-6 justify-content-center text-center">
@@ -17,7 +29,7 @@
 
                 </div>
             }
-        @foreach(AccountResponse account in Model){ 
+        @foreach(UserViewModel account in Model){ 
                 <div class="col-xl-4 col-sm-6">
                 <div class="single-agents style-agents">
                     <div class="agents-img">

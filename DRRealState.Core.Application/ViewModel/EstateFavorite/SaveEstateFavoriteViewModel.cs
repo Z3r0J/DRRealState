@@ -8,8 +8,8 @@ namespace DRRealState.Core.Application.ViewModel.EstateFavorite
 {
     public class SaveEstateFavoriteViewModel
     {
+        public int Id { get; set; }
         public int EstateId { get; set; }
-        public string Estate { get; set; }
         public string ClientId { get; set; }
     }
 }

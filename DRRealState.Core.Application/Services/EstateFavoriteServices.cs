@@ -3,6 +3,8 @@ using DRRealState.Core.Application.Interfaces.Repository;
 using DRRealState.Core.Application.Interfaces.Services;
 using DRRealState.Core.Application.ViewModel.EstateFavorite;
 using DRRealState.Core.Domain.Entities;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DRRealState.Core.Application.Services
 {
@@ -15,6 +17,13 @@ namespace DRRealState.Core.Application.Services
         {
             _estateFavoriteRepository = estateFavoriteRepository;
             _mapper = mapper;
+        }
+
+        public async Task<List<EstateFavoriteViewModel>> GetAllViewModelWithInclude() {
+
+            var favorite = await _estateFavoriteRepository.GetAllWithIncludeAsync();
+            return _mapper.Map<List<EstateFavoriteViewModel>>(favorite);
+        
         }
     }
 }
