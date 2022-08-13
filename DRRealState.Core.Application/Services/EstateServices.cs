@@ -298,7 +298,7 @@ namespace DRRealState.Core.Application.Services
                 && filter.MaximumPrice == null
                 && filter.MinimumPrice == null)
             {
-                return newList.Where(x => x.BathroomQuantity == filter.BathQuantity && x.BedRoomQuantity == filter.BedQuantity).ToList();
+                return estateList.Where(x => x.BathroomQuantity == filter.BathQuantity && x.BedRoomQuantity == filter.BedQuantity).ToList();
             }
             else {
 

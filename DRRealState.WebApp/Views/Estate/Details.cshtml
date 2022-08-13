@@ -5,6 +5,9 @@
 @{
     ViewBag.Title = $"Details {Model.PropertiesType.Name} in {Model.Ubication}";
     CultureInfo.DefaultThreadCurrentCulture = new("es-DO");
+    var routeUrl = Url.ActionLink().ToString();
+    var url = $"{routeUrl}";
+
 }
 
 <div class="property-section section pt-100 pt-lg-80 pt-md-70 pt-sm-60 pt-xs-50 pb-100 pb-lg-80 pb-md-70 pb-sm-60 pb-xs-50 mt-4">
@@ -88,7 +91,31 @@
         <div class="card">
             <div class="card-header bg-custom text-white text-center fw-bold">Agent</div>
             <div class="card-body">
-                <span class="text">@ViewBag.Agent.FirstName @ViewBag.Agent.LastName</span>
+            <div class="container-info">
+            <div class="image-container">
+            <img src="@(ViewBag.Agent.PhotoUrl==null?"../../Images/user.png":ViewBag.Agent.PhotoUrl)" class="pane-img"/>
+            </div>
+            <div class="container-name">
+                            <h6 class="text-name">@ViewBag.Agent.FirstName @ViewBag.Agent.LastName</h6>
+                            <span class="text-agency">DR Real Estate</span>
+            </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-6">
+                    <h6>Phone: </h6>
+                    <a href="tel:@ViewBag.Agent.Phone"style="font-size:12px!important;"><i class="fa-solid fa-phone"></i>&nbsp;&nbsp;@ViewBag.Agent.Phone</a>
+                </div>
+                <div class="col-6">
+                    <h6>Email: </h6>
+                    <a href="mailto:@ViewBag.Agent.Email" style="font-size:12px!important;"><i class="fa-solid fa-envelope"></i>&nbsp;&nbsp;@ViewBag.Agent.Email</a>
+                </div>
+                <div class="row mt-3">
+                    <h6>WhatsApp: </h6>
+                    <div class="col-12">
+                        <a href="https://wa.me/@(Convert.ToString(ViewBag.Agent.Phone).Replace("+","").Replace(" ",""))?text=Me+interesa+conocer+acerca+de+esta+propiedad. @url" target="_blank"><i class="fa-brands fa-whatsapp bg-success rounded rounded-circle fs-4"></i>&nbsp;&nbsp;@ViewBag.Agent.Phone</a>
+                    </div>
+                </div>
+            </div>
             </div>
         </div>
     </div>

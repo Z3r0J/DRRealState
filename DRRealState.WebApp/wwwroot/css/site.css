@@ -969,3 +969,32 @@ svg {
         width: 100%;
         font-size: 14px;
     }
+
+.image-container {
+    display: inline-block;
+    height: 6em;
+    width: 6em;
+    overflow: hidden;
+    border-radius: 50%;
+    min-width: 5em;
+    border: 1px solid #C3C3C3;
+}
+
+.container-info {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.container-name {
+    display: inline-block;
+    margin: 0 5%;
+}
+.text-name {
+    margin: .2rem 0;
+}
+.text-agency {
+    color: #383838;
+    opacity: .64;
+    display: block;
+}

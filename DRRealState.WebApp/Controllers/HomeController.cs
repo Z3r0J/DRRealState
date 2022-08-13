@@ -75,6 +75,12 @@ namespace DRRealState.WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> SearchAgentByName(string Name) {
 
+
+            if (string.IsNullOrEmpty(Name))
+            {
+                return RedirectToAction("Agent");
+            }
+
             var response = await _accountServices.SearchAgentAsync(Name);
 
                 return View("Agent", response);
