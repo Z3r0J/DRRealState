@@ -105,7 +105,8 @@ namespace DRRealState.Core.Application.Services
                 x.LastName,
                 x.Phone,
                 x.PhotoUrl,
-                x.Id
+                x.Id,
+                x.Code
             }).Where(x => x.name.Trim().Contains(Name.Trim()) && x.Roles.Any(x => x == "AGENT") && x.IsVerified == true).ToList();
 
             return search.Select(x=>new UserViewModel() { Email = x.Email,
@@ -116,7 +117,8 @@ namespace DRRealState.Core.Application.Services
                 Phone = x.Phone,
                 PhotoUrl = x.PhotoUrl,
                 Roles = x.Roles,
-                UserName = x.UserName
+                UserName = x.UserName,
+                Code = x.Code
             }).ToList();
         }
         public async Task<ActivateResponse> ActivateAsync(ActivateViewModel model)

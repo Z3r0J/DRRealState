@@ -30,6 +30,16 @@ namespace DRRealState.Core.Application.Services
 
         }
 
+        public async Task<EstateViewModel> GetViewModelWithIncludeById(int id) {
+
+            var estateList = await GetAllViewModelWithInclude();
+
+            return _mapper.Map<EstateViewModel>(estateList.FirstOrDefault(x=>x.Id == id));
+
+        }
+
+
+
         public async Task<List<EstateViewModel>> FilterAsync(FilterEstateViewModel filter) {
 
             var estateList = await GetAllViewModelWithInclude();
@@ -158,6 +168,13 @@ namespace DRRealState.Core.Application.Services
                 {
                     return newList.Where(x => x.BathroomQuantity == filter.BathQuantity && x.BedRoomQuantity == filter.BedQuantity && x.Price >= filter.MinimumPrice).ToList();
                 }
+                if (filter.BedQuantity != null
+                    && filter.BathQuantity != null
+                    && filter.MaximumPrice == null
+                    && filter.MinimumPrice == null)
+                {
+                    return newList.Where(x => x.BathroomQuantity == filter.BathQuantity && x.BedRoomQuantity == filter.BedQuantity).ToList();
+                }
                 else
                 {
 
@@ -274,6 +291,14 @@ namespace DRRealState.Core.Application.Services
                 && filter.MinimumPrice != null)
             {
                 return estateList.Where(x => x.BathroomQuantity==filter.BathQuantity&&x.BedRoomQuantity==filter.BedQuantity&&x.Price >= filter.MinimumPrice).ToList();
+            }
+
+            if (filter.BedQuantity != null
+                && filter.BathQuantity != null
+                && filter.MaximumPrice == null
+                && filter.MinimumPrice == null)
+            {
+                return newList.Where(x => x.BathroomQuantity == filter.BathQuantity && x.BedRoomQuantity == filter.BedQuantity).ToList();
             }
             else {
 
