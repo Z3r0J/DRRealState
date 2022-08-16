@@ -135,6 +135,11 @@ namespace DRRealState.Core.Application.Mapping
                 .ForMember(x => x.Modified, opt => opt.Ignore())
                 .ForMember(x => x.ModifiedBy, opt => opt.Ignore())
                 .ForMember(x => x.Estate, opt => opt.Ignore());
+
+            CreateMap<EditRequest, SaveUserViewModel>()
+                .ForMember(x => x.UserType, opt => opt.Ignore())
+                .ForMember(x => x.Photo, opt => opt.Ignore())
+                .ReverseMap();
         }
     }
 }

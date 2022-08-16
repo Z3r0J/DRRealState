@@ -998,3 +998,41 @@ svg {
     opacity: .64;
     display: block;
 }
+.row-25 {
+    margin-left: -25px;
+    margin-right: -25px;
+}
+@media only screen and (min-width: 1200px) and (max-width: 1499px) {
+    .row-25 {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+}
+.agent-image {
+    max-width: 470px;
+}
+
+.agent-image img {
+    width: 100%;
+}
+
+.circular--portrait {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.circular--portrait img {
+        width: 100%;
+        height: auto;
+}
+.agent-content .title {
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.agent-content p {
+    margin-bottom: 25px;
+}

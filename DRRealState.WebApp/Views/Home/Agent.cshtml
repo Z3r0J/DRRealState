@@ -8,7 +8,7 @@
 }
 
 <div class="container-fluid">
-    <div class="row mt-3">
+ <div class="row ms-3 mt-3">
         <div class="col-xl-3 col-sm-6">
             <div class="card rounded rounded-1 shadow shadow-1">
                 <div class="card-header bg-custom text-white text-center">Filter</div>
@@ -30,47 +30,17 @@
                 </div>
             }
         @foreach(UserViewModel account in Model){ 
-                <div class="col-xl-4 col-sm-6">
-                <div class="single-agents style-agents">
-                    <div class="agents-img">
-                        <img src="@(account.PhotoUrl==null?"../../Images/user.png":account.PhotoUrl)" alt="Image">
-                        <span>CODE: @account.Code</span>
-                        <p>DR REAL ESTATE</p>
-                    </div>
-
-                    <div class="agents-content">
-                        <div class="d-flex justify-content-between align-items-center align-items-center">
-                            <h3>
-                                <a href="single-agents.html">@account.FirstName @account.LastName</a>
-                            </h3>
-
-                            
-                        </div>
-
-                        <ul class="info">
-                            <li>
-                                <a href="tel:@account.Phone">
-                                    <i class="fa-solid fa-phone"></i>
-                                    @account.Phone
-                                </a>
-                            </li>
-                            <li>
-                                <a href="mailto:@account.Email">
-                                    <i class="fa-solid fa-envelope"></i>
-                                    @account.Email
-                                </a>
-                            </li>
-                        </ul>
-
-                        <a asp-action="Details" asp-controller="Agent" asp-route-id="@account.Id" class="read-more">
-                            Read More
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
+        <div class="col-xl-3">
+             <div class="card d-flex justify-content-center align-items-center " style="width: 18rem;">
+                <div class="circular--portrait border border-success">
+                    <img src="@(account.PhotoUrl==null?"../../Images/user.png":account.PhotoUrl)" />
+                  </div>
+            <div class="card-body">
+              <a asp-action="Details" asp-controller="Agent" asp-route-id="@account.Id" class="card-title h5">@account.FirstName @account.LastName</a>
             </div>
-    
-
+          </div>
+          
+        </div>
 }
     </div>
 </div>

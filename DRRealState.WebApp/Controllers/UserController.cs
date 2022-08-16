@@ -112,6 +112,7 @@ namespace DRRealState.WebApp.Controllers
                 return View(vm);
             }
 
+            HttpContext.Session.Set<AuthenticationResponse>("user", response);
 
             if (response.Roles.Any(x=>x=="ADMINISTRATOR"))
             {
@@ -122,9 +123,6 @@ namespace DRRealState.WebApp.Controllers
             {
                 return RedirectToRoute(new { action = "Index", controller = "Agent" });
             }
-
-            HttpContext.Session.Set<AuthenticationResponse>("user", response);
-
 
             return RedirectToRoute(new { action="Index",controller="Home"});
         }

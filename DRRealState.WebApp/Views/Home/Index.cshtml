@@ -36,12 +36,15 @@
                             <hr/>
                             <form class="w-100" asp-action="AdvancedFilter" asp-controller="Home">
                                 <div class="card-header bg-custom text-white">Advanced Filter</div>
+                                <h6>Properties Type</h6>
+
                                 @foreach(PropertiesTypeViewModel item in ViewBag.PropertyType){
                                  <div class="form-check mt-2 mb-2">
-                                     <h6>Properties Type</h6>
-                                        <input type="checkbox" class="form-check-input" name="EstateType" id="type-@item.Id" value=@(item.Id) />
+                                     <input type="checkbox" class="form-check-input" name="EstateType" id="type-@item.Id" value=@(item.Id) />
                                         <label class="form-check-label" for="type-@item.Id">@item.Name</label>
-                                        <div class="row mt-2 mb-2">
+                                    </div>
+                                }
+                                                                        <div class="row mt-2 mb-2">
                                             <h6>Quantity</h6>
                                             <div class="col-6">
                                                 <label for="BedQuantity">Bedroom:</label>
@@ -66,8 +69,6 @@
                                             </div>
                                         </div>
                                         <button class="btn btn-block text-white wh-50">Search</button>
-                                 </div>
-                                }
                             </form>
 
                         </div>

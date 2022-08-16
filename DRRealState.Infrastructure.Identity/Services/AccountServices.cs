@@ -399,6 +399,82 @@ namespace DRRealState.Infrastructure.Identity.Services
 
         }
 
+        public async Task<EditResponse> EditAgentAsync(EditRequest request) {
+
+            var user = await _userManager.FindByIdAsync(request.Id);
+
+            user.Name = request.Name;
+            user.LastName = request.LastName;
+            user.PhoneNumber = request.Phone;
+            user.PhotoUrl = request.PhotoURL;
+
+            var response = await _userManager.UpdateAsync(user);
+
+            if (!response.Succeeded)
+            {
+                foreach (var item in response.Errors)
+                {
+                    return new() { HasError = true, Error = item.Description };
+                }
+            }
+
+            return new() { HasError = false };
+        }
+
+        public async Task<PasswordResponse> ChangePasswordAsync(PasswordRequest request)
+        {
+
+            var user = await _userManager.FindByIdAsync(request.UserId);
+
+            string token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+            var response = await _userManager.ResetPasswordAsync(user, token, request.NewPassword);
+
+            PasswordResponse passwordResponse = new();
+
+            if (response.Succeeded)
+            {
+                passwordResponse.HasError = false;
+            }
+            if (response.Errors.Count() > 0)
+            {
+                foreach (var error in response.Errors)
+                {
+                    passwordResponse.HasError = true;
+                    passwordResponse.Error = error.Description;
+                }
+            }
+
+            return passwordResponse;
+        }
+
+
+        public async Task<EditResponse> EditAsync(EditRequest request) {
+
+            var user = await _userManager.FindByIdAsync(request.Id);
+
+            user.Name = request.Name;
+            user.LastName = request.LastName;
+            user.Documents = request.Documents;
+            user.Email = request.Email;
+            user.NormalizedEmail = request.Email.ToUpper();
+            user.UserName = request.Username;
+            user.NormalizedUserName = request.Username.ToUpper();
+
+
+            var response = await _userManager.UpdateAsync(user);
+
+            if (!response.Succeeded)
+            {
+                foreach (var item in response.Errors)
+                {
+                    return new() { HasError = true, Error = item.Description };
+                }
+            }
+
+            return new() { HasError = false };
+        }
+
         public async Task<RegisterResponse> AddPhotoAsync(string photoUrl,string Id) {
 
             var user = await _userManager.FindByIdAsync(Id);

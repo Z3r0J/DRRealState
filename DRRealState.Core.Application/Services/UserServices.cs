@@ -30,7 +30,6 @@ namespace DRRealState.Core.Application.Services
             return response;
         }
         
-
         public async Task<AuthenticationResponse> LoginWebAppAsync(LoginViewModel model) {
 
             AuthenticationRequest request = _mapper.Map<AuthenticationRequest>(model);
@@ -61,6 +60,16 @@ namespace DRRealState.Core.Application.Services
             RegisterRequest request = _mapper.Map<RegisterRequest>(model);
 
             return await _accountServices.RegisterAgentAsync(request);
+
+        }
+
+        public async Task<EditResponse> EditAgentAsync(SaveUserViewModel model) {
+        
+            EditRequest request = _mapper.Map<EditRequest>(model);
+
+            EditResponse response = await _accountServices.EditAgentAsync(request);
+
+            return response;
 
         }
 

@@ -38,7 +38,14 @@ namespace DRRealState.Core.Application.Services
 
         }
 
+        public async Task<List<EstateViewModel>> GetEstateByAgentId(string id) {
 
+            var estateList = await GetAllViewModelWithInclude();
+            var agentHouses = estateList.FindAll(x => x.AgentId == id);
+
+            return agentHouses.Count == 0 ? new() : agentHouses;
+        
+        }
 
         public async Task<List<EstateViewModel>> FilterAsync(FilterEstateViewModel filter) {
 

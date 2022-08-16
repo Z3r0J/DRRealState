@@ -15,6 +15,9 @@ namespace DRRealState.Core.Application.Interfaces.Services
         Task<RegisterResponse> RegisterAgentAsync(RegisterRequest request);
         Task<RegisterResponse> RegisterAdministratorAsync(RegisterRequest request);
         Task<RegisterResponse> AddPhotoAsync(string photoUrl, string Id);
+        Task<EditResponse> EditAsync(EditRequest request);
+        Task<PasswordResponse> ChangePasswordAsync(PasswordRequest request);
+        Task<EditResponse> EditAgentAsync(EditRequest request);
         Task<string> ConfirmAccountAsync(string userId, string token);
         Task LogOutAsync();
         Task<List<AccountResponse>> GetUsersAsync();

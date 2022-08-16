@@ -10,6 +10,7 @@ namespace DRRealState.Core.Application.ViewModel.User
 {
     public class SaveUserViewModel
     {
+        public string Id { get; set; }
         [Required(ErrorMessage="Name is Required")]
         [DataType(DataType.Text)]
         public string Name { get; set; }
@@ -38,13 +39,13 @@ namespace DRRealState.Core.Application.ViewModel.User
         [DataType(DataType.PhoneNumber)]
         public string Phone { get; set; }
         public int UserType { get; set; }
-        public string Error { get; set; }
-        public bool HasError { get; set; }
 
         [DataType(DataType.Upload)]
         public IFormFile Photo { get; set; }
 
         public string PhotoURL { get; set; }
+        public string Error { get; set; }
+        public bool HasError { get; set; }
 
     }
 }
