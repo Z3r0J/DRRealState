@@ -64,7 +64,7 @@ namespace DRRealState.WebApp
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=SaleType}/{action=Index}/{id?}");
             });
         }
     }
