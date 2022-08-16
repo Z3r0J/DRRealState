@@ -1,0 +1,37 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    @using DRRealState.Core.Application.ViewModel.SaleType
+    @model SaveSaleTypeViewModel
+}
+
+ @ViewData["Title"] = "Ventas";
+
+}
+
+<div class="row">
+
+    <div class="col-6 offset-3">
+        <div class="card">
+            <div class="card-header bg-danger text-white text-center">
+                <h4>Esta seguro que desea eliminar: @Model.Name?</h4>
+            </div>
+            <div class="card-body">
+
+                <form method="post" asp-controller="SaleType" asp-action="DeletePost">
+
+                    <input type="hidden" asp-for="Id" />
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                        <a asp-controller="SaleType" asp-action="Index" class="btn btn-warning">Cancelar</a>
+                    </div>
+                  
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</div>
