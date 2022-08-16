@@ -1,0 +1,82 @@
+﻿@using DRRealState.Core.Application.ViewModel.Estate
+@model SaveEstateViewModel
+
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="card card-border">
+                <div class="card-body">
+                    @{
+                        if (Model.Upgrades.Count == 0 || Model.Upgrades == null)
+                        {
+                            <h1 class="text-center">Please, Contact an Administrator for create a new Upgrade before create a new Estate</h1>
+                        }
+                        else if (Model.SaleTypes.Count == 0 || Model.SaleTypes == null)
+                        {
+                            <h1 class="text-center">Please, Contact an Administrator for create a new Sale Type before create a new Estate</h1>
+
+                        }
+                        else if (Model.Properties.Count == 0 || Model.Properties == null)
+                        {
+                            <h1 class="text-center">Please, Contact an Administrator for create a new Estate Type before create a new Estate</h1>
+                        }
+                        else{
+                        <form enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-6">
+                                <input asp-for="BathroomQuantity"/>
+                            </div>
+                            <div class="col-6">
+                            <input asp-for="BedRoomQuantity"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <select asp-for="SaleTypeId" asp-items="@(new SelectList(Model.SaleTypes,"Id","Name"))"></select>
+                            </div>
+                            <div class="col-6">
+                                <select asp-for="UpgradeIds" asp-items="@(new SelectList(Model.Upgrades,"Id","Name"))" multiple size=@Model.Upgrades></select>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <select asp-for="PropertyTypeId" asp-items="@(new SelectList(Model.Properties,"Id","Name"))"></select>
+                            </div>
+                            <div class="col-6">
+                            <input asp-for="Price"/>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <input asp-for="SizeInMeters" />
+                            </div>
+                            <div class="col-6">
+                            <textarea asp-for="Description"></textarea>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <input asp-for="Ubication" />
+                            </div>
+                            <div class="col-6">
+                            <input asp-for="Photos" required/>
+                            </div>
+
+                        </div>
+                    </form>
+                    }
+                }
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+

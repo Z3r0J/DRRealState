@@ -55,7 +55,7 @@ namespace DRRealState.WebApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(vm);
+                return View("Form",vm);
             }
 
 
@@ -78,12 +78,5 @@ namespace DRRealState.WebApp.Controllers
             await _saleTypeServices.Delete(id);
             return RedirectToRoute(new { controller = "SaleType", action = "Index" });
         }
-
-
-
-
-
-
-
     }
 }
