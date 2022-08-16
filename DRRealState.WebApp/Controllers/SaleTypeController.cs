@@ -27,7 +27,7 @@ namespace DRRealState.WebApp.Controllers
         }
 
         //Agregar
-        public async Task<IActionResult> Form()
+        public IActionResult Form()
         {
             return View("Form", new SaveSaleTypeViewModel());
         }
@@ -51,7 +51,7 @@ namespace DRRealState.WebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(SaveSaleTypeViewModel vm, int id)
+        public async Task<IActionResult> Edit(SaveSaleTypeViewModel vm)
         {
             if (!ModelState.IsValid)
             {
@@ -59,7 +59,7 @@ namespace DRRealState.WebApp.Controllers
             }
 
 
-            await _saleTypeServices.Update(vm,id);
+            await _saleTypeServices.Update(vm,vm.Id);
             return RedirectToRoute(new { controller = "SaleType", action = "Index" });
         }
 
