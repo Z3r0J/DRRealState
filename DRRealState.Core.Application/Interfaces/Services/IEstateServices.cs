@@ -9,5 +9,8 @@ namespace DRRealState.Core.Application.Interfaces.Services
     {
         Task<List<EstateViewModel>> GetAllViewModelWithInclude();
         Task<List<EstateViewModel>> FilterAsync(FilterEstateViewModel filter);
+        Task<EstateViewModel> GetViewModelWithIncludeById(int id);
+        Task<List<EstateViewModel>> GetEstateByAgentId(string id);
+        List<EstateViewModel> FilterAgentHouses(List<EstateViewModel> vm, FilterEstateViewModel filter);
     }
 }

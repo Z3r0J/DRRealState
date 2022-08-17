@@ -1,5 +1,7 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
+@import url("https://fonts.googleapis.com/css?family=Bungee");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 a.navbar-brand {
   white-space: normal;
@@ -687,3 +689,350 @@ a:hover {
         color: #006766;
         letter-spacing: 1px;
     }
+
+.container-access {
+    background: #1b1b1b !important;
+    color: white;
+    font-family: "Bungee", cursive !important;
+    text-align: center !important;
+    width: 100vw;
+    height: 100vh;
+}
+
+.a {
+    color: #2aa7cc !important;
+    text-decoration: none !important;
+    font-family: "Bungee", cursive !important;
+}
+
+    .a:hover {
+        color: white !important;
+    }
+
+svg {
+    width: 50vw !important;
+}
+
+.lightblue {
+    fill: #444 !important;
+}
+
+.eye {
+    cx: calc(115px + 30px * var(--mouse-x));
+    cy: calc(50px + 30px * var(--mouse-y));
+}
+
+#eye-wrap {
+    overflow: hidden !important;
+}
+
+.error-text {
+    font-size: 120px !important;
+    font-family: "Bungee", cursive !important;
+}
+
+.alarm {
+    animation: alarmOn 0.5s infinite;
+}
+
+.border-left {
+    border-top: 0px !important;
+    border-left-width: 5px !important;
+    border-right: 0px !important;
+    border-bottom: 0px !important;
+}
+
+.border-morado {
+    border-color: #8834d0 !important;
+}
+
+.text-morado {
+    color: #8834d0 !important;
+}
+
+@keyframes alarmOn {
+    to {
+        fill: darkred;
+    }
+}
+
+.mb-50 {
+    margin-bottom: 50px !important;
+}
+
+.single-property .property-inner .head {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.single-property .property-inner .head .left {
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    padding-right: 10px;
+}
+.single-property .property-inner .head .left .title {
+        font-weight: 600;
+        margin-bottom: 5px;
+        color: #222222;
+}
+.single-property .property-inner .head .left .location {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        position: relative;
+        font-size: 18px;
+        line-height: 30px;
+        color: #666666;
+}
+.single-property .property-inner .head .left .location i {
+        margin-right: 10px;
+}
+.single-property .property-inner .head .left .location i {
+        margin-right: 15px;
+}
+.single-property .property-inner .head .right .type-wrap {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+}
+.single-property .property-inner .head .right .type-wrap .price {
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 1;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        color: #222222;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        margin-bottom: 10px;
+}
+.single-property .property-inner .head .right .type-wrap .type {
+        font-size: 14px;
+        line-height: 24px;
+        letter-spacing: 0.75px;
+        font-weight: 600;
+        padding: 4px 15px 3px;
+        background-color: #004395;
+        color: #ffffff;
+        text-transform: uppercase;
+        border-radius: 4px;
+        margin-right: 15px;
+        position: relative;
+        z-index: 1;
+        display: -webkit-inline-box;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+}
+
+.single-property .property-inner .head .right .type-wrap .type::before {
+        content: "";
+        position: absolute;
+        left: 100%;
+        top: 3px;
+        background-color: #004395;
+        width: 25px;
+        height: 25px;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+        margin-left: -13px;
+        z-index: -1;
+        border-radius: 5px;
+}
+.single-property .property-inner .head .right .type-wrap .type::after {
+        content: "";
+        position: absolute;
+        right: -10px;
+        top: 12px;
+        background-color: #ffffff;
+        width: 7px;
+        height: 7px;
+        border-radius: 50px;
+        z-index: 2;
+}
+.section, .main-wrapper {
+    float: left;
+    width: 100%;
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1499px) {
+    .pb-lg-80 {
+        padding-bottom: 80px !important;
+    }
+}
+
+.pb-100 {
+    padding-bottom: 100px !important;
+}
+
+.single-property .property-inner .image {
+    position: relative;
+    overflow: hidden;
+}
+
+.mb-30 {
+    margin-bottom: 30px !important;
+}
+.single-property .property-inner .image img {
+    width: 100%;
+}
+.single-property .property-inner .content h3, .single-property .property-inner .content h4, .single-property .property-inner .content h5 {
+    margin-bottom: 20px;
+}
+
+.mt-30 {
+    margin-top: 30px !important;
+}
+.single-property .property-inner .content ul {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding: 30px 30px 15px;
+    border: 1px solid #eeeeee;
+}
+.single-property .property-inner .content ul li {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        margin-bottom: 15px;
+        width: 100%;
+        font-size: 14px;
+    }
+    .single-property .property-inner .content ul li .image {
+        margin-right: 10px;
+        margin-bottom: 0;
+        max-width: 30px;
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 30px;
+        flex: 0 0 30px;
+        text-align: center;
+    }
+
+.single-property .property-inner .content ul li .image i {
+            width: auto;
+}
+.single-property .property-inner .content ul.amenities-list li::before {
+        content: "\f0a4";
+        font-family: Fontawesome;
+        color: #004395;
+        margin-right: 10px;
+}
+.single-property .property-inner .content ul {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding: 30px 30px 15px;
+    border: 1px solid #eeeeee;
+}
+    .single-property .property-inner .content ul.amenities-list li {
+        max-width: 50%;
+        -webkit-box-flex: 1;
+        -ms-flex: 1 0 50%;
+        flex: 1 0 50%;
+    }
+
+    .single-property .property-inner .content ul li {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        margin-bottom: 15px;
+        width: 100%;
+        font-size: 14px;
+    }
+
+.image-container {
+    display: inline-block;
+    height: 6em;
+    width: 6em;
+    overflow: hidden;
+    border-radius: 50%;
+    min-width: 5em;
+    border: 1px solid #C3C3C3;
+}
+
+.container-info {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.container-name {
+    display: inline-block;
+    margin: 0 5%;
+}
+.text-name {
+    margin: .2rem 0;
+}
+.text-agency {
+    color: #383838;
+    opacity: .64;
+    display: block;
+}
+.row-25 {
+    margin-left: -25px;
+    margin-right: -25px;
+}
+@media only screen and (min-width: 1200px) and (max-width: 1499px) {
+    .row-25 {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+}
+.agent-image {
+    max-width: 470px;
+}
+
+.agent-image img {
+    width: 100%;
+}
+
+.circular--portrait {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.circular--portrait img {
+        width: 100%;
+        height: auto;
+}
+.agent-content .title {
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.agent-content p {
+    margin-bottom: 25px;
+}

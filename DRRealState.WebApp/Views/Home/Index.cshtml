@@ -2,13 +2,23 @@
 @using DRRealState.Core.Application.ViewModel.PropertiesType
 @using System.Globalization
 @model List<EstateViewModel>
+@using Microsoft.AspNetCore.Http
+@using DRRealState.Core.Application.Helpers
+@using DRRealState.Core.Application.DTOS.Account
+@inject IHttpContextAccessor httpContextAccesor
 
 @{
     ViewData["Title"] = "Home Page";
     CultureInfo.DefaultThreadCurrentCulture = new("es-DO");
+    AuthenticationResponse? user = httpContextAccesor.HttpContext.Session.Get<AuthenticationResponse?>("user");
+
 }
         <div class="row">
-            
+                    @if (!string.IsNullOrEmpty(ViewBag.Message))
+        {
+            <div class="col-lg-12 alert alert-success bg-custom mt-2">@ViewBag.Message</div>
+
+        }
                 <div class="col-lg-3 col-md-5 col-11 mt-5">
 
                     <div class="card rounded rounded-1 shadow shadow-1">
@@ -26,38 +36,39 @@
                             <hr/>
                             <form class="w-100" asp-action="AdvancedFilter" asp-controller="Home">
                                 <div class="card-header bg-custom text-white">Advanced Filter</div>
+                                <h6>Properties Type</h6>
+
                                 @foreach(PropertiesTypeViewModel item in ViewBag.PropertyType){
                                  <div class="form-check mt-2 mb-2">
-                                     <h6>Properties Type</h6>
-                                        <input type="checkbox" class="form-check-input" name="EstateType" id="type-@item.Id" value=@(item.Id) />
+                                     <input type="checkbox" class="form-check-input" name="EstateType" id="type-@item.Id" value=@(item.Id) />
                                         <label class="form-check-label" for="type-@item.Id">@item.Name</label>
-                                        <div class="row mt-2 mb-2">
+                                    </div>
+                                }
+                                                                        <div class="row mt-2 mb-2">
                                             <h6>Quantity</h6>
                                             <div class="col-6">
                                                 <label for="BedQuantity">Bedroom:</label>
-                                                <input type="text" name="BedQuantity" id="BedQuantity" class="form-control">
+                                                <input type="number" name="BedQuantity" id="BedQuantity" class="form-control">
                                             </div>
                                             
                                             <div class="col-6">
                                                 <label for="BathQuantity">Bathroom:</label>
-                                                <input type="text" name="BathQuantity" id="BathQuantity" class="form-control">
+                                                <input type="number" name="BathQuantity" id="BathQuantity" class="form-control">
                                             </div>
                                         </div>
                                         <div class="row mt-2 mb-2">
                                             <h6>Price</h6>
                                             <div class="col-6">
                                                 <label for="MinimumPrice">Minimum:</label>
-                                                <input type="text" name="MinimumPrice" id="MinimumPrice" class="form-control">
+                                                <input type="number" name="MinimumPrice" id="MinimumPrice" class="form-control">
                                             </div>
                                             
                                             <div class="col-6">
                                                 <label for="MaximumPrice">Maximum:</label>
-                                                <input type="text" name="MaximumPrice" id="MaximumPrice" class="form-control">
+                                                <input type="number" name="MaximumPrice" id="MaximumPrice" class="form-control">
                                             </div>
                                         </div>
                                         <button class="btn btn-block text-white wh-50">Search</button>
-                                 </div>
-                                }
                             </form>
 
                         </div>
@@ -75,17 +86,17 @@
                         <div class="card-body"><h4>No Estate(s) actually</h4></div>
                     </div>
 
-                </div>
-            }
-            else{
-            
+        </div>
+    }
+    else{
+
                  @foreach(EstateViewModel item in Model)
                     {
                     <div class="property-item col-lg-4 col-md-6 col-12 mb-40 p-5">
                 <div class="property-inner">
                     <div class="image">
                         <span class="label">Feature</span>
-                        <a href="single-properties.html"><img src="https://htmldemo.net/khonike/khonike/assets/images/property/property-2.jpg" alt=""></a>
+                        <a asp-action="Details" asp-controller="Estate" asp-route-id="@item.Id"><img src="@item.Gallery[0].Url" alt=""></a>
                         <ul class="property-feature">
                             <li>
                                 <span class="area"><i class="fa-solid fa-house"></i> @item.SizeInMeters M<sup>2</sup></span>
@@ -101,7 +112,7 @@
                     </div>
                     <div class="content">
                         <div class="left">
-                            <h3><a href="single-properties.html" class="title">@item.PropertiesType.Name.ToUpper()</a></h3>
+                            <h3><a asp-action="Details" asp-controller="Estate" asp-route-id="@item.Id" class="title">@item.PropertiesType.Name.ToUpper()</a></h3>
                             <span class="location"><i class="fa-solid fa-clipboard-list"></i>&nbsp;&nbsp;Code: @item.Code</span>
                             <span class="location"><i class="fa-solid fa-location-dot"></i>&nbsp;&nbsp;@item.Ubication</span>
                         </div>
@@ -109,6 +120,7 @@
                             <div class="type-wrap">
                                 <span class="price">@item.Price.ToString("C")</span>
                                 <span class="type">@item.SaleType.Name</span>
+                                @if(user!=null && user.Roles.Any(x=>x=="CLIENT")){<a asp-action="Favorite" asp-controller="Home" asp-route-houseId=@item.Id><i class="fas fa-star"></i></a>}
                             </div>
                         </div>
                     </div>

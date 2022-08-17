@@ -8,6 +8,7 @@ namespace DRRealState.Core.Application.ViewModel.UpgradeEstate
 {
     public class UpEstateViewModel
     {
+        public int Id { get; set; }
         public int EstateId { get; set; }
         public string Estate { get; set; }
         public int UpgradeId { get; set; }

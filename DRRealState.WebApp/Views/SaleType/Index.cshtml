@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+@using DRRealState.Core.Application.ViewModel.SaleType
+@model List<SaleTypeViewModel>
+
+<div class=" float-end justify-content-center">
+    <a type="button" class="btn btn-outline-success" asp-controller="SaleType" asp-action="Form"><i class="fa-solid fa-plus"></i></a>
+</div>
+<div class="container-fluid">
+    <table class="table">
+        <thead class="table-striped table-hover" style="background-color: #000; color: white">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Estates Quantity</th>
+                <th scope="col">Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (SaleTypeViewModel item in Model)
+            {
+            <tr>
+                <td scope="row">@item.Id</td>
+                <td>@item.Name</td>
+
+                <td>@item.Description</td>
+                <td>@item.EstatesQuantity</td>
+                <td>
+                    <div class="d-flex">
+                        <a  class="btn btn-sm-primary active text-white" aria-current="page" style="width: 100px; height: 40px" asp-controller="SaleType" asp-action="Edit" asp-route-id="@item.Id"><i class="fa-solid fa-pencil"></i>Edit</a>
+                        <a  class="btn btn-danger text-white" style="width:100px; height: 40px" asp-controller="SaleType" asp-action="Delete" asp-route-id="@item.Id"><i class="fa-solid fa-trash"></i>Delete</a>
+
+                    </div>
+
+                </td>
+
+
+            </tr>
+
+
+            }
+
+
+
+
+        </tbody>
+    </table>
+</div>
+

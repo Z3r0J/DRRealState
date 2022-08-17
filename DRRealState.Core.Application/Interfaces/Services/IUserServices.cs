@@ -16,6 +16,8 @@ namespace DRRealState.Core.Application.Interfaces.Services
         Task<RegisterResponse> RegisterDeveloper(SaveUserViewModel model);
         Task<RegisterResponse> RegisterAgent(SaveUserViewModel model);
         Task<RegisterResponse> RegisterClient(SaveUserViewModel model, string origin);
+        Task<EditResponse> EditAgentAsync(SaveUserViewModel model);
+        Task<List<UserViewModel>> SearchAgentAsync(string Name);
         Task<RegisterResponse> AddPhoto(string PhotoUrl, string Id);
         Task<ActivateResponse> ActivateAsync(ActivateViewModel model);
         Task<ActivateResponse> DeactivateAsync(ActivateViewModel model);

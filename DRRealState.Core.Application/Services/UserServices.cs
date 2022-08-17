@@ -30,7 +30,6 @@ namespace DRRealState.Core.Application.Services
             return response;
         }
         
-
         public async Task<AuthenticationResponse> LoginWebAppAsync(LoginViewModel model) {
 
             AuthenticationRequest request = _mapper.Map<AuthenticationRequest>(model);
@@ -64,6 +63,16 @@ namespace DRRealState.Core.Application.Services
 
         }
 
+        public async Task<EditResponse> EditAgentAsync(SaveUserViewModel model) {
+        
+            EditRequest request = _mapper.Map<EditRequest>(model);
+
+            EditResponse response = await _accountServices.EditAgentAsync(request);
+
+            return response;
+
+        }
+
         public async Task<string> ConfirmEmailAsync(string userId, string token) {
 
             return await _accountServices.ConfirmAccountAsync(userId, token);
@@ -90,6 +99,36 @@ namespace DRRealState.Core.Application.Services
 
             return _mapper.Map<List<UserViewModel>>(response);
         
+        }
+
+        public async Task<List<UserViewModel>> SearchAgentAsync(string Name) {
+
+            var response = await GetAllUserAsync();
+            var search = response.Select(x => new {
+                name = $"{x.FirstName} {x.LastName}",
+                x.Roles,
+                x.IsVerified,
+                x.UserName,
+                x.Email,
+                x.FirstName,
+                x.LastName,
+                x.Phone,
+                x.PhotoUrl,
+                x.Id,
+                x.Code
+            }).Where(x => x.name.Trim().Contains(Name.Trim()) && x.Roles.Any(x => x == "AGENT") && x.IsVerified == true).ToList();
+
+            return search.Select(x=>new UserViewModel() { Email = x.Email,
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                Id = x.Id,
+                IsVerified = x.IsVerified,
+                Phone = x.Phone,
+                PhotoUrl = x.PhotoUrl,
+                Roles = x.Roles,
+                UserName = x.UserName,
+                Code = x.Code
+            }).ToList();
         }
         public async Task<ActivateResponse> ActivateAsync(ActivateViewModel model)
         {

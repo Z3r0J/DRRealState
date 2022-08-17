@@ -1,0 +1,98 @@
+﻿@using DRRealState.Core.Application.ViewModel.User
+@using DRRealState.Core.Application.ViewModel.Estate
+@using System.Globalization
+@model UserViewModel
+
+@{
+    ViewData["Title"] = $"Details of {Model.FirstName} {Model.LastName}";
+        CultureInfo.DefaultThreadCurrentCulture = new("es-DO");
+}
+
+<div class="agent-section section pt-100 pt-lg-80 pt-md-70 pt-sm-60 pt-xs-50 pb-70 pb-lg-50 pb-md-40 pb-sm-30 pb-xs-20 mt-4">
+        <div class="row row-25">
+            <div class="col-lg-5 col-12 mb-30">
+                <div class="agent-image">
+                    <img src="@(string.IsNullOrEmpty(Model.PhotoUrl)?"../../Images/user.png":@Model.PhotoUrl)"/>
+                </div>
+            </div>
+            <div class="col-lg-7 col-12">
+                <div class="agent-content">
+                    <h4 class="title">@Model.FirstName @Model.LastName</h4>
+                    <p>
+                        @Model.FirstName @Model.LastName is an Agent in DR REAL STATE Agency with a lot of experience in this area.
+                        He achive success with his honesty,determination, hardwork and commetment.
+                    </p>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et, totam?
+                    </p>
+
+                    <div class="row">
+                        <div class="col-7">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Personal Info</h4>
+                                    <span class="fw-bold h6"> <i class="fas fa-phone me-2"></i>Phone: <a href="tel:@Model.Phone" class="fw-normal h6">@Model.Phone</a></span>
+                                    <br/>
+                                    <br />
+                                    <span class="fw-bold h6"> <i class="fas fa-envelope me-2"></i>Email: <a href="mailto:@Model.Email" class="fw-normal h6">@Model.Email</a></span>
+                                    <br/>
+                                    <br />
+                                    <span class="fw-bold h6"> <i class="fab fa-whatsapp me-2 h6"></i>Whatsapp: <a href="https://wa.me/@(Convert.ToString(Model.Phone).Replace("+","").Replace(" ",""))?text=Me+interesa+conocer+acerca+de+usted+te+vi+en+DR+REAL+STATE+WEBSITE." class="fw-normal h6">@Model.Phone</a></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <h5 class="text-center">@Model.FirstName @Model.LastName's Estates</h5>
+    @if (ViewBag.Estate == null || ViewBag.Estate.Count == 0) { 
+    <div class="col-12">
+        <div class="alert alert-danger alert-dismissible h5">This agent hasn't Houses</div>
+    </div>
+    }
+    else
+    {
+        @foreach(EstateViewModel item in ViewBag.Estate)
+                    {
+                    <div class="property-item col-lg-4 col-md-6 col-12 mb-40 p-5">
+                <div class="property-inner">
+                    <div class="image">
+                        <span class="label">Feature</span>
+                        <a asp-action="Details" asp-controller="Estate" asp-route-id="@item.Id"><img src="@item.Gallery[0].Url" alt=""></a>
+                        <ul class="property-feature">
+                            <li>
+                                <span class="area"><i class="fa-solid fa-house"></i> @item.SizeInMeters M<sup>2</sup></span>
+                            </li>
+                            <li>
+                                <span class="bed"><i class="fa-solid fa-bed"></i> @item.BedRoomQuantity</span>
+                            </li>
+                            <li>
+                                <span class="bath"><i class="fa-solid fa-bath"></i> @item.BathroomQuantity</span>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                    <div class="content">
+                        <div class="left">
+                            <h3><a asp-action="Details" asp-controller="Estate" asp-route-id="@item.Id" class="title">@item.PropertiesType.Name.ToUpper()</a></h3>
+                            <span class="location"><i class="fa-solid fa-clipboard-list"></i>&nbsp;&nbsp;Code: @item.Code</span>
+                            <span class="location"><i class="fa-solid fa-location-dot"></i>&nbsp;&nbsp;@item.Ubication</span>
+                        </div>
+                        <div class="right">
+                            <div class="type-wrap">
+                                <span class="price">@item.Price.ToString("C")</span>
+                                <span class="type">@item.SaleType.Name</span>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+    }
+
+    }
+</div>
+</div>
+

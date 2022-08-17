@@ -1,0 +1,119 @@
+﻿@using DRRealState.Core.Application.ViewModel.Estate
+@using System.Globalization
+@model EstateViewModel
+
+@{
+    ViewBag.Title = $"Details {Model.PropertiesType.Name} in {Model.Ubication}";
+    CultureInfo.DefaultThreadCurrentCulture = new("es-DO");
+    var routeUrl = Url.ActionLink().ToString();
+    var url = $"{routeUrl}";
+
+}
+
+<div class="property-section section pt-100 pt-lg-80 pt-md-70 pt-sm-60 pt-xs-50 pb-100 pb-lg-80 pb-md-70 pb-sm-60 pb-xs-50 mt-4">
+<div class="row">
+    <div class="col-lg-8 col-12 order-1 order-lg-2 mb-sm-50 mb-xs-50">
+        <div class="row">
+            <div class="single-property col-12 mb-50">
+                <div class="property-inner">
+                    <div class="head">
+                        <div class="left">
+                            <h1 class="title">@Model.PropertiesType.Name</h1>
+                            <span class="location"><i class="fa-solid fa-location-dot"></i>&nbsp;&nbsp;@Model.Ubication</span>
+                        </div>
+                        <div class="right">
+                            <div class="type-wrap">
+                                <span class="price">@Model.Price.ToString("C")</span>
+                                <span class="type">@Model.SaleType.Name</span>
+                            </div>
+                            </div>
+                   </div>
+                   <div class="image mb-30">
+                       <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+      @for(int i=0;i<Model.Gallery.Count;i++){
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="@i" class="@(i==0?"active":"")" aria-current="true" aria-label="Slide @i"></button>
+}  
+</div>
+  <div class="carousel-inner">
+      @for(int i=0;i<Model.Gallery.Count;i++){
+    <div class="@(i==0?"carousel-item active":"carousel-item")" data-bs-interval="10000">
+      <img src="@Model.Gallery[i].Url" class="d-block w-100" alt="...">
+    </div>
+    }
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+                   </div>
+                   <div class="content">
+                       <h4>Description</h4>
+                       <p>@Model.Description</p>
+                       <div class="row mt-30 mb-30">
+                       <div class="col-md-5 col-12 mb-xs-30">
+                           <h3>Information</h3>
+                           <ul class="feature-list border border-dark">
+                               <li><div class="image"><i class="fa-solid fa-house"></i></div>Area: @Model.SizeInMeters M<sup>2</sup></li>
+                               <li><div class="image"><i class="fa-solid fa-bed"></i></div>Bedroom: @Model.BedRoomQuantity</li>
+                               <li><div class="image"><i class="fa-solid fa-bath"></i></div>Bathroom: @Model.BathroomQuantity</li>
+                           </ul>
+                       </div>
+                   <div class="col-md-7 col-12">
+                    <h3>Upgrade</h3>
+                   <ul class="amenities-list border border-dark">
+                       @if(Model.Upgrade.Count==0){
+                    <li>Not Upgrade</li>
+                    }
+                    else{
+                    @foreach(var up in Model.Upgrade){
+                        <li>@up.Name</li>
+                    }
+                  }
+                   </ul>
+                          </div>
+                   </div>
+                   </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-12 order-2 order-lg-1">
+        <div class="card">
+            <div class="card-header bg-custom text-white text-center fw-bold">Agent</div>
+            <div class="card-body">
+            <div class="container-info">
+            <div class="image-container">
+            <img src="@(ViewBag.Agent.PhotoUrl==null?"../../Images/user.png":ViewBag.Agent.PhotoUrl)" class="pane-img"/>
+            </div>
+            <div class="container-name">
+                            <h6 class="text-name">@ViewBag.Agent.FirstName @ViewBag.Agent.LastName</h6>
+                            <span class="text-agency">DR Real Estate</span>
+            </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-6">
+                    <h6>Phone: </h6>
+                    <a href="tel:@ViewBag.Agent.Phone"style="font-size:12px!important;"><i class="fa-solid fa-phone"></i>&nbsp;&nbsp;@ViewBag.Agent.Phone</a>
+                </div>
+                <div class="col-6">
+                    <h6>Email: </h6>
+                    <a href="mailto:@ViewBag.Agent.Email" style="font-size:12px!important;"><i class="fa-solid fa-envelope"></i>&nbsp;&nbsp;@ViewBag.Agent.Email</a>
+                </div>
+                <div class="row mt-3">
+                    <h6>WhatsApp: </h6>
+                    <div class="col-12">
+                        <a href="https://wa.me/@(Convert.ToString(ViewBag.Agent.Phone).Replace("+","").Replace(" ",""))?text=Me+interesa+conocer+acerca+de+esta+propiedad. @url" target="_blank"><i class="fa-brands fa-whatsapp bg-success rounded rounded-circle fs-4"></i>&nbsp;&nbsp;@ViewBag.Agent.Phone</a>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

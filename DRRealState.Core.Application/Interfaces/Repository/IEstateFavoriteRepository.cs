@@ -9,6 +9,6 @@ namespace DRRealState.Core.Application.Interfaces.Repository
 {
     public interface IEstateFavoriteRepository : IGenericRepository<EstateFavorite>
     {
-
+        Task<List<EstateFavorite>> GetAllWithIncludeAsync();
     }
 }

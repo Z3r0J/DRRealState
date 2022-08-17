@@ -1,7 +1,9 @@
 ﻿using DRRealState.Core.Application.DTOS.Account;
 using DRRealState.Core.Application.Helpers;
 using DRRealState.Core.Application.Interfaces.Services;
+using DRRealState.Core.Application.ViewModel.Estate;
 using DRRealState.Core.Application.ViewModel.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -15,21 +17,21 @@ namespace DRRealState.WebApp.Controllers
     public class UserController : Controller
     {
         private readonly IUserServices _userServices;
-        public UserController(IUserServices userServices)
+        private readonly IEstateFavoriteServices _favoriteServices;
+        private readonly IPropertiesTypeServices _propertiesTypeServices;
+        public UserController(IUserServices userServices,IEstateFavoriteServices favoriteServices, IPropertiesTypeServices propertiesTypeServices)
         {
             _userServices = userServices;
+            _favoriteServices = favoriteServices;
+            _propertiesTypeServices = propertiesTypeServices;
         }
 
         public IActionResult Login()
         {
-
-
             return View(new LoginViewModel());
         }
         public IActionResult Register()
         {
-
-
             return View(new SaveUserViewModel());
         }
 
@@ -89,6 +91,11 @@ namespace DRRealState.WebApp.Controllers
 
         }
 
+        public IActionResult AccessDenied() {
+
+            return View();
+        }
+
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel vm)
         {
@@ -108,21 +115,60 @@ namespace DRRealState.WebApp.Controllers
                 return View(vm);
             }
 
+            HttpContext.Session.Set<AuthenticationResponse>("user", response);
 
             if (response.Roles.Any(x=>x=="ADMINISTRATOR"))
             {
-                return RedirectToRoute(new { action = "Administrator", controller = "Home" });
+                return RedirectToRoute(new { action = "Index", controller = "Administrator" });
             }
             
             else if (response.Roles.Any(x=>x=="AGENT"))
             {
-                return RedirectToRoute(new { action = "Agent", controller = "Home" });
+                return RedirectToRoute(new { action = "Index", controller = "Agent" });
             }
 
-            HttpContext.Session.Set<AuthenticationResponse>("user", response);
-
-
             return RedirectToRoute(new { action="Index",controller="Home"});
+        }
+
+        [Authorize(Roles="CLIENT")]
+        public async Task<IActionResult> MyFavorite() {
+
+            var clientId = HttpContext.Session.Get<AuthenticationResponse>("user").Id;
+
+            var house = await _favoriteServices.GetAllViewModelWithInclude();
+
+            ViewBag.PropertyType = await _propertiesTypeServices.GetAllViewModel();
+
+            return View(house.Where(x=>x.ClientId == clientId).ToList());
+        
+        }
+        [HttpPost]
+        [Authorize(Roles="CLIENT")]
+        public async Task<IActionResult> SearchFavoriteByCode(string Code) {
+
+            var clientId = HttpContext.Session.Get<AuthenticationResponse>("user").Id;
+
+            var house = await _favoriteServices.GetAllViewModelWithInclude();
+
+            ViewBag.PropertyType = await _propertiesTypeServices.GetAllViewModel();
+
+            return View("MyFavorite",house.Where(x=>x.ClientId == clientId && x.Estate.Code == Code).ToList());
+        
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "CLIENT")]
+
+        public async Task<IActionResult> SearchAdvancedFavorite(FilterEstateViewModel filter) {
+
+            var clientId = HttpContext.Session.Get<AuthenticationResponse>("user").Id;
+
+            var house = await _favoriteServices.GetAllViewModelWithInclude();
+
+            ViewBag.PropertyType = await _propertiesTypeServices.GetAllViewModel();
+
+            return View("MyFavorite",_favoriteServices.AdvancedFilter(house.Where(x => x.ClientId == clientId).ToList(), filter));
+
         }
 
         public async Task<IActionResult> ConfirmEmail(string userId, string token)
