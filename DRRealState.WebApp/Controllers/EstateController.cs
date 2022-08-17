@@ -47,6 +47,7 @@ namespace DRRealState.WebApp.Controllers
         public async Task<IActionResult> MyProperty() {
 
             var agentId = HttpContext.Session.Get<AuthenticationResponse>("user").Id;
+            ViewBag.PropertyType = await _propertiesTypeServices.GetAllViewModel();
 
             return View(await _estateServices.GetEstateByAgentId(agentId));
 
@@ -66,24 +67,9 @@ namespace DRRealState.WebApp.Controllers
         }
 
         [Authorize(Roles = "AGENT")]
-        public async Task<IActionResult> Edit(int id) {
-
-            var agentId = HttpContext.Session.Get<AuthenticationResponse>("user").Id;
-
-            var estate = await _estateServices.GetViewModelWithIncludeById(id);
-
-            var mapper = _mapper.Map<SaveEstateViewModel>(estate);
-            mapper.Upgrades = await _upgradeServices.GetAllViewModel();
-            mapper.Properties = await _propertiesTypeServices.GetAllViewModel();
-            mapper.SaleTypes = await _saleTypeServices.GetAllViewModel();
-
-
-            return mapper.AgentId==agentId?View(mapper):RedirectToAction("MyProperty");
-        }
-
-        [Authorize(Roles = "AGENT")]
         [HttpPost]
-        public async Task<IActionResult> Create(SaveEstateViewModel model) {
+        public async Task<IActionResult> Create(SaveEstateViewModel model)
+        {
 
             if (!ModelState.IsValid)
             {
@@ -99,7 +85,7 @@ namespace DRRealState.WebApp.Controllers
 
             var Houses = await _estateServices.GetAllViewModel();
 
-            if (Houses.Any(x=>x.Code==model.Code))
+            if (Houses.Any(x => x.Code == model.Code))
             {
                 ModelState.AddModelError("Description", "Something went wrong try again");
 
@@ -112,7 +98,7 @@ namespace DRRealState.WebApp.Controllers
             }
 
 
-            if (model.Photos.Count>4)
+            if (model.Photos.Count > 4)
             {
                 ModelState.AddModelError("Photos", "Please select 1 to 4 photos no more than 4.");
                 model.Upgrades = await _upgradeServices.GetAllViewModel();
@@ -129,14 +115,15 @@ namespace DRRealState.WebApp.Controllers
 
                 foreach (int UpId in model.UpgradeIds)
                 {
-                    SaveUpEstateViewModel vm = new() { EstateId = estate.Id,UpgradeId =UpId};
+                    SaveUpEstateViewModel vm = new() { EstateId = estate.Id, UpgradeId = UpId };
 
                     await _upEstateServices.Add(vm);
                 }
 
                 foreach (var file in model.Photos)
                 {
-                    SaveGalleryViewModel vm = new() {
+                    SaveGalleryViewModel vm = new()
+                    {
                         EstateId = estate.Id,
                         Name = file.FileName,
                         Url = UploadFile(file, estate.Id.ToString())
@@ -147,6 +134,177 @@ namespace DRRealState.WebApp.Controllers
             }
 
             return RedirectToAction("MyProperty");
+        }
+
+        [Authorize(Roles = "AGENT")]
+        public async Task<IActionResult> Edit(int id) {
+
+            var agentId = HttpContext.Session.Get<AuthenticationResponse>("user").Id;
+
+            var estate = await _estateServices.GetViewModelWithIncludeById(id);
+
+            var mapper = _mapper.Map<SaveEstateViewModel>(estate);
+            mapper.Upgrades = await _upgradeServices.GetAllViewModel();
+            mapper.Properties = await _propertiesTypeServices.GetAllViewModel();
+            mapper.SaleTypes = await _saleTypeServices.GetAllViewModel();
+
+
+            return mapper.AgentId==agentId?View(mapper):RedirectToAction("MyProperty");
+        }
+        [Authorize(Roles = "AGENT")]
+        [HttpPost]
+        public async Task<IActionResult> Edit(SaveEstateViewModel model) {
+
+            if (!ModelState.IsValid)
+            {
+                model.Upgrades = await _upgradeServices.GetAllViewModel();
+                model.Properties = await _propertiesTypeServices.GetAllViewModel();
+                model.SaleTypes = await _saleTypeServices.GetAllViewModel();
+
+                return View(model);
+            }
+            if (model.Photos!=null)
+            {
+                if (model.Photos.Count > 4)
+                {
+                    ModelState.AddModelError("Photos", "Please select 1 to 4 photos no more than 4.");
+                    model.Upgrades = await _upgradeServices.GetAllViewModel();
+                    model.Properties = await _propertiesTypeServices.GetAllViewModel();
+                    model.SaleTypes = await _saleTypeServices.GetAllViewModel();
+
+                    return View(model);
+                }
+
+                else
+                {
+                    await _estateServices.Update(model, model.Id);
+
+                    if (model.UpgradeIds.Count > 0)
+                    {
+                        var get = await _upEstateServices.GetAllViewModel();
+                        var filter = get.Where(x => x.EstateId == model.Id).ToList();
+
+                        if (filter.Count > 0)
+                        {
+                            foreach (var item in filter)
+                            {
+                                await _upEstateServices.Delete(item.Id);
+                            }
+                        }
+
+                        foreach (int UpId in model.UpgradeIds)
+                        {
+                            await _upEstateServices.Add(new() { EstateId = model.Id, UpgradeId = UpId });
+                        }
+                    }
+                    foreach (var file in model.Photos)
+                    {
+                        SaveGalleryViewModel vm = new()
+                        {
+                            EstateId = model.Id,
+                            Name = file.FileName,
+                            Url = UploadFile(file, model.Id.ToString())
+                        };
+                        await _galleryServices.Add(vm);
+                    }
+                }
+            }
+
+            else
+                {
+                    await _estateServices.Update(model, model.Id);
+
+                    if (model.UpgradeIds.Count > 0)
+                    {
+                        var get = await _upEstateServices.GetAllViewModel();
+                        var filter = get.Where(x => x.EstateId == model.Id).ToList();
+
+                        if (filter.Count > 0)
+                        {
+                            foreach (var item in filter)
+                            {
+                                await _upEstateServices.Delete(item.Id);
+                            }
+                        }
+
+                        foreach (int UpId in model.UpgradeIds)
+                        {
+                            await _upEstateServices.Add(new() { EstateId = model.Id, UpgradeId = UpId });
+                        }
+                    }
+                }
+
+            return RedirectToRoute(new {action="MyProperty",controller="Estate" });
+        }
+
+        [Authorize(Roles = "AGENT")]
+        public async Task<IActionResult> Delete(int id) {
+            var agentId = HttpContext.Session.Get<AuthenticationResponse>("user").Id;
+
+            var estate = await _estateServices.GetByIdSaveViewModel(id);
+
+            return estate.AgentId == agentId ? View(estate): RedirectToAction("MyProperty");
+
+        }
+
+        [Authorize(Roles = "AGENT")]
+        [HttpPost]
+        public async Task<IActionResult> Delete(SaveEstateViewModel model) {
+
+            await _estateServices.Delete(model.Id);
+
+            string basePath = $"/Images/Estates/{model.Id}";
+            string path = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot{basePath}");
+
+            if (Directory.Exists(path))
+            {
+                DirectoryInfo directory = new(path);
+
+                foreach (FileInfo file in directory.GetFiles())
+                {
+                    file.Delete();
+                }
+                foreach (DirectoryInfo folder in directory.GetDirectories())
+                {
+                    folder.Delete(true);
+                }
+
+                Directory.Delete(path);
+            }
+
+            return RedirectToRoute(new { action = "MyProperty", controller = "Estate" });
+
+        }
+
+
+        [Authorize(Roles = "AGENT")]
+        [HttpPost]
+        public async Task<IActionResult> SearchAdvancedAgent(FilterEstateViewModel filter, string view)
+        {
+
+            var agentId = HttpContext.Session.Get<AuthenticationResponse>("user").Id;
+            ViewBag.PropertyType = await _propertiesTypeServices.GetAllViewModel();
+
+
+            return View(view, _estateServices.FilterAgentHouses(await _estateServices.GetEstateByAgentId(agentId), filter));
+        }
+
+        [Authorize(Roles = "AGENT")]
+        [HttpPost]
+        public async Task<IActionResult> FilterByCodeAgentHouse(string Code, string view)
+        {
+
+            if (string.IsNullOrEmpty(Code))
+            {
+                return RedirectToAction(view);
+            }
+
+            var agentId = HttpContext.Session.Get<AuthenticationResponse>("user").Id;
+            var houses = await _estateServices.GetEstateByAgentId(agentId);
+            ViewBag.PropertyType = await _propertiesTypeServices.GetAllViewModel();
+
+
+            return View(view, houses.Where(x => x.Code == Code).ToList());
         }
 
         public async Task<IActionResult> Details(int Id)

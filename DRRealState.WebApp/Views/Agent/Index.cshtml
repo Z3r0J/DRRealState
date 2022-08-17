@@ -1,5 +1,6 @@
 ﻿@using DRRealState.Core.Application.ViewModel.Estate
 @using System.Globalization
+@using DRRealState.Core.Application.ViewModel.PropertiesType
 @model List<EstateViewModel>
 @{
     ViewData["Title"] = "Index";
@@ -7,6 +8,67 @@
 }
 
 <div class="row">
+
+                        <div class="col-lg-3 col-md-5 col-11 mt-5">
+
+                    <div class="card rounded rounded-1 shadow shadow-1">
+
+                        <div class="card-header bg-custom text-white text-center">Filter</div>
+
+                        <div class="card-body">
+
+                            <form class="w-100" asp-action="FilterByCodeAgentHouse" asp-controller="Agent">
+                                
+                            <h5 class="card-title">Filter By Code: </h5>
+                                <input type="text" class="form-control" name="Code" id="Code">
+                                <input type="hidden" value="Index" name="view" id="view"/>
+                                <button class="btn btn-block text-white wh-50">Search</button>
+                            </form>
+                            <hr/>
+                            <form class="w-100" asp-action="SearchAdvancedAgent" asp-controller="Agent">
+                                <div class="card-header bg-custom text-white">Advanced Filter</div>
+                                <h6>Properties Type</h6>
+
+                                @foreach(PropertiesTypeViewModel item in ViewBag.PropertyType){
+                                 <div class="form-check mt-2 mb-2">
+                                     <input type="checkbox" class="form-check-input" name="EstateType" id="type-@item.Id" value=@(item.Id) />
+                                        <label class="form-check-label" for="type-@item.Id">@item.Name</label>
+                                    </div>
+                                }
+                                                                        <div class="row mt-2 mb-2">
+                                            <h6>Quantity</h6>
+                                            <div class="col-6">
+                                                <label for="BedQuantity">Bedroom:</label>
+                                                <input type="number" name="BedQuantity" id="BedQuantity" class="form-control">
+                                            </div>
+                                            
+                                            <div class="col-6">
+                                                <label for="BathQuantity">Bathroom:</label>
+                                                <input type="number" name="BathQuantity" id="BathQuantity" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2 mb-2">
+                                            <h6>Price</h6>
+                                            <div class="col-6">
+                                                <label for="MinimumPrice">Minimum:</label>
+                                                <input type="number" name="MinimumPrice" id="MinimumPrice" class="form-control">
+                                            </div>
+                                            
+                                            <div class="col-6">
+                                                <label for="MaximumPrice">Maximum:</label>
+                                                <input type="number" name="MaximumPrice" id="MaximumPrice" class="form-control">
+                                            </div>
+                                        </div>
+                                        <input type="hidden" value="Index" name="view" id="view"/>
+                                        <button class="btn btn-block text-white wh-50">Search</button>
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
      @if(Model.Count==0 || Model == null ){
 
                 <div class="col-6 mt-5 offset-3">

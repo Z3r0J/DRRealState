@@ -1,6 +1,7 @@
 ﻿using DRRealState.Core.Application.DTOS.Account;
 using DRRealState.Core.Application.Helpers;
 using DRRealState.Core.Application.Interfaces.Services;
+using DRRealState.Core.Application.ViewModel.Estate;
 using DRRealState.Core.Application.ViewModel.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -16,18 +17,49 @@ namespace DRRealState.WebApp.Controllers
     {
         private readonly IUserServices _userServices;
         private readonly IEstateServices _estateServices;
-        public AgentController(IUserServices userServices,IEstateServices estateServices)
+        private readonly IPropertiesTypeServices _propertiesTypeServices;
+        public AgentController(IUserServices userServices,IEstateServices estateServices, IPropertiesTypeServices propertiesTypeServices)
         {
             _userServices = userServices;
             _estateServices = estateServices;
+            _propertiesTypeServices = propertiesTypeServices;
         }
         [Authorize(Roles = "AGENT")]
         public async Task<IActionResult> Index()
         {
             var agentId = HttpContext.Session.Get<AuthenticationResponse>("user").Id;
+            ViewBag.PropertyType = await _propertiesTypeServices.GetAllViewModel();
+
 
             return View(await _estateServices.GetEstateByAgentId(agentId));
         }
+        [Authorize(Roles = "AGENT")]
+        [HttpPost]
+        public async Task<IActionResult> SearchAdvancedAgent(FilterEstateViewModel filter,string view) {
+
+            var agentId = HttpContext.Session.Get<AuthenticationResponse>("user").Id;
+            ViewBag.PropertyType = await _propertiesTypeServices.GetAllViewModel();
+
+
+            return View(view, _estateServices.FilterAgentHouses(await _estateServices.GetEstateByAgentId(agentId), filter));
+        }        
+        
+        [Authorize(Roles = "AGENT")]
+        [HttpPost]
+        public async Task<IActionResult> FilterByCodeAgentHouse(string Code, string view) {
+
+            if (string.IsNullOrEmpty(Code)) {
+                return RedirectToAction(view);
+            }
+
+            var agentId = HttpContext.Session.Get<AuthenticationResponse>("user").Id;
+            var houses = await _estateServices.GetEstateByAgentId(agentId);
+            ViewBag.PropertyType = await _propertiesTypeServices.GetAllViewModel();
+
+
+            return View(view, houses.Where(x=>x.Code==Code).ToList());
+        }
+
         [Authorize(Roles = "AGENT")]
         public async Task<IActionResult> Profile() {
 

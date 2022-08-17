@@ -1,4 +1,5 @@
 ﻿@using DRRealState.Core.Application.ViewModel.EstateFavorite
+@using DRRealState.Core.Application.ViewModel.PropertiesType
 @model List<EstateFavoriteViewModel>
 
 @{
@@ -6,6 +7,63 @@
 }
 
 <div class="row">
+                    <div class="col-lg-3 col-md-5 col-11 mt-5">
+
+                    <div class="card rounded rounded-1 shadow shadow-1">
+
+                        <div class="card-header bg-custom text-white text-center">Filter</div>
+
+                        <div class="card-body">
+
+                            <form class="w-100" asp-action="SearchFavoriteByCode" asp-controller="User">
+                                
+                            <h5 class="card-title">Filter By Code: </h5>
+                                <input type="text" class="form-control" name="Code" id="Code">
+                                <button class="btn btn-block text-white wh-50">Search</button>
+                            </form>
+                            <hr/>
+                            <form class="w-100" asp-action="SearchAdvancedFavorite" asp-controller="User">
+                                <div class="card-header bg-custom text-white">Advanced Filter</div>
+                                <h6>Properties Type</h6>
+
+                                @foreach(PropertiesTypeViewModel item in ViewBag.PropertyType){
+                                 <div class="form-check mt-2 mb-2">
+                                     <input type="checkbox" class="form-check-input" name="EstateType" id="type-@item.Id" value=@(item.Id) />
+                                        <label class="form-check-label" for="type-@item.Id">@item.Name</label>
+                                    </div>
+                                }
+                                                                        <div class="row mt-2 mb-2">
+                                            <h6>Quantity</h6>
+                                            <div class="col-6">
+                                                <label for="BedQuantity">Bedroom:</label>
+                                                <input type="number" name="BedQuantity" id="BedQuantity" class="form-control">
+                                            </div>
+                                            
+                                            <div class="col-6">
+                                                <label for="BathQuantity">Bathroom:</label>
+                                                <input type="number" name="BathQuantity" id="BathQuantity" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2 mb-2">
+                                            <h6>Price</h6>
+                                            <div class="col-6">
+                                                <label for="MinimumPrice">Minimum:</label>
+                                                <input type="number" name="MinimumPrice" id="MinimumPrice" class="form-control">
+                                            </div>
+                                            
+                                            <div class="col-6">
+                                                <label for="MaximumPrice">Maximum:</label>
+                                                <input type="number" name="MaximumPrice" id="MaximumPrice" class="form-control">
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-block text-white wh-50">Search</button>
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div>
          @if(Model.Count==0 || Model == null ){
 
                 <div class="col-6 mt-5">
@@ -24,7 +82,7 @@ else{
                 <div class="property-inner">
                     <div class="image">
                         <span class="label">Feature</span>
-                        <a href="single-properties.html"><img src="@fvm.Estate.Gallery[0].Url" alt=""></a>
+                        <a asp-action="Details" asp-controller="Estate" asp-route-id="@fvm.Id"><img src="@fvm.Estate.Gallery[0].Url" alt=""></a>
                         <ul class="property-feature">
                             <li>
                                 <span class="area"><i class="fa-solid fa-house"></i> @fvm.Estate.SizeInMeters M<sup>2</sup></span>
@@ -40,7 +98,7 @@ else{
                     </div>
                     <div class="content">
                         <div class="left">
-                            <h3><a href="single-properties.html" class="title">@fvm.Estate.PropertiesType.Name.ToUpper()</a></h3>
+                            <h3><a asp-action="Details" asp-controller="Estate" asp-route-id="@fvm.Id" class="title">@fvm.Estate.PropertiesType.Name.ToUpper()</a></h3>
                             <span class="location"><i class="fa-solid fa-clipboard-list"></i>&nbsp;&nbsp;Code: @fvm.Estate.Code</span>
                             <span class="location"><i class="fa-solid fa-location-dot"></i>&nbsp;&nbsp;@fvm.Estate.Ubication</span>
                         </div>

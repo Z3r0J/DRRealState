@@ -32,31 +32,40 @@
                             <div class="col-6">
                             <label asp-for="BathroomQuantity" class="form-label">Bathroom Quantity: </label>
                             <input type="number" asp-for="BathroomQuantity" class="form-control w-100"/>
+                            <span asp-validation-for="BathroomQuantity" class="text-danger"></span>
                             </div>
                             <div class="col-6">
                             <label asp-for="BathroomQuantity" class="form-label">Bedroom Quantity: </label>
                             <input type="number" asp-for="BedRoomQuantity" class="form-control w-100"/>
+                            <span asp-validation-for="BedRoomQuantity" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="row mt-3">
                             <div class="col-6">
                             <label asp-for="SaleTypeId" class="form-label">Sale Type: </label>
-                                <select asp-for="SaleTypeId" asp-items="@(new SelectList(Model.SaleTypes,"Id","Name"))" class="form-control w-100"></select>
+                                <select asp-for="SaleTypeId" asp-items="@(new SelectList(Model.SaleTypes,"Id","Name"))" class="form-control w-100">
+                                <option value="0">Select a Sale Type</option>
+                                </select>
+                                <span asp-validation-for="SaleTypeId" class="text-danger"></span>
                             </div>
                             <div class="col-6">
                             <label asp-for="UpgradeIds" class="form-label">Upgrade: </label>
                                 <select asp-for="UpgradeIds" asp-items="@(new SelectList(Model.Upgrades,"Id","Name"))" multiple size="@Model.Upgrades" class="form-control w-100"></select>
+                                <span asp-validation-for="UpgradeIds" class="text-danger"></span>
                             </div>
-
                         </div>
                         <div class="row mt-3">
                             <div class="col-6">
                             <label asp-for="PropertyTypeId" class="form-label">Estate Type: </label>
-                                <select asp-for="PropertyTypeId" asp-items="@(new SelectList(Model.Properties,"Id","Name"))" class="form-control w-100"></select>
+                                <select asp-for="PropertyTypeId" asp-items="@(new SelectList(Model.Properties,"Id","Name"))" class="form-control w-100">
+                                <option value="0">Select an Estate Type</option>
+                                <span asp-validation-for="PropertyTypeId" class="text-danger"></span>
+                                </select>
                             </div>
                             <div class="col-6">
                             <label asp-for="Price" class="form-label">Price: </label>
                             <input type="number" asp-for="Price" class="form-control w-100"/>
+                            <span asp-validation-for="Price" class="text-danger"></span>
                             </div>
 
                         </div>
@@ -64,10 +73,12 @@
                             <div class="col-6">
                             <label asp-for="SizeInMeters" class="form-label">Size in m<sup>2</sup>: </label>
                                 <input type="number" asp-for="SizeInMeters" class="form-control w-100"/>
+                                <span asp-validation-for="SizeInMeters" class="text-danger"></span>
                             </div>
                             <div class="col-6">
                             <label asp-for="Description" class="form-label">Description: </label>
                             <textarea asp-for="Description" class="form-control w-100"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
                             </div>
 
                         </div>
@@ -75,10 +86,13 @@
                             <div class="col-6">
                             <label asp-for="Ubication" class="form-label">Location: </label>
                                 <input asp-for="Ubication" class="form-control w-100"/>
+                                <span asp-validation-for="Ubication" class="text-danger"></span>
+
                             </div>
                             <div class="col-6">
-                            <label asp-for="Ubication" class="form-label">Photos (1-4): </label>
+                            <label asp-for="Photos" class="form-label">Photos (1-4): </label>
                             <input asp-for="Photos" required class="form-control w-100"/>
+                            <span asp-validation-for="Photos" class="text-danger"></span>
                             </div>
 
                         </div>

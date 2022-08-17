@@ -18,10 +18,12 @@ namespace DRRealState.WebApp.Controllers
     {
         private readonly IUserServices _userServices;
         private readonly IEstateFavoriteServices _favoriteServices;
-        public UserController(IUserServices userServices,IEstateFavoriteServices favoriteServices)
+        private readonly IPropertiesTypeServices _propertiesTypeServices;
+        public UserController(IUserServices userServices,IEstateFavoriteServices favoriteServices, IPropertiesTypeServices propertiesTypeServices)
         {
             _userServices = userServices;
             _favoriteServices = favoriteServices;
+            _propertiesTypeServices = propertiesTypeServices;
         }
 
         public IActionResult Login()
@@ -135,7 +137,22 @@ namespace DRRealState.WebApp.Controllers
 
             var house = await _favoriteServices.GetAllViewModelWithInclude();
 
+            ViewBag.PropertyType = await _propertiesTypeServices.GetAllViewModel();
+
             return View(house.Where(x=>x.ClientId == clientId).ToList());
+        
+        }
+        [HttpPost]
+        [Authorize(Roles="CLIENT")]
+        public async Task<IActionResult> SearchFavoriteByCode(string Code) {
+
+            var clientId = HttpContext.Session.Get<AuthenticationResponse>("user").Id;
+
+            var house = await _favoriteServices.GetAllViewModelWithInclude();
+
+            ViewBag.PropertyType = await _propertiesTypeServices.GetAllViewModel();
+
+            return View("MyFavorite",house.Where(x=>x.ClientId == clientId && x.Estate.Code == Code).ToList());
         
         }
 
@@ -148,8 +165,9 @@ namespace DRRealState.WebApp.Controllers
 
             var house = await _favoriteServices.GetAllViewModelWithInclude();
 
-            return View(_favoriteServices.AdvancedFilter(house.Where(x => x.ClientId == clientId).ToList(), filter));
+            ViewBag.PropertyType = await _propertiesTypeServices.GetAllViewModel();
 
+            return View("MyFavorite",_favoriteServices.AdvancedFilter(house.Where(x => x.ClientId == clientId).ToList(), filter));
 
         }
 
