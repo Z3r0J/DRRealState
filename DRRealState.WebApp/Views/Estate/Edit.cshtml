@@ -3,14 +3,38 @@
 
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
 <div class="container-fluid">
     <div class="row mt-3">
-        <div class="col-6 offset-3">
+        <div class="col-5">
+            <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+      @for(int i=0;i<Model.Gallery.Count;i++){
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="@i" class="@(i==0?"active":"")" aria-current="true" aria-label="Slide @i"></button>
+}  
+</div>
+  <div class="carousel-inner">
+      @for(int i=0;i<Model.Gallery.Count;i++){
+    <div class="@(i==0?"carousel-item active":"carousel-item")" data-bs-interval="10000">
+      <img src="@Model.Gallery[i].Url" class="d-block w-100" alt="...">
+    </div>
+    }
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+</div>
+        <div class="col-6">
             <div class="card card-border">
-                <div class="card-header bg-custom text-center"><span class="text-white h4">Create</span></div>
+                <div class="card-header bg-custom text-center"><span class="text-white h4">Edit</span></div>
                 <div class="card-body">
                     @{
                         if (Model.Upgrades.Count == 0 || Model.Upgrades == null)
@@ -27,7 +51,7 @@
                             <h1 class="text-center">Please, Contact an Administrator for create a new Estate Type before create a new Estate</h1>
                         }
                         else{
-                        <form asp-action="Create" asp-controller="Estate" enctype="multipart/form-data" class="w-100">
+                        <form asp-action="Edit" asp-controller="Estate" enctype="multipart/form-data" class="w-100">
                         <div class="row mt-3">
                             <div class="col-6">
                             <label asp-for="BathroomQuantity" class="form-label">Bathroom Quantity: </label>

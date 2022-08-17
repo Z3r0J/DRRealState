@@ -1,7 +1,11 @@
-﻿using DRRealState.Core.Application.DTOS.Account;
+﻿using AutoMapper;
+using DRRealState.Core.Application.DTOS.Account;
 using DRRealState.Core.Application.Helpers;
 using DRRealState.Core.Application.Interfaces.Services;
 using DRRealState.Core.Application.ViewModel.Estate;
+using DRRealState.Core.Application.ViewModel.Gallery;
+using DRRealState.Core.Application.ViewModel.UpgradeEstate;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -16,17 +20,30 @@ namespace DRRealState.WebApp.Controllers
         private readonly IEstateServices _estateServices;
         private readonly IUserServices _userServices;
         private readonly IUpgradeServices _upgradeServices;
+        private readonly IUpEstateServices _upEstateServices;
         private readonly IPropertiesTypeServices _propertiesTypeServices;
         private readonly ISaleTypeServices _saleTypeServices;
-        public EstateController(IEstateServices estateServices, IUserServices userServices,IUpgradeServices upgradeServices,ISaleTypeServices saleType,IPropertiesTypeServices propertiesTypeServices)
+        private readonly IGalleryServices _galleryServices;
+        private readonly IMapper _mapper;
+        public EstateController(IEstateServices estateServices, 
+            IUserServices userServices,
+            IUpgradeServices upgradeServices,
+            ISaleTypeServices saleType,
+            IPropertiesTypeServices propertiesTypeServices,
+            IUpEstateServices upEstateServices,
+            IGalleryServices galleryServices,
+            IMapper mapper)
         {
             _estateServices = estateServices;
             _userServices = userServices;
             _upgradeServices = upgradeServices;
             _propertiesTypeServices = propertiesTypeServices;
             _saleTypeServices = saleType;
+            _upEstateServices = upEstateServices;
+            _galleryServices = galleryServices;
+            _mapper = mapper;
         }
-
+        [Authorize(Roles = "AGENT")]
         public async Task<IActionResult> MyProperty() {
 
             var agentId = HttpContext.Session.Get<AuthenticationResponse>("user").Id;
@@ -34,7 +51,7 @@ namespace DRRealState.WebApp.Controllers
             return View(await _estateServices.GetEstateByAgentId(agentId));
 
         }
-
+        [Authorize(Roles = "AGENT")]
         public async Task<IActionResult> Create() {
 
             SaveEstateViewModel model = new()
@@ -47,6 +64,24 @@ namespace DRRealState.WebApp.Controllers
 
             return View(model);
         }
+
+        [Authorize(Roles = "AGENT")]
+        public async Task<IActionResult> Edit(int id) {
+
+            var agentId = HttpContext.Session.Get<AuthenticationResponse>("user").Id;
+
+            var estate = await _estateServices.GetViewModelWithIncludeById(id);
+
+            var mapper = _mapper.Map<SaveEstateViewModel>(estate);
+            mapper.Upgrades = await _upgradeServices.GetAllViewModel();
+            mapper.Properties = await _propertiesTypeServices.GetAllViewModel();
+            mapper.SaleTypes = await _saleTypeServices.GetAllViewModel();
+
+
+            return mapper.AgentId==agentId?View(mapper):RedirectToAction("MyProperty");
+        }
+
+        [Authorize(Roles = "AGENT")]
         [HttpPost]
         public async Task<IActionResult> Create(SaveEstateViewModel model) {
 
@@ -60,8 +95,58 @@ namespace DRRealState.WebApp.Controllers
 
             }
 
-            return View();
-        
+            model.Code = GenerateRandomCode.GenerateCode();
+
+            var Houses = await _estateServices.GetAllViewModel();
+
+            if (Houses.Any(x=>x.Code==model.Code))
+            {
+                ModelState.AddModelError("Description", "Something went wrong try again");
+
+                model.Upgrades = await _upgradeServices.GetAllViewModel();
+                model.Properties = await _propertiesTypeServices.GetAllViewModel();
+                model.SaleTypes = await _saleTypeServices.GetAllViewModel();
+
+                return View(model);
+
+            }
+
+
+            if (model.Photos.Count>4)
+            {
+                ModelState.AddModelError("Photos", "Please select 1 to 4 photos no more than 4.");
+                model.Upgrades = await _upgradeServices.GetAllViewModel();
+                model.Properties = await _propertiesTypeServices.GetAllViewModel();
+                model.SaleTypes = await _saleTypeServices.GetAllViewModel();
+
+                return View(model);
+            }
+            else
+            {
+                model.AgentId = HttpContext.Session.Get<AuthenticationResponse>("user").Id;
+
+                var estate = await _estateServices.Add(model);
+
+                foreach (int UpId in model.UpgradeIds)
+                {
+                    SaveUpEstateViewModel vm = new() { EstateId = estate.Id,UpgradeId =UpId};
+
+                    await _upEstateServices.Add(vm);
+                }
+
+                foreach (var file in model.Photos)
+                {
+                    SaveGalleryViewModel vm = new() {
+                        EstateId = estate.Id,
+                        Name = file.FileName,
+                        Url = UploadFile(file, estate.Id.ToString())
+                    };
+
+                    await _galleryServices.Add(vm);
+                }
+            }
+
+            return RedirectToAction("MyProperty");
         }
 
         public async Task<IActionResult> Details(int Id)
@@ -87,7 +172,7 @@ namespace DRRealState.WebApp.Controllers
                     return ImagePath;
                 }
             }
-            string basePath = $"/Images/User/{id}";
+            string basePath = $"/Images/Estates/{id}";
             string path = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot{basePath}");
 
             //create folder if not exist

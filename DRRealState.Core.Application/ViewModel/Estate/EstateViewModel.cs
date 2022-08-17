@@ -1,4 +1,5 @@
-﻿using DRRealState.Core.Application.ViewModel.PropertiesType;
+﻿using DRRealState.Core.Application.ViewModel.Gallery;
+using DRRealState.Core.Application.ViewModel.PropertiesType;
 using DRRealState.Core.Application.ViewModel.SaleType;
 using DRRealState.Core.Application.ViewModel.Upgrade;
 using DRRealState.Core.Domain.Entities;
@@ -25,7 +26,7 @@ namespace DRRealState.Core.Application.ViewModel.Estate
         public int SaleTypeId { get; set; }
         public SaleTypeViewModel SaleType { get; set; }
         public List<UpgradeViewModel> Upgrade { get; set; }
-        public List<Gallery> Gallery { get; set; }
+        public List<GalleryViewModel> Gallery { get; set; }
         public string AgentId { get; set; }
     }
 }

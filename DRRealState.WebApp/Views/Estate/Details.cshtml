@@ -31,20 +31,16 @@
                    <div class="image mb-30">
                        <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
   <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
-  </div>
+      @for(int i=0;i<Model.Gallery.Count;i++){
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="@i" class="@(i==0?"active":"")" aria-current="true" aria-label="Slide @i"></button>
+}  
+</div>
   <div class="carousel-inner">
-    <div class="carousel-item active" data-bs-interval="10000">
-      <img src="https://htmldemo.net/khonike/khonike/assets/images/property/single-property-1.jpg" class="d-block w-100" alt="...">
+      @for(int i=0;i<Model.Gallery.Count;i++){
+    <div class="@(i==0?"carousel-item active":"carousel-item")" data-bs-interval="10000">
+      <img src="@Model.Gallery[i].Url" class="d-block w-100" alt="...">
     </div>
-    <div class="carousel-item" data-bs-interval="2000">
-      <img src="https://htmldemo.net/khonike/khonike/assets/images/bg/download-bg.jpg" class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="http://wp.nootheme.com/citilights/wp-content/uploads/2019/11/caltoaction_f96a134e44401011a9c5c779f8a7a1f5.jpg" class="d-block w-100" alt="...">
-    </div>
+    }
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>

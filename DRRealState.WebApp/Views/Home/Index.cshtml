@@ -96,7 +96,7 @@
                 <div class="property-inner">
                     <div class="image">
                         <span class="label">Feature</span>
-                        <a asp-action="Details" asp-controller="Estate" asp-route-id="@item.Id"><img src="https://htmldemo.net/khonike/khonike/assets/images/property/property-2.jpg" alt=""></a>
+                        <a asp-action="Details" asp-controller="Estate" asp-route-id="@item.Id"><img src="@item.Gallery[0].Url" alt=""></a>
                         <ul class="property-feature">
                             <li>
                                 <span class="area"><i class="fa-solid fa-house"></i> @item.SizeInMeters M<sup>2</sup></span>

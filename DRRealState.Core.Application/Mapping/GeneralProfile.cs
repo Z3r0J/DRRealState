@@ -14,6 +14,7 @@ using DRRealState.Core.Application.ViewModel.Estate;
 using DRRealState.Core.Application.ViewModel.Upgrade;
 using DRRealState.Core.Application.ViewModel.UpgradeEstate;
 using DRRealState.Core.Application.ViewModel.EstateFavorite;
+using DRRealState.Core.Application.ViewModel.Gallery;
 
 namespace DRRealState.Core.Application.Mapping
 {
@@ -68,6 +69,7 @@ namespace DRRealState.Core.Application.Mapping
 
             CreateMap<Estate,EstateViewModel>()
                 .ForMember(x=>x.Upgrade,opt=>opt.MapFrom(x=>x.Upgrade.Select(up=>up.Upgrade).ToList()))
+                .ForMember(x=>x.Gallery,opt=>opt.MapFrom(x=>x.Gallery.OrderByDescending(x=>x.GalleryId).Take(4)))
                 .ReverseMap()
                 .ForMember(x => x.Created, opt => opt.Ignore())
                 .ForMember(x => x.CreatedBy, opt => opt.Ignore())
@@ -80,12 +82,22 @@ namespace DRRealState.Core.Application.Mapping
                 .ForMember(x => x.Properties, opt => opt.Ignore())
                 .ForMember(x => x.Photos, opt => opt.Ignore())
                 .ForMember(x => x.Upgrades, opt => opt.Ignore())
+                .ForMember(x => x.Gallery, opt => opt.MapFrom(x => x.Gallery.OrderByDescending(x => x.GalleryId).Take(4)))
                 .ReverseMap()
                 .ForMember(x => x.Created, opt => opt.Ignore())
                 .ForMember(x => x.CreatedBy, opt => opt.Ignore())
                 .ForMember(x => x.Modified, opt => opt.Ignore())
                 .ForMember(x => x.ModifiedBy, opt => opt.Ignore())
                 .ForMember(x => x.Favorites, opt => opt.Ignore());
+
+            CreateMap<EstateViewModel, SaveEstateViewModel>()
+                .ForMember(x => x.UpgradeIds, opt => opt.MapFrom(x => x.Upgrade.Select(up=>up.Id).ToList()))
+                .ForMember(x => x.SaleTypes, opt => opt.Ignore())
+                .ForMember(x => x.Properties, opt => opt.Ignore())
+                .ForMember(x => x.Photos, opt => opt.Ignore())
+                .ForMember(x => x.Upgrades, opt => opt.Ignore())
+                .ForMember(x => x.Gallery, opt => opt.MapFrom(x => x.Gallery.OrderByDescending(x => x.GalleryId).Take(4)))
+                .ReverseMap();
 
             CreateMap<Upgrade, UpgradeViewModel>()
                 .ReverseMap()
@@ -139,6 +151,13 @@ namespace DRRealState.Core.Application.Mapping
             CreateMap<EditRequest, SaveUserViewModel>()
                 .ForMember(x => x.UserType, opt => opt.Ignore())
                 .ForMember(x => x.Photo, opt => opt.Ignore())
+                .ReverseMap();
+
+            CreateMap<Gallery, SaveGalleryViewModel>()
+                .ReverseMap()
+                .ForMember(x => x.Estate, opt => opt.Ignore());
+
+            CreateMap<Gallery, GalleryViewModel>()
                 .ReverseMap();
         }
     }

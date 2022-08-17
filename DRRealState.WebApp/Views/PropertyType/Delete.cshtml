@@ -4,27 +4,24 @@
 @{
     @using DRRealState.Core.Application.ViewModel.PropertiesType
     @model SavePropertiesTypeViewModel
+    ViewData["Title"] = "Delete";
 }
 
-@ViewData["Title"] = "Delete";
-
-}
-
-<div class="row">
+<div class="row mt-3">
 
     <div class="col-6 offset-3">
         <div class="card">
             <div class="card-header bg-danger text-white text-center">
-                <h4>Esta seguro que desea eliminar: @Model.Name?</h4>
+                <h4 class="text-white">¿Are you sure that you want delete: @Model.Name?</h4>
             </div>
             <div class="card-body">
-
+                <span class="card-text">If you delete this Property type all estates in the website associated with this type are delete too.</span>
                 <form method="post" asp-controller="PropertyType" asp-action="DeletePost">
 
                     <input type="hidden" asp-for="Id" />
                     <div class="d-flex justify-content-center">
-                        <button type="submit" class="btn btn-danger">Eliminar</button>
-                        <a asp-controller="PropertyType" asp-action="Index" class="btn btn-warning">Cancelar</a>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <a asp-controller="PropertyType" asp-action="Index" class="btn btn-warning">Cancel</a>
                     </div>
 
 

@@ -1,6 +1,7 @@
 ﻿using DRRealState.Core.Application.DTOS.Account;
 using DRRealState.Core.Application.Helpers;
 using DRRealState.Core.Application.Interfaces.Services;
+using DRRealState.Core.Application.ViewModel.Estate;
 using DRRealState.Core.Application.ViewModel.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -136,6 +137,20 @@ namespace DRRealState.WebApp.Controllers
 
             return View(house.Where(x=>x.ClientId == clientId).ToList());
         
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "CLIENT")]
+
+        public async Task<IActionResult> SearchAdvancedFavorite(FilterEstateViewModel filter) {
+
+            var clientId = HttpContext.Session.Get<AuthenticationResponse>("user").Id;
+
+            var house = await _favoriteServices.GetAllViewModelWithInclude();
+
+            return View(_favoriteServices.AdvancedFilter(house.Where(x => x.ClientId == clientId).ToList(), filter));
+
+
         }
 
         public async Task<IActionResult> ConfirmEmail(string userId, string token)
