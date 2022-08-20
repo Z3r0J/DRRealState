@@ -1,0 +1,124 @@
+﻿
+@using DRRealState.Core.Application.ViewModel.DashBoard
+@model DashBoardViewModel
+
+
+@{
+    ViewData["Title"] = "Index";
+}
+ <!-- Content Row -->
+    <div class="row ms-3 mt-3">
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-2 col-md-4 mb-4">
+            <div class="card border-left border-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col ms-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Estates
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.Estates</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-arrow-right-arrow-left fa-2x text-success"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>        
+        
+        <div class="col-xl-2 col-md-4 mb-4">
+            <div class="card border-left border-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col ms-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Client Active
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.ClientActive</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-arrow-right-arrow-left fa-2x text-success"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>        
+        
+        <div class="col-xl-2 col-md-4 mb-4">
+            <div class="card border-left border-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col ms-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Client Inactive
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.ClientInactive</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-arrow-right-arrow-left fa-2x text-success"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-2 col-md-4 mb-4">
+            <div class="card border-left border-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col ms-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Agent Active
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.AgentActive</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-arrow-right-arrow-left fa-2x text-success"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-2 col-md-4 mb-4">
+            <div class="card border-left border-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col ms-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Agent Inactive
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.AgentInactive</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-arrow-right-arrow-left fa-2x text-success"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+        <!-- Content Row -->
+    <div class="row ms-2">
+
+        <!-- Content Column -->
+        <div class="col-lg-6 mb-4">
+
+            <!-- Color System -->
+            <div class="row">
+                <div class="col-xl-8 col-md-9 mb-4">
+                    <div class="card bg-primary text-white shadow">
+                        <div class="card-body" style="font-size:17px;">
+                            Developer
+                                <div class="text-white-50 small" style=" font-size: 15px;">Active - @Model.DeveloperActive</div>
+                                <div class="text-white-50 small" style=" font-size: 15px;">Inactive - @Model.DeveloperInactive</div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        </div>
+
+        </div>

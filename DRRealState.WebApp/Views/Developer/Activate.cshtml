@@ -1,0 +1,23 @@
+﻿@using DRRealState.Core.Application.ViewModel.User
+@model SaveUserViewModel
+
+
+@{
+    ViewData["Title"] = "Activate";
+}
+<div class="row d-flex justify-content-center mt-2">
+    <div class="col-3 offset-3">
+        <div class="card">
+            <div class="card-header bg-custom text-center text-white">Activate</div>
+            <div class="card-body">
+                <h4>Are you sure want to activate this developer?</h4>
+                <form asp-action="Activate" asp-controller="Developer">
+                    <input type="hidden" asp-for="Id" />
+                    <button class="btn btn-sm btn-danger w-75" type="submit">Activate</button>
+                    <a asp-action="List" asp-controller="Developer"  class="btn btn-sm btn-success w-75">Back</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

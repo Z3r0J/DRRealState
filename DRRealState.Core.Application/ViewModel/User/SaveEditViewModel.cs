@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DRRealState.Core.Application.ViewModel.User
 {
-    public class SaveUserViewModel
+    public class SaveEditViewModel
     {
         public string Id { get; set; }
         [Required(ErrorMessage="Name is Required")]
@@ -17,23 +17,20 @@ namespace DRRealState.Core.Application.ViewModel.User
         [Required(ErrorMessage = "LastName is Required")]
         [DataType(DataType.Text)]
         public string LastName { get; set; }
-
+        [Required(ErrorMessage = "Documents is Required")]
+        [DataType(DataType.Text)]
         public string Documents { get; set; }
 
         [Required(ErrorMessage = "Email is Required")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
+
         [Required(ErrorMessage = "Username is Required")]
         [DataType(DataType.Text)]
         public string Username { get; set; }
-
-        [Required(ErrorMessage = "Password is Required")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-
-        [Required(ErrorMessage = "Confirm Password is Required")]
         [DataType(DataType.Password)]
-        [Compare(nameof(Password),ErrorMessage ="Password doesn't matches.")]
         public string ConfirmPassword { get; set; }
 
         [DataType(DataType.PhoneNumber)]

@@ -19,6 +19,7 @@ namespace DRRealState.Core.Application.Interfaces.Services
         Task<PasswordResponse> ChangePasswordAsync(PasswordRequest request);
         Task<EditResponse> EditAgentAsync(EditRequest request);
         Task<string> ConfirmAccountAsync(string userId, string token);
+        Task<DeleteResponse> DeleteUserAsync(string Id);
         Task LogOutAsync();
         Task<List<AccountResponse>> GetUsersAsync();
     }

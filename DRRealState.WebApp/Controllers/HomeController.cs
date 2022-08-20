@@ -3,6 +3,7 @@ using DRRealState.Core.Application.Helpers;
 using DRRealState.Core.Application.Interfaces.Services;
 using DRRealState.Core.Application.ViewModel.Estate;
 using DRRealState.Core.Application.ViewModel.EstateFavorite;
+using DRRealState.WebApp.Middlewares;
 using DRRealState.WebApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,16 +22,34 @@ namespace DRRealState.WebApp.Controllers
         private readonly IUserServices _accountServices;
         private readonly IPropertiesTypeServices _propertiesTypeServices;
         private readonly IEstateFavoriteServices _favoriteServices;
-        public HomeController(IEstateServices estateServices, IUserServices accountServices,IPropertiesTypeServices propertiesType,IEstateFavoriteServices favoriteServices)
+        private readonly ValidateUserSession _validateUserSession;
+
+        public HomeController(IEstateServices estateServices, IUserServices accountServices,IPropertiesTypeServices propertiesType,IEstateFavoriteServices favoriteServices,ValidateUserSession validateUserSession)
         {
             _estateServices = estateServices;
             _accountServices = accountServices;
             _propertiesTypeServices = propertiesType;
             _favoriteServices = favoriteServices;
+            _validateUserSession = validateUserSession;
         }
 
         public async Task<IActionResult> Index()
         {
+            if (_validateUserSession.IsLogin())
+            {
+
+                var Roles = HttpContext.Session.Get<AuthenticationResponse>("user").Roles;
+
+                if (Roles.Any(r => r == "ADMINISTRATOR"))
+                {
+                    return RedirectToRoute(new { action = "Index", controller = "Administrator" });
+                }
+                if (Roles.Any(r => r == "AGENT"))
+                {
+                    return RedirectToRoute(new { action = "Index", controller = "Agent" });
+                }
+            }
+
             var response = await _estateServices.GetAllViewModelWithInclude();
 
             ViewBag.Message = "";
@@ -65,11 +84,47 @@ namespace DRRealState.WebApp.Controllers
 
         }
 
+        public IActionResult FindMyHome() {
+
+            if (_validateUserSession.IsLogin()) {
+
+                var Roles = HttpContext.Session.Get<AuthenticationResponse>("user").Roles;
+
+                if (Roles.Any(r => r == "ADMINISTRATOR"))
+                {
+                    return RedirectToRoute(new { action = "Index", controller = "Administrator" });
+                }
+                if (Roles.Any(r=>r=="AGENT"))
+                {
+                    return RedirectToRoute(new { action = "Index", controller = "Agent" });
+                }
+
+            }
+
+            return RedirectToAction("Index");
+
+        }
+
         public async Task<IActionResult> Agent() {
 
             var response = await _accountServices.GetAllUserAsync();
 
-            return View(response.Where(x=>x.Roles.Any(r=>r=="AGENT")&&x.IsVerified==true).OrderBy(x=>x.FirstName).ToList());
+            if (_validateUserSession.IsLogin())
+            {
+
+                var Roles = HttpContext.Session.Get<AuthenticationResponse>("user").Roles;
+
+                if (Roles.Any(r => r == "ADMINISTRATOR"))
+                {
+                    return RedirectToRoute(new { action = "Index", controller = "Administrator" });
+                }
+                if (Roles.Any(r => r == "AGENT"))
+                {
+                    return RedirectToRoute(new { action = "Index", controller = "Agent" });
+                }
+            }
+
+                return View(response.Where(x=>x.Roles.Any(r=>r=="AGENT")&&x.IsVerified==true).OrderBy(x=>x.FirstName).ToList());
 
         }
         [HttpPost]

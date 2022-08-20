@@ -14,9 +14,11 @@ namespace DRRealState.Core.Application.ViewModel.User
         public string Email { get; set; }
         public string UserName { get; set; }
         public string PhotoUrl { get; set; }
+        public string Documents { get; set; }
         public string Phone { get; set; }
         public List<string> Roles { get; set; }
         public string Code { get; set; }
         public bool IsVerified { get; set; }
+        public int HousesQuantity { get; set; }
     }
 }

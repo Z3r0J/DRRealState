@@ -22,8 +22,11 @@ namespace DRRealState.Core.Application.Interfaces.Services
         Task<ActivateResponse> ActivateAsync(ActivateViewModel model);
         Task<ActivateResponse> DeactivateAsync(ActivateViewModel model);
         Task<string> ConfirmEmailAsync(string userId, string token);
+        Task<PasswordResponse> ChangePasswordAsync(PasswordRequest request);
         Task LogOutAsync();
         Task<List<UserViewModel>> GetAllUserAsync();
+        Task<DeleteResponse> DeleteAsync(string Id);
+        Task<EditResponse> EditAsync(SaveUserViewModel model);
 
     }
 }

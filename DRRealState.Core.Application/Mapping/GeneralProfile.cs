@@ -35,6 +35,32 @@ namespace DRRealState.Core.Application.Mapping
 
             CreateMap<AccountResponse, UserViewModel>()
                 .ForMember(x => x.Roles, opt => opt.MapFrom(ac => ac.Roles))
+                .ForMember(x => x.HousesQuantity, opt => opt.Ignore())
+                .ReverseMap();
+
+            CreateMap<SaveUserViewModel, UserViewModel>()
+                .ForMember(x => x.HousesQuantity, opt => opt.Ignore())
+                .ReverseMap()
+                .ForMember(x=>x.Name,opt=>opt.MapFrom(x=>x.FirstName))
+                .ForMember(x => x.UserType, opt => opt.Ignore())
+                .ForMember(x => x.HasError, opt => opt.Ignore())
+                .ForMember(x => x.Error, opt => opt.Ignore());
+
+            CreateMap<SaveEditViewModel, UserViewModel>()
+                .ForMember(x => x.HousesQuantity, opt => opt.Ignore())
+                .ReverseMap()
+                .ForMember(x=>x.Name,opt=>opt.MapFrom(x=>x.FirstName))
+                .ForMember(x => x.UserType, opt => opt.Ignore())
+                .ForMember(x => x.HasError, opt => opt.Ignore())
+                .ForMember(x => x.Error, opt => opt.Ignore());
+
+            CreateMap<SaveEditViewModel, SaveUserViewModel>()
+                .ReverseMap()
+                .ForMember(x => x.UserType, opt => opt.Ignore())
+                .ForMember(x => x.HasError, opt => opt.Ignore())
+                .ForMember(x => x.Error, opt => opt.Ignore());
+
+            CreateMap<ActivateViewModel, ActivateRequest>()
                 .ReverseMap();
 
             CreateMap<PropertiesType, PropertiesTypeViewModel>()

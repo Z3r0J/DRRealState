@@ -2,6 +2,7 @@ using DRRealState.Core.Application;
 using DRRealState.Infrastructure.Identity;
 using DRRealState.Infrastructure.Persistence;
 using DRRealState.Infrastructure.Shared;
+using DRRealState.WebApp.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -37,6 +38,7 @@ namespace DRRealState.WebApp
             services.AddSession();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<ValidateUserSession, ValidateUserSession>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

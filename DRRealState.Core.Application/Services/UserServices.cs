@@ -29,6 +29,12 @@ namespace DRRealState.Core.Application.Services
 
             return response;
         }
+
+        public async Task<PasswordResponse> ChangePasswordAsync(PasswordRequest request) {
+
+            return await _accountServices.ChangePasswordAsync(request);
+
+        }
         
         public async Task<AuthenticationResponse> LoginWebAppAsync(LoginViewModel model) {
 
@@ -70,6 +76,14 @@ namespace DRRealState.Core.Application.Services
             EditResponse response = await _accountServices.EditAgentAsync(request);
 
             return response;
+
+        }
+
+        public async Task<EditResponse> EditAsync(SaveUserViewModel model) {
+
+            EditRequest request = _mapper.Map<EditRequest>(model);
+
+            return await _accountServices.EditAsync(request);
 
         }
 
@@ -145,6 +159,11 @@ namespace DRRealState.Core.Application.Services
         public async Task LogOutAsync() {
             await _accountServices.LogOutAsync();    
 
+        }
+
+        public async Task<DeleteResponse> DeleteAsync(string Id) {
+
+            return await _accountServices.DeleteUserAsync(Id);
         }
     }
 }
