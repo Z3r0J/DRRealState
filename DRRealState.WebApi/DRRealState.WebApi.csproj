@@ -24,10 +24,6 @@
     <ProjectReference Include="..\DRRealState.Infrastructure.Persistence\DRRealState.Infrastructure.Persistence.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\v1\" />
-  </ItemGroup>
-
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="https://json.schemastore.org/azure-deviceupdate-import-manifest-4.0.json" /></VisualStudio></ProjectExtensions>
 
 </Project>

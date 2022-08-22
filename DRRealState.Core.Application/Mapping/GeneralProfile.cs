@@ -15,6 +15,11 @@ using DRRealState.Core.Application.ViewModel.Upgrade;
 using DRRealState.Core.Application.ViewModel.UpgradeEstate;
 using DRRealState.Core.Application.ViewModel.EstateFavorite;
 using DRRealState.Core.Application.ViewModel.Gallery;
+using DRRealState.Core.Application.DTOS.Estates;
+using DRRealState.Core.Application.DTOS.Upgrade;
+using DRRealState.Core.Application.DTOS.SaleType;
+using DRRealState.Core.Application.DTOS.PropertiesType;
+using DRRealState.Core.Application.DTOS.Agent;
 
 namespace DRRealState.Core.Application.Mapping
 {
@@ -35,6 +40,10 @@ namespace DRRealState.Core.Application.Mapping
 
             CreateMap<AccountResponse, UserViewModel>()
                 .ForMember(x => x.Roles, opt => opt.MapFrom(ac => ac.Roles))
+                .ForMember(x => x.HousesQuantity, opt => opt.Ignore())
+                .ReverseMap();
+
+            CreateMap<AccountResponse, AgentResponse>()
                 .ForMember(x => x.HousesQuantity, opt => opt.Ignore())
                 .ReverseMap();
 
@@ -78,6 +87,14 @@ namespace DRRealState.Core.Application.Mapping
                    .ForMember(x => x.Modified, opt => opt.Ignore())
                    .ForMember(x => x.ModifiedBy, opt => opt.Ignore());
 
+            CreateMap<PropertiesType, PropertyTypeResponse>()
+                   .ReverseMap()
+                   .ForMember(x => x.Created, opt => opt.Ignore())
+                   .ForMember(x => x.Estates, opt => opt.Ignore())
+                   .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+                   .ForMember(x => x.Modified, opt => opt.Ignore())
+                   .ForMember(x => x.ModifiedBy, opt => opt.Ignore());
+
             CreateMap<SaleType, SaleTypeViewModel>()
                    .ForMember(x => x.EstatesQuantity, opt => opt.MapFrom(pt => pt.Estates.Count))
                    .ReverseMap()                   
@@ -93,11 +110,30 @@ namespace DRRealState.Core.Application.Mapping
                    .ForMember(x => x.Modified, opt => opt.Ignore())
                    .ForMember(x => x.ModifiedBy, opt => opt.Ignore());
 
+            CreateMap<SaleType, SaleTypeResponse>()
+                   .ReverseMap()
+                   .ForMember(x => x.Created, opt => opt.Ignore())
+                   .ForMember(x => x.Estates, opt => opt.Ignore())
+                   .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+                   .ForMember(x => x.Modified, opt => opt.Ignore())
+                   .ForMember(x => x.ModifiedBy, opt => opt.Ignore());
+
             CreateMap<Estate,EstateViewModel>()
                 .ForMember(x=>x.Upgrade,opt=>opt.MapFrom(x=>x.Upgrade.Select(up=>up.Upgrade).ToList()))
                 .ForMember(x=>x.Gallery,opt=>opt.MapFrom(x=>x.Gallery.OrderByDescending(x=>x.GalleryId).Take(4)))
                 .ReverseMap()
                 .ForMember(x => x.Created, opt => opt.Ignore())
+                .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+                .ForMember(x => x.Modified, opt => opt.Ignore())
+                .ForMember(x => x.ModifiedBy, opt => opt.Ignore());
+            
+            CreateMap<Estate,EstatesResponse>()
+                .ForMember(x=>x.Upgrades,opt=>opt.MapFrom(x=>x.Upgrade.Select(up=>up.Upgrade).ToList()))
+                .ForMember(x=>x.AgentName,opt=>opt.Ignore())
+                .ReverseMap()
+                .ForMember(x => x.Created, opt => opt.Ignore())
+                .ForMember(x=>x.Gallery,opt=>opt.Ignore())
+                .ForMember(x=>x.Favorites,opt=>opt.Ignore())
                 .ForMember(x => x.CreatedBy, opt => opt.Ignore())
                 .ForMember(x => x.Modified, opt => opt.Ignore())
                 .ForMember(x => x.ModifiedBy, opt => opt.Ignore());
@@ -126,6 +162,14 @@ namespace DRRealState.Core.Application.Mapping
                 .ReverseMap();
 
             CreateMap<Upgrade, UpgradeViewModel>()
+                .ReverseMap()
+                .ForMember(x => x.Created, opt => opt.Ignore())
+                .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+                .ForMember(x => x.Modified, opt => opt.Ignore())
+                .ForMember(x => x.ModifiedBy, opt => opt.Ignore())
+                .ForMember(x => x.Estates, opt => opt.Ignore());
+
+            CreateMap<Upgrade, UpgradeResponse>()
                 .ReverseMap()
                 .ForMember(x => x.Created, opt => opt.Ignore())
                 .ForMember(x => x.CreatedBy, opt => opt.Ignore())

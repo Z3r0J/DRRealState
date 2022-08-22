@@ -40,6 +40,15 @@ namespace DRRealState.Infrastructure.Identity.Services
             _emailService = emailService;
         }
 
+        public AccountServices(UserManager<RealStateUser> userManager,
+            SignInManager<RealStateUser> signInManager,
+            IOptions<JWTSettings> jWTSettings)
+        {
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _jWTSettings = jWTSettings.Value;
+        }
+
         public async Task<AuthenticationResponse> AuthenticateAsync(AuthenticationRequest request)
         {
 
