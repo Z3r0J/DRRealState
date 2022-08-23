@@ -22,6 +22,8 @@ using DRRealState.Core.Application.DTOS.PropertiesType;
 using DRRealState.Core.Application.DTOS.Agent;
 using DRRealState.Core.Application.Features.PropertyTypes.Commands.CreatePropertiesType;
 using DRRealState.Core.Application.Features.PropertyTypes.Commands.UpdatePropertiesType;
+using DRRealState.Core.Application.Features.SaleTypes.Commands.CreateSaleType;
+using DRRealState.Core.Application.Features.SaleTypes.Commands.UpdateSaleType;
 
 namespace DRRealState.Core.Application.Mapping
 {
@@ -144,7 +146,29 @@ namespace DRRealState.Core.Application.Mapping
                    .ForMember(x => x.Modified, opt => opt.Ignore())
                    .ForMember(x => x.ModifiedBy, opt => opt.Ignore());
 
+            CreateMap<SaleType, CreateSaleTypeCommand>()
+                   .ReverseMap()
+                   .ForMember(x => x.Created, opt => opt.Ignore())
+                   .ForMember(x => x.Estates, opt => opt.Ignore())
+                   .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+                   .ForMember(x => x.Modified, opt => opt.Ignore())
+                   .ForMember(x => x.ModifiedBy, opt => opt.Ignore());
 
+            CreateMap<SaleType, SaleTypeUpdateResponse>()
+                   .ReverseMap()
+                   .ForMember(x => x.Created, opt => opt.Ignore())
+                   .ForMember(x => x.Estates, opt => opt.Ignore())
+                   .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+                   .ForMember(x => x.Modified, opt => opt.Ignore())
+                   .ForMember(x => x.ModifiedBy, opt => opt.Ignore());
+
+            CreateMap<SaleType, UpdateSaleTypeCommand>()
+                   .ReverseMap()
+                   .ForMember(x => x.Created, opt => opt.Ignore())
+                   .ForMember(x => x.Estates, opt => opt.Ignore())
+                   .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+                   .ForMember(x => x.Modified, opt => opt.Ignore())
+                   .ForMember(x => x.ModifiedBy, opt => opt.Ignore());
 
             CreateMap<Estate,EstateViewModel>()
                 .ForMember(x=>x.Upgrade,opt=>opt.MapFrom(x=>x.Upgrade.Select(up=>up.Upgrade).ToList()))

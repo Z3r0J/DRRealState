@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DRRealState.Core.Application.Features.SaleType.Querys.GetAllSaleTypeQuery
+namespace DRRealState.Core.Application.Features.SaleTypes.Querys.GetAllSaleTypeQuery
 {
     public class GetAllSaleTypeQuery : IRequest<IList<SaleTypeResponse>>
     {

@@ -27,8 +27,4 @@
     <ProjectReference Include="..\DRRealState.Core.Domain\DRRealState.Core.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\SaleType\Commands\" />
-  </ItemGroup>
-
 </Project>
