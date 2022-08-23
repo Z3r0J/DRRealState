@@ -2,8 +2,8 @@
 using DRRealState.Core.Application.Features.PropertyTypes.Commands.CreatePropertiesType;
 using DRRealState.Core.Application.Features.PropertyTypes.Commands.DeletePropertiesTypeById;
 using DRRealState.Core.Application.Features.PropertyTypes.Commands.UpdatePropertiesType;
-using DRRealState.Core.Application.Features.PropertyTypes.Querys.GetAllPropertiesTypeQuery;
-using DRRealState.Core.Application.Features.PropertyTypes.Querys.GetPropertiesTypeByIdQuery;
+using DRRealState.Core.Application.Features.PropertyTypes.Queries.GetAllPropertiesTypeQuery;
+using DRRealState.Core.Application.Features.PropertyTypes.Queries.GetPropertiesTypeByIdQuery;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

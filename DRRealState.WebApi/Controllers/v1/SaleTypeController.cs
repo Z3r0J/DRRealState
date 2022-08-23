@@ -2,8 +2,8 @@
 using DRRealState.Core.Application.Features.SaleTypes.Commands.CreateSaleType;
 using DRRealState.Core.Application.Features.SaleTypes.Commands.DeleteSaleTypeById;
 using DRRealState.Core.Application.Features.SaleTypes.Commands.UpdateSaleType;
-using DRRealState.Core.Application.Features.SaleTypes.Querys.GetAllSaleTypeQuery;
-using DRRealState.Core.Application.Features.SaleTypes.Querys.GetSaleTypeByIdQuery;
+using DRRealState.Core.Application.Features.SaleTypes.Queries.GetAllSaleTypeQuery;
+using DRRealState.Core.Application.Features.SaleTypes.Queries.GetSaleTypeByIdQuery;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

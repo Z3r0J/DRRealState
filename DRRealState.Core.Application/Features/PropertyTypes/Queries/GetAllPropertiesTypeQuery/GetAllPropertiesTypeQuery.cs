@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DRRealState.Core.Application.Features.PropertyTypes.Querys.GetAllPropertiesTypeQuery
+namespace DRRealState.Core.Application.Features.PropertyTypes.Queries.GetAllPropertiesTypeQuery
 {
     public class GetAllPropertiesTypeQuery : IRequest<IList<PropertyTypeResponse>>
     {

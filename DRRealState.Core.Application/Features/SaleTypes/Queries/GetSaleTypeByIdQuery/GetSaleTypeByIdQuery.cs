@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DRRealState.Core.Application.Features.SaleTypes.Querys.GetSaleTypeByIdQuery
+namespace DRRealState.Core.Application.Features.SaleTypes.Queries.GetSaleTypeByIdQuery
 {
     public class GetSaleTypeByIdQuery : IRequest<SaleTypeResponse>
     {
@@ -39,7 +39,7 @@ namespace DRRealState.Core.Application.Features.SaleTypes.Querys.GetSaleTypeById
             var saleTypeList = await _saleTypeRepository.GetAllAsync();
             var saleTypeId = saleTypeList.FirstOrDefault(x => x.Id == Id);
 
-            if (saleTypeId == null) { throw new Exception($"SaleType not found."); }
+            if (saleTypeId == null) { throw new Exception($"Types for sales not found."); }
 
             var mapper = _mapper.Map<SaleTypeResponse>(saleTypeId);
 

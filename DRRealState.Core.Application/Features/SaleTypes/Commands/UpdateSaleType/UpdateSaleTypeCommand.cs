@@ -32,7 +32,7 @@ namespace DRRealState.Core.Application.Features.SaleTypes.Commands.UpdateSaleTyp
         {
             var saleType = await _saleTypeRepository.GetByIdAsync(command.Id);
 
-            if (saleType == null) { throw new Exception($"SaleType not found."); }
+            if (saleType == null) { throw new Exception($"Types for sales not found."); }
 
             saleType = _mapper.Map<SaleType>(command);
 

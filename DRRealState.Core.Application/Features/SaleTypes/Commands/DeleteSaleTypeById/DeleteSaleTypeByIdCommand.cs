@@ -25,7 +25,7 @@ namespace DRRealState.Core.Application.Features.SaleTypes.Commands.DeleteSaleTyp
         {
             var saleType = await _saleTypeRepository.GetByIdAsync(command.Id);
 
-            if (saleType == null) { throw new Exception($"Property Types not found."); }
+            if (saleType == null) { throw new Exception($"Types for sales not found."); }
 
             await _saleTypeRepository.DeleteAsync(saleType);
 

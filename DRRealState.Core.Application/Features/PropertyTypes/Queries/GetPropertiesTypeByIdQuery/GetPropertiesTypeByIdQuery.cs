@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DRRealState.Core.Application.Features.PropertyTypes.Querys.GetPropertiesTypeByIdQuery
+namespace DRRealState.Core.Application.Features.PropertyTypes.Queries.GetPropertiesTypeByIdQuery
 {
     public class GetPropertiesTypeByIdQuery : IRequest<PropertyTypeResponse>
     {
