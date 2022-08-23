@@ -144,6 +144,8 @@ namespace DRRealState.Core.Application.Mapping
                    .ForMember(x => x.Modified, opt => opt.Ignore())
                    .ForMember(x => x.ModifiedBy, opt => opt.Ignore());
 
+
+
             CreateMap<Estate,EstateViewModel>()
                 .ForMember(x=>x.Upgrade,opt=>opt.MapFrom(x=>x.Upgrade.Select(up=>up.Upgrade).ToList()))
                 .ForMember(x=>x.Gallery,opt=>opt.MapFrom(x=>x.Gallery.OrderByDescending(x=>x.GalleryId).Take(4)))
