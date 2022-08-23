@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DRRealState.Infrastructure.Persistence.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class InitiaMigrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -74,6 +74,7 @@ namespace DRRealState.Infrastructure.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BathroomQuantity = table.Column<int>(type: "int", nullable: false),
                     BedRoomQuantity = table.Column<int>(type: "int", nullable: false),
                     SizeInMeters = table.Column<int>(type: "int", nullable: false),
@@ -81,7 +82,6 @@ namespace DRRealState.Infrastructure.Persistence.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Ubication = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PropertyTypeId = table.Column<int>(type: "int", nullable: false),
-                    PropertiesTypeId = table.Column<int>(type: "int", nullable: true),
                     SaleTypeId = table.Column<int>(type: "int", nullable: false),
                     AgentId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -93,8 +93,8 @@ namespace DRRealState.Infrastructure.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_Estate", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Estate_PropertyType_PropertiesTypeId",
-                        column: x => x.PropertiesTypeId,
+                        name: "FK_Estate_PropertyType_PropertyTypeId",
+                        column: x => x.PropertyTypeId,
                         principalSchema: "DRRealState",
                         principalTable: "PropertyType",
                         principalColumn: "Id",
@@ -191,10 +191,10 @@ namespace DRRealState.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Estate_PropertiesTypeId",
+                name: "IX_Estate_PropertyTypeId",
                 schema: "DRRealState",
                 table: "Estate",
-                column: "PropertiesTypeId");
+                column: "PropertyTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Estate_SaleTypeId",

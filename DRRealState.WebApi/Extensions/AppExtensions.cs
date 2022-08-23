@@ -9,7 +9,7 @@ namespace DRRealState.WebApi.Extensions
             application.UseSwagger();
             application.UseSwaggerUI(options => {
 
-                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Restaurant API");
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "DRRealState API");
                 
             });
         

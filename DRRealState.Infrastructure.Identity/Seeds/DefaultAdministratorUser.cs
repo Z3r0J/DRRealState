@@ -39,7 +39,7 @@ namespace DRRealState.Infrastructure.Identity.Seeds
                 LastName = "Baez",
                 Email = "jlbaez@drrealstate.com.do",
                 EmailConfirmed = true,
-                PhoneNumber="+1 809 935 0913",
+                PhoneNumber="+1 829 804 0292",
                 PhoneNumberConfirmed = true
             };
 

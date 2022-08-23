@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DRRealState.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20220808165844_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20220823135405_InitiaMigrations")]
+    partial class InitiaMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -38,6 +38,10 @@ namespace DRRealState.Infrastructure.Persistence.Migrations
                     b.Property<int>("BedRoomQuantity")
                         .HasColumnType("int");
 
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
@@ -57,9 +61,6 @@ namespace DRRealState.Infrastructure.Persistence.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int?>("PropertiesTypeId")
-                        .HasColumnType("int");
-
                     b.Property<int>("PropertyTypeId")
                         .HasColumnType("int");
 
@@ -75,7 +76,7 @@ namespace DRRealState.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PropertiesTypeId");
+                    b.HasIndex("PropertyTypeId");
 
                     b.HasIndex("SaleTypeId");
 
@@ -272,8 +273,9 @@ namespace DRRealState.Infrastructure.Persistence.Migrations
                 {
                     b.HasOne("DRRealState.Core.Domain.Entities.PropertiesType", "PropertiesType")
                         .WithMany("Estates")
-                        .HasForeignKey("PropertiesTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("PropertyTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("DRRealState.Core.Domain.Entities.SaleType", "SaleType")
                         .WithMany("Estates")

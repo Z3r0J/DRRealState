@@ -20,6 +20,8 @@ using DRRealState.Core.Application.DTOS.Upgrade;
 using DRRealState.Core.Application.DTOS.SaleType;
 using DRRealState.Core.Application.DTOS.PropertiesType;
 using DRRealState.Core.Application.DTOS.Agent;
+using DRRealState.Core.Application.Features.PropertyTypes.Commands.CreatePropertiesType;
+using DRRealState.Core.Application.Features.PropertyTypes.Commands.UpdatePropertiesType;
 
 namespace DRRealState.Core.Application.Mapping
 {
@@ -88,6 +90,30 @@ namespace DRRealState.Core.Application.Mapping
                    .ForMember(x => x.ModifiedBy, opt => opt.Ignore());
 
             CreateMap<PropertiesType, PropertyTypeResponse>()
+                   .ReverseMap()
+                   .ForMember(x => x.Created, opt => opt.Ignore())
+                   .ForMember(x => x.Estates, opt => opt.Ignore())
+                   .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+                   .ForMember(x => x.Modified, opt => opt.Ignore())
+                   .ForMember(x => x.ModifiedBy, opt => opt.Ignore());
+
+            CreateMap<PropertiesType, CreatePropertiesTypeCommand>()
+                   .ReverseMap()
+                   .ForMember(x => x.Created, opt => opt.Ignore())
+                   .ForMember(x => x.Estates, opt => opt.Ignore())
+                   .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+                   .ForMember(x => x.Modified, opt => opt.Ignore())
+                   .ForMember(x => x.ModifiedBy, opt => opt.Ignore());
+
+            CreateMap<PropertiesType, UpdatePropertiesTypeCommand>()
+                   .ReverseMap()
+                   .ForMember(x => x.Created, opt => opt.Ignore())
+                   .ForMember(x => x.Estates, opt => opt.Ignore())
+                   .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+                   .ForMember(x => x.Modified, opt => opt.Ignore())
+                   .ForMember(x => x.ModifiedBy, opt => opt.Ignore());
+
+            CreateMap<PropertiesType, PropertyTypeUpdateResponse>()
                    .ReverseMap()
                    .ForMember(x => x.Created, opt => opt.Ignore())
                    .ForMember(x => x.Estates, opt => opt.Ignore())

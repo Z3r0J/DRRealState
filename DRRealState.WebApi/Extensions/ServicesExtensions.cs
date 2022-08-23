@@ -21,8 +21,8 @@ namespace DRRealState.WebApi.Extensions
                 options.SwaggerDoc("v1", new OpenApiInfo { 
                 
                     Version="v1",
-                    Title = "Restaurant API",
-                    Description = "This API is created for services using in a Restaurant.",
+                    Title = "DRRealState API",
+                    Description = "This API is created for services using in a Real Estate.",
                     Contact = new OpenApiContact { 
                     Name = "Jean Carlos Reyes",
                     Email = "jeanrey.ese@gmail.com",
