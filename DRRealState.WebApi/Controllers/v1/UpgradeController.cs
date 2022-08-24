@@ -1,11 +1,6 @@
-﻿using DRRealState.Core.Application.DTOS.PropertiesType;
-using DRRealState.Core.Application.DTOS.Upgrade;
-using DRRealState.Core.Application.Features.PropertyTypes.Commands.CreatePropertiesType;
-using DRRealState.Core.Application.Features.PropertyTypes.Commands.DeletePropertiesTypeById;
-using DRRealState.Core.Application.Features.PropertyTypes.Commands.UpdatePropertiesType;
-using DRRealState.Core.Application.Features.PropertyTypes.Queries.GetAllPropertiesTypeQuery;
-using DRRealState.Core.Application.Features.PropertyTypes.Queries.GetPropertiesTypeByIdQuery;
+﻿using DRRealState.Core.Application.DTOS.Upgrade;
 using DRRealState.Core.Application.Features.Upgrade.Commands.CreateUpgrade;
+using DRRealState.Core.Application.Features.Upgrade.Commands.DeleteUpgrade;
 using DRRealState.Core.Application.Features.Upgrade.Commands.UpdateUpgrade;
 using DRRealState.Core.Application.Features.Upgrade.Queries;
 using DRRealState.Core.Application.Features.Upgrade.Queries.GetAllUpgradeByIdQuery;
@@ -13,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Net.Mime;
 using System.Threading.Tasks;
 
 namespace DRRealState.WebApi.Controllers.v1
@@ -62,11 +58,17 @@ namespace DRRealState.WebApi.Controllers.v1
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Post(CreateUpgradeCommands command)
+        [Consumes(MediaTypeNames.Application.Json)]
+        public async Task<IActionResult> Post([FromBody] CreateUpgradeCommands command)
         {
 
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+                }
+
                 await Mediator.Send(command);
                 return NoContent();
 
@@ -81,16 +83,39 @@ namespace DRRealState.WebApi.Controllers.v1
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpgradeResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Put(int id, UpdateUpgradeCommands command)
+        [Consumes(MediaTypeNames.Application.Json)]
+        public async Task<IActionResult> Put(int id, [FromBody] UpdateUpgradeCommands command)
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+                }
+
                 if (id != command.Id)
                 {
                     return BadRequest();
                 }
 
                 return Ok(await Mediator.Send(command));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [Authorize(Roles = "ADMINISTRATOR")]
+        [HttpDelete("Delete/{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                await Mediator.Send(new DeleteUpgradeCommand { Id = id });
+                return NoContent();
             }
             catch (Exception ex)
             {

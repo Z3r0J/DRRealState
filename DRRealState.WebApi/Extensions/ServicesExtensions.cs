@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace DRRealState.WebApi.Extensions
 {
@@ -24,13 +25,13 @@ namespace DRRealState.WebApi.Extensions
                     Title = "DRRealState API",
                     Description = "This API is created for services using in a Real Estate.",
                     Contact = new OpenApiContact { 
-                    Name = "Jean Carlos Reyes",
+                    Name = "Jean Carlos Reyes, Johanly Baez Lima, Jose Miguel Cayetano Marquez",
                     Email = "jeanrey.ese@gmail.com",
-                    Url = new Uri("https://github.com/z3r0j")
+                    Url = new Uri("https://github.com/z3r0j/DRRealState")
                     }
 
                 });
-
+                options.EnableAnnotations();
                 options.DescribeAllParametersInCamelCase();
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {

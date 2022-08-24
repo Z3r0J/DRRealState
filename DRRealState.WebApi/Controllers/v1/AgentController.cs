@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Net.Mime;
 using System.Threading.Tasks;
 
 namespace DRRealState.WebApi.Controllers.v1
@@ -72,7 +73,8 @@ namespace DRRealState.WebApi.Controllers.v1
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> ChangeStatusAsync(ChangeStatusCommand command) {
+        [Consumes(MediaTypeNames.Application.Json)]
+        public async Task<IActionResult> ChangeStatusAsync([FromBody] ChangeStatusCommand command) {
 
             try
             {

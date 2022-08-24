@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Net.Mime;
 using System.Threading.Tasks;
 
 namespace DRRealState.WebApi.Controllers.v1
@@ -56,11 +57,17 @@ namespace DRRealState.WebApi.Controllers.v1
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Post(CreateSaleTypeCommand command)
+        [Consumes(MediaTypeNames.Application.Json)]
+        public async Task<IActionResult> Post([FromBody] CreateSaleTypeCommand command)
         {
 
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+                }
+
                 await Mediator.Send(command);
                 return NoContent();
 
@@ -76,10 +83,16 @@ namespace DRRealState.WebApi.Controllers.v1
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SaleTypeUpdateResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Put(int id, UpdateSaleTypeCommand command)
+        [Consumes(MediaTypeNames.Application.Json)]
+        public async Task<IActionResult> Put(int id, [FromBody] UpdateSaleTypeCommand command)
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+                }
+
                 if (id != command.Id)
                 {
                     return BadRequest();
