@@ -83,12 +83,21 @@ namespace DRRealState.WebApp.Controllers
 
             if (model.Photo!=null)
             {
-                model.PhotoURL = UploadFile(model.Photo, model.Id, true, model.PhotoURL);
+                if (string.IsNullOrWhiteSpace(model.PhotoURL))
+                {
+                    model.PhotoURL = UploadFile(model.Photo, model.Id);
+                }
+                else
+                {
+                    model.PhotoURL = UploadFile(model.Photo, model.Id, true, model.PhotoURL);
+                }
+               
             }
 
             var response = await _userServices.EditAgentAsync(model);
             if (response.HasError)
             {
+                
                 model.HasError = true;
                 model.Error = response.Error;
                 return View(model);
