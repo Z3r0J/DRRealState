@@ -52,7 +52,7 @@ namespace DRRealState.WebApi.Controllers.v1
             }
         }
         [Authorize(Roles = "ADMINISTRATOR")]
-        [HttpPost("CreatePost/PropertyTypes")]
+        [HttpPost("Create/PropertyTypes")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

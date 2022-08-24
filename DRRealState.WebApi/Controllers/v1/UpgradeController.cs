@@ -58,7 +58,7 @@ namespace DRRealState.WebApi.Controllers.v1
 
         }
         [Authorize(Roles = "ADMINISTRATOR")]
-        [HttpPost("CreatePost/Upgrade")]
+        [HttpPost("Create/Upgrade")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
