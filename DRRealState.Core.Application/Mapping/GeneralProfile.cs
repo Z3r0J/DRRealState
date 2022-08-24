@@ -24,6 +24,8 @@ using DRRealState.Core.Application.Features.PropertyTypes.Commands.CreatePropert
 using DRRealState.Core.Application.Features.PropertyTypes.Commands.UpdatePropertiesType;
 using DRRealState.Core.Application.Features.SaleTypes.Commands.CreateSaleType;
 using DRRealState.Core.Application.Features.SaleTypes.Commands.UpdateSaleType;
+using DRRealState.Core.Application.Features.Upgrade.Commands.CreateUpgrade;
+using DRRealState.Core.Application.Features.Upgrade.Commands.UpdateUpgrade;
 
 namespace DRRealState.Core.Application.Mapping
 {
@@ -99,13 +101,25 @@ namespace DRRealState.Core.Application.Mapping
                    .ForMember(x => x.Modified, opt => opt.Ignore())
                    .ForMember(x => x.ModifiedBy, opt => opt.Ignore());
 
-            CreateMap<PropertiesType, CreatePropertiesTypeCommand>()
+            CreateMap<Upgrade, CreateUpgradeCommands>()
                    .ReverseMap()
                    .ForMember(x => x.Created, opt => opt.Ignore())
                    .ForMember(x => x.Estates, opt => opt.Ignore())
                    .ForMember(x => x.CreatedBy, opt => opt.Ignore())
                    .ForMember(x => x.Modified, opt => opt.Ignore())
                    .ForMember(x => x.ModifiedBy, opt => opt.Ignore());
+
+            CreateMap<Upgrade, UpdateUpgradeCommands>()
+                  .ReverseMap()
+                  .ForMember(x => x.Created, opt => opt.Ignore())
+                  .ForMember(x => x.Estates, opt => opt.Ignore())
+                  .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+                  .ForMember(x => x.Modified, opt => opt.Ignore())
+                  .ForMember(x => x.ModifiedBy, opt => opt.Ignore());
+
+            CreateMap<UpdateUpgradeCommands, UpgradeResponse>()
+                  .ReverseMap();
+   
 
             CreateMap<PropertiesType, UpdatePropertiesTypeCommand>()
                    .ReverseMap()

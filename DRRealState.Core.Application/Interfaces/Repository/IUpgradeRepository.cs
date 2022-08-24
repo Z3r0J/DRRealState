@@ -9,6 +9,6 @@ namespace DRRealState.Core.Application.Interfaces.Repository
 {
     public interface IUpgradeRepository : IGenericRepository<Upgrade>
     {
-
+       
     }
 }
