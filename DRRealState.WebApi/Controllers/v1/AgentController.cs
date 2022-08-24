@@ -1,5 +1,6 @@
 ﻿using DRRealState.Core.Application.DTOS.Agent;
 using DRRealState.Core.Application.DTOS.Estates;
+using DRRealState.Core.Application.Features.Agent.Commands;
 using DRRealState.Core.Application.Features.Agent.Queries.GetAgentByIdQuery;
 using DRRealState.Core.Application.Features.Agent.Queries.GetAllAgentQuery;
 using DRRealState.Core.Application.Features.Agent.Queries.GetEstatesByAgentIdQuery;
@@ -63,6 +64,30 @@ namespace DRRealState.WebApi.Controllers.v1
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,ex.Message);
+            }
+        
+        }
+        [Authorize(Roles = "ADMINISTRATOR")]
+        [HttpPatch("ChangeStatus")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> ChangeStatusAsync(ChangeStatusCommand command) {
+
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+                }
+
+                await Mediator.Send(command);
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         
         }
