@@ -3,6 +3,7 @@ using DRRealState.Core.Application.DTOS.Estates;
 using DRRealState.Core.Application.Interfaces.Repository;
 using DRRealState.Core.Application.Interfaces.Services;
 using MediatR;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,12 @@ using System.Threading.Tasks;
 
 namespace DRRealState.Core.Application.Features.Agent.Queries.GetEstatesByAgentIdQuery
 {
+    /// <summary>
+    /// Parameters to Get all related Estates By Agent Id.
+    /// </summary>
     public class GetEstatesByAgentIdQuery : IRequest<IList<EstatesResponse>>
     {
+        [SwaggerParameter(Description = "Agent Id to search all related estates on the system.")]
         public string AgentId { get; set; }
     }
 

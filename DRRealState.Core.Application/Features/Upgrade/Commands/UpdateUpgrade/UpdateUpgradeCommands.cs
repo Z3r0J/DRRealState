@@ -2,6 +2,7 @@
 using DRRealState.Core.Application.DTOS.Upgrade;
 using DRRealState.Core.Application.Interfaces.Repository;
 using MediatR;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +12,16 @@ using System.Threading.Tasks;
 
 namespace DRRealState.Core.Application.Features.Upgrade.Commands.UpdateUpgrade
 {
+    /// <summary>
+    /// Parameters to Update an Upgrade
+    /// </summary>
     public class UpdateUpgradeCommands : IRequest<UpgradeResponse>
     {
-
+        [SwaggerParameter(Description = "Id of Upgrade to Update")]
         public int Id { get; set; }
+        [SwaggerParameter(Description = "New Name of Upgrade to Update")]
         public string Name { get; set; }
+        [SwaggerParameter(Description = "New Description of Upgrade to Update")]
         public string Description { get; set; }
 
     }

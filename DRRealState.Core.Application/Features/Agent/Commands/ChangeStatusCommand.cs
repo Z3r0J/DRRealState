@@ -1,5 +1,6 @@
 ﻿using DRRealState.Core.Application.Interfaces.Services;
 using MediatR;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,14 @@ using System.Threading.Tasks;
 
 namespace DRRealState.Core.Application.Features.Agent.Commands
 {
+    /// <summary>
+    /// Parameters to Change Agent Status
+    /// </summary>
     public class ChangeStatusCommand : IRequest<string>
     {
+        [SwaggerParameter(Description ="Agent Id to Change Status")]
         public string Id { get; set; }
+        [SwaggerParameter(Description = "True o False")]
         public bool Status { get; set; }
     }
 

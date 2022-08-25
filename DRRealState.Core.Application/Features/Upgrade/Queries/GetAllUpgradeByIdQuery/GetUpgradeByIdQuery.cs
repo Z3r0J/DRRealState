@@ -2,6 +2,7 @@
 using DRRealState.Core.Application.DTOS.Upgrade;
 using DRRealState.Core.Application.Interfaces.Repository;
 using MediatR;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,15 @@ using System.Threading.Tasks;
 
 namespace DRRealState.Core.Application.Features.Upgrade.Queries.GetAllUpgradeByIdQuery
 {
+    /// <summary>
+    /// Parameters to Get an Upgrade By Id
+    /// </summary>
     public class GetUpgradeByIdQuery : IRequest<UpgradeResponse>
     {
+        /// <example>
+        /// 1
+        /// </example>
+        [SwaggerParameter(Description = "Id of the Upgrade to Search on the System.")]
         public int Id { get; set; }
     }
     public class GetUgradeByIdQueryHandler : IRequestHandler<GetUpgradeByIdQuery, UpgradeResponse>
