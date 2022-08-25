@@ -2,6 +2,7 @@
 using DRRealState.Core.Application.DTOS.PropertiesType;
 using DRRealState.Core.Application.Interfaces.Repository;
 using MediatR;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,16 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace DRRealState.Core.Application.Features.PropertyTypes.Queries.GetPropertiesTypeByIdQuery
-{
+{    
+     /// <summary>
+     /// Parameters to Get a Property Type By Id
+     /// </summary>
     public class GetPropertiesTypeByIdQuery : IRequest<PropertyTypeResponse>
     {
+        /// <example>
+        /// 1
+        /// </example>
+        [SwaggerParameter(Description = "Property Type Id to Search on the System.")]
         public int Id { get; set; }
     }
 

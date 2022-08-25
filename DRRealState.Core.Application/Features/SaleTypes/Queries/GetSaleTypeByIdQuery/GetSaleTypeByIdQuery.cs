@@ -2,6 +2,7 @@
 using DRRealState.Core.Application.DTOS.SaleType;
 using DRRealState.Core.Application.Interfaces.Repository;
 using MediatR;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,15 @@ using System.Threading.Tasks;
 
 namespace DRRealState.Core.Application.Features.SaleTypes.Queries.GetSaleTypeByIdQuery
 {
+    /// <summary>
+    /// Parameters to Get a Property Type By Id
+    /// </summary>
     public class GetSaleTypeByIdQuery : IRequest<SaleTypeResponse>
     {
+        /// <example>
+        /// 1
+        /// </example>
+        [SwaggerParameter(Description = "Sale Type Id to Search on the System.")]
         public int Id { get; set; }
     }
     public class GetSaleTypeByIdQueryHandler : IRequestHandler<GetSaleTypeByIdQuery, SaleTypeResponse>

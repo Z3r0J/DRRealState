@@ -1,5 +1,6 @@
 ﻿using DRRealState.Core.Application.Interfaces.Repository;
 using MediatR;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,15 @@ using System.Threading.Tasks;
 
 namespace DRRealState.Core.Application.Features.SaleTypes.Commands.DeleteSaleTypeById
 {
+    /// <summary>
+    /// Parameters to Delete a Sale Type
+    /// </summary>
     public class DeleteSaleTypeByIdCommand : IRequest<int>
     {
+        /// <example>
+        /// 1
+        /// </example>
+        [SwaggerParameter(Description = "Id of Sale Type to delete")]
         public int Id { get; set; }
     }
 

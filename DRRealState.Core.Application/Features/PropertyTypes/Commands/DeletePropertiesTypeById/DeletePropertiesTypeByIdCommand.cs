@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DRRealState.Core.Application.Interfaces.Repository;
 using MediatR;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,15 @@ using System.Threading.Tasks;
 
 namespace DRRealState.Core.Application.Features.PropertyTypes.Commands.DeletePropertiesTypeById
 {
+    /// <summary>
+    /// Parameters to Delete a Property Type
+    /// </summary>
     public class DeletePropertiesTypeByIdCommand : IRequest<int>
     {
+        /// <example>
+        /// 1
+        /// </example>
+        [SwaggerParameter(Description="Id of Property Type to delete")]
         public int Id { get; set; }
     }
 

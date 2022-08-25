@@ -2,6 +2,7 @@
 using DRRealState.Core.Application.Interfaces.Repository;
 using DRRealState.Core.Domain.Entities;
 using MediatR;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,17 @@ using System.Threading.Tasks;
 
 namespace DRRealState.Core.Application.Features.SaleTypes.Commands.UpdateSaleType
 {
+    /// <summary>
+    /// Parameters to Update a Sale Type
+    /// </summary>
     public class UpdateSaleTypeCommand : IRequest<SaleTypeUpdateResponse>
     {
+
+        [SwaggerParameter(Description = "Id of Sale Type to Update")]
         public int Id { get; set; }
+        [SwaggerParameter(Description = "New Name of Sale Type to Update")]
         public string Name { get; set; }
+        [SwaggerParameter(Description = "New Description of Sale Type to Update")]
         public string Description { get; set; }
     }
 

@@ -1,5 +1,6 @@
 ﻿using DRRealState.Core.Application.Interfaces.Services;
 using MediatR;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,15 @@ using System.Threading.Tasks;
 
 namespace DRRealState.Core.Application.Features.Upgrade.Commands.DeleteUpgrade
 {
+    /// <summary>
+    /// Parameters to Delete an Upgrade
+    /// </summary>
     public class DeleteUpgradeCommand :IRequest<int>
     {
+        /// <example>
+        /// 1
+        /// </example>
+        [SwaggerParameter(Description = "Id of Upgrade to delete")]
         public int Id { get; set; }
     }
 

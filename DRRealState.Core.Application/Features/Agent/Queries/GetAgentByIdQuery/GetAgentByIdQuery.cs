@@ -2,6 +2,7 @@
 using DRRealState.Core.Application.DTOS.Agent;
 using DRRealState.Core.Application.Interfaces.Services;
 using MediatR;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,12 @@ using System.Threading.Tasks;
 
 namespace DRRealState.Core.Application.Features.Agent.Queries.GetAgentByIdQuery
 {
+    /// <summary>
+    /// Parameters to Get an Agent By Id.
+    /// </summary>
     public class GetAgentByIdQuery : IRequest<AgentResponse>
     {
+        [SwaggerParameter(Description ="Agent Id to search on the system.")]
         public string Id { get; set; }
     }
 

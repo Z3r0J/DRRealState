@@ -8,12 +8,24 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace DRRealState.Core.Application.Features.PropertyTypes.Commands.CreatePropertiesType
 {
+    /// <summary>
+    /// Parameters to create a new Property Type
+    /// </summary>
     public class CreatePropertiesTypeCommand : IRequest<int>
-    {            
-        public string Name { get; set; }        
+    {
+        /// <example>
+        /// APARTMENT
+        /// </example>
+        [SwaggerParameter(Description="Name of Property Type")]
+        public string Name { get; set; }
+        /// <example>
+        /// Here can add Only Apartment
+        /// </example>
+        [SwaggerParameter(Description="Description of Property ype")]
         public string Description { get; set; }
     }
     public class CreatePropertiesTypeCommandHandler : IRequestHandler<CreatePropertiesTypeCommand, int>

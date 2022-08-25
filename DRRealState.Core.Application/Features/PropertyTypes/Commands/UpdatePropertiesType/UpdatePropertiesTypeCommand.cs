@@ -2,6 +2,7 @@
 using DRRealState.Core.Application.Interfaces.Repository;
 using DRRealState.Core.Domain.Entities;
 using MediatR;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,16 @@ using System.Threading.Tasks;
 
 namespace DRRealState.Core.Application.Features.PropertyTypes.Commands.UpdatePropertiesType
 {
+    /// <summary>
+    /// Parameters to Update a Property Type
+    /// </summary>
     public class UpdatePropertiesTypeCommand : IRequest<PropertyTypeUpdateResponse>
     {
+        [SwaggerParameter(Description = "Id of Property Type to Update")]
         public int Id { get; set; }
+        [SwaggerParameter(Description = "New Name of Property Type to Update")]
         public string Name { get; set; }
+        [SwaggerParameter(Description = "New Description of Property Type to Update")]
         public string Description { get; set; }
     }
 

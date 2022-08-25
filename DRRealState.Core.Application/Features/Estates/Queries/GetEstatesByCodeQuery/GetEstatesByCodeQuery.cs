@@ -3,6 +3,7 @@ using DRRealState.Core.Application.DTOS.Estates;
 using DRRealState.Core.Application.Interfaces.Repository;
 using DRRealState.Core.Application.Interfaces.Services;
 using MediatR;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,16 @@ using System.Threading.Tasks;
 
 namespace DRRealState.Core.Application.Features.Estates.Queries.GetEstatesByCodeQuery
 {
+    /// <summary>
+    /// Parameters to get an Estate By Code
+    /// </summary>
     public class GetEstatesByCodeQuery :IRequest<EstatesResponse>
     {
+        /// <example>
+        /// 178985
+        /// </example>
+        [SwaggerParameter(Description="Estates Code to Search on the System.")]
+        
         public string Code { get; set; }
     }
 
