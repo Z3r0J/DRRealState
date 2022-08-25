@@ -1,11 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.2.32519.379
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31911.196
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{33A5F187-EB28-4AF3-948C-1E374938D9FC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{03BEB9D8-ACAD-4EEC-B503-D9472433B5A6}"
+	ProjectSection(SolutionItems) = preProject
+		DRRealState.Infrastructure.Identity\WebAppServicesRegistration.cs = DRRealState.Infrastructure.Identity\WebAppServicesRegistration.cs
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{D01A3C7B-C768-4A21-9B13-4BF192DD7797}"
 EndProject
@@ -25,7 +28,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DRRealState.Infrastructure.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApp", "WebApp", "{122503ED-9D22-4D19-9DF7-F799BD036F47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DRRealState.WebApp", "DRRealState.WebApp\DRRealState.WebApp.csproj", "{223DE01E-6E67-42BE-9C34-696A169BC6BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DRRealState.WebApp", "DRRealState.WebApp\DRRealState.WebApp.csproj", "{223DE01E-6E67-42BE-9C34-696A169BC6BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,23 @@
+﻿@using DRRealState.Core.Application.ViewModel.User
+@model SaveUserViewModel
+
+
+@{
+    ViewData["Title"] = "Deactivate";
+}
+<div class="row d-flex justify-content-center mt-2">
+    <div class="col-3">
+        <div class="card">
+            <div class="card-header bg-danger text-center text-white">Deactivate</div>
+            <div class="card-body">
+                <h4>Are you sure want to deactivate this agent?</h4>
+                <form asp-action="Deactivate" asp-controller="Agent">
+                    <input type="hidden" asp-for="Id" />
+                    <button class="btn btn-sm btn-danger w-75" type="submit">Deactivate</button>
+                    <a asp-action="List" asp-controller="Agent"  class="btn btn-sm btn-success w-75">Back</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

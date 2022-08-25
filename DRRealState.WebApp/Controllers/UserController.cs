@@ -3,6 +3,7 @@ using DRRealState.Core.Application.Helpers;
 using DRRealState.Core.Application.Interfaces.Services;
 using DRRealState.Core.Application.ViewModel.Estate;
 using DRRealState.Core.Application.ViewModel.User;
+using DRRealState.WebApp.Middlewares;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,19 +20,32 @@ namespace DRRealState.WebApp.Controllers
         private readonly IUserServices _userServices;
         private readonly IEstateFavoriteServices _favoriteServices;
         private readonly IPropertiesTypeServices _propertiesTypeServices;
-        public UserController(IUserServices userServices,IEstateFavoriteServices favoriteServices, IPropertiesTypeServices propertiesTypeServices)
+        private readonly ValidateUserSession _validateUserSession;
+
+        public UserController(IUserServices userServices,IEstateFavoriteServices favoriteServices, IPropertiesTypeServices propertiesTypeServices, ValidateUserSession validateUserSession)
         {
             _userServices = userServices;
             _favoriteServices = favoriteServices;
             _propertiesTypeServices = propertiesTypeServices;
+            _validateUserSession = validateUserSession;
         }
 
         public IActionResult Login()
         {
+            if (_validateUserSession.IsLogin())
+            {
+                return RedirectToRoute(new { controller = "Home", action = "FindMyHome" });
+            }
+
             return View(new LoginViewModel());
         }
         public IActionResult Register()
         {
+            if (_validateUserSession.IsLogin())
+            {
+                return RedirectToRoute(new { controller = "Home", action = "FindMyHome" });
+            }
+
             return View(new SaveUserViewModel());
         }
 

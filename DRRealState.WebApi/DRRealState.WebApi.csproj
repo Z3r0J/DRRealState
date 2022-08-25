@@ -13,6 +13,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.3.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.4.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.4.0" />
   </ItemGroup>
@@ -22,10 +23,6 @@
     <ProjectReference Include="..\DRRealState.Core.Domain\DRRealState.Core.Domain.csproj" />
     <ProjectReference Include="..\DRRealState.Infrastructure.Identity\DRRealState.Infrastructure.Identity.csproj" />
     <ProjectReference Include="..\DRRealState.Infrastructure.Persistence\DRRealState.Infrastructure.Persistence.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\v1\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="https://json.schemastore.org/azure-deviceupdate-import-manifest-4.0.json" /></VisualStudio></ProjectExtensions>

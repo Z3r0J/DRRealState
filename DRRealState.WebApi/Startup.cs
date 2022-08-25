@@ -32,7 +32,13 @@ namespace DRRealState.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            services.AddControllers(options=>{
+                options.Filters.Add(new ProducesAttribute("application/json"));
+            }).ConfigureApiBehaviorOptions(options => {
+
+                options.SuppressInferBindingSourcesForParameters = true;
+                options.SuppressMapClientErrors = true;
+            });
             services.AddPersistenceInfrastructure(Configuration);
             services.AddIdentityInfrastructure(Configuration);
             services.AddApplicationLayer();

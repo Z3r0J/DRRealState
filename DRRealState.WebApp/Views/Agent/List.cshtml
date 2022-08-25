@@ -1,0 +1,59 @@
+﻿@using DRRealState.Core.Application.ViewModel.User
+@model List<UserViewModel>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<div class="container-fluid mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-4 float-start">
+                    <h1 class="border border-left border-primary">Agent</h1>
+        </div>
+        <div class="col-md-4"></div>
+</div>
+        <div class="row d-flex justify-content-center mt-5">
+            <div class="col-md-8">
+                <table class="table table-hover table-striped border border-light shadow">
+                    <thead class="border border-light shadow bg-custom text-white">
+                        <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">LastName</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Estates Quantity</th>
+                        <th scope="col">Change Status</th>
+                        <th> </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (UserViewModel agent in Model)
+                    {
+                        @if (agent.IsVerified == true)
+                        {
+                            <tr>
+                                <td>@agent.FirstName</td>
+                                <td>@agent.LastName</td>
+                                <td>@agent.Email</td>
+                                <td>@agent.HousesQuantity</td>
+                                <td><a asp-action="Deactivate" asp-controller="Agent" asp-route-id="@agent.Id" class="btn btn-danger">Deactivate</a></td>
+                                <td><a asp-action="Delete" asp-controller="Agent" asp-route-id="@agent.Id" class="btn btn-danger w-25 btn-rounded" style="height:25px;"><i class="fas fa-trash"></i></a></td>
+                            </tr>
+                        }@if (agent.IsVerified == false)
+                        {
+                            <tr>
+                                <td>@agent.FirstName</td>
+                                <td>@agent.LastName</td>
+                                <td>@agent.Email</td>
+                                <td>@agent.HousesQuantity</td>
+                                <td><a asp-action="Activate" asp-controller="Agent" asp-route-id="@agent.Id" class="btn btn-success">Activate</a></td>
+                                <td><a asp-action="Delete" asp-controller="Agent" asp-route-id="@agent.Id" class="btn btn-danger w-25 btn-rounded" style="height:25px;"><i class="fas fa-trash"></i></a></td>
+                            </tr>
+                        }
+                    }
+
+                    </tbody>
+                </table>
+            </div>
+</div>
+</div>
+

@@ -35,7 +35,7 @@ namespace DRRealState.Core.Application.ViewModel.User
         [DataType(DataType.Password)]
         [Compare(nameof(Password),ErrorMessage ="Password doesn't matches.")]
         public string ConfirmPassword { get; set; }
-        [Required(ErrorMessage = "Phone is Required")]
+
         [DataType(DataType.PhoneNumber)]
         public string Phone { get; set; }
         public int UserType { get; set; }

@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DRRealState.WebApi.Controllers
 {
@@ -7,5 +9,8 @@ namespace DRRealState.WebApi.Controllers
     [ApiController]
     public abstract class BaseAPIController : ControllerBase
     {
+        private IMediator _mediator;
+
+        protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
     }
 }

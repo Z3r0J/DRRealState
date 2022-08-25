@@ -1,0 +1,65 @@
+﻿@using DRRealState.Core.Application.ViewModel.User
+@model List<UserViewModel>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<div class="container-fluid mt-4">
+        <div class="row justify-content-center">
+        <div class="col-md-4 float-start">
+                    <h1 class="border border-left border-primary">Developer</h1>
+        </div>
+        <div class="col-md-4">
+                    <a class="btn btn-outline-success rounded rounded-circle float-end" asp-controller="Developer" asp-action="Create" style=" width:55px!important; height:55px!important;"><i class="fa-solid fa-plus"></i></a>
+        </div>
+</div>
+        <div class="row d-flex justify-content-center mt-5">
+            <div class="col-md-8">
+                <table class="table table-hover table-striped border border-light shadow">
+                    <thead class="border border-light shadow bg-custom text-white">
+                        <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">LastName</th>
+                        <th scope="col">UserName</th>
+                        <th scope="col">Documents</th>
+                        <th scope="col">Email</th>
+                        <th>Change Status</th>
+                        <th> </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (UserViewModel item in Model)
+                    {
+                        @if (item.IsVerified == true)
+                        {
+                            <tr>
+                                <td>@item.FirstName</td>
+                                <td>@item.LastName</td>
+                                <td>@item.UserName</td>
+                                <td>@item.Documents</td>
+                                <td>@item.Email</td>
+                                <td><a asp-action="Deactivate" asp-controller="Developer" asp-route-id="@item.Id" class="btn btn-danger">Deactivate</a></td>
+                                <td><a asp-action="Edit" asp-controller="Developer" asp-route-id="@item.Id" class="btn btn-warning w-25 btn-rounded" style="height:25px;"><i class="fas fa-pencil"></i></a></td>
+                            </tr>
+                        }
+                        @if (item.IsVerified == false)
+                        {
+                            <tr>
+                                <td>@item.FirstName</td>
+                                <td>@item.LastName</td>
+                                <td>@item.UserName</td>
+                                <td>@item.Documents</td>
+                                <td>@item.Email</td>
+                                <td><a asp-action="Activate" asp-controller="Developer" asp-route-id="@item.Id" class="btn btn-success">Activate</a></td>
+                                <td><a asp-action="Edit" asp-controller="Developer" asp-route-id="@item.Id" class="btn btn-warning w-25 btn-rounded" style="height:25px;"><i class="fas fa-pencil"></i></a></td>
+                            </tr>
+                        }
+                    }
+
+                    </tbody>
+                </table>
+            </div>
+</div>
+</div>
+

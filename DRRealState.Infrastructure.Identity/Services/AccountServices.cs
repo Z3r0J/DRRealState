@@ -40,6 +40,15 @@ namespace DRRealState.Infrastructure.Identity.Services
             _emailService = emailService;
         }
 
+        public AccountServices(UserManager<RealStateUser> userManager,
+            SignInManager<RealStateUser> signInManager,
+            IOptions<JWTSettings> jWTSettings)
+        {
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _jWTSettings = jWTSettings.Value;
+        }
+
         public async Task<AuthenticationResponse> AuthenticateAsync(AuthenticationRequest request)
         {
 
@@ -541,6 +550,30 @@ namespace DRRealState.Infrastructure.Identity.Services
             await _userManager.UpdateAsync(user);
 
             return response;
+
+        }
+
+        public async Task<DeleteResponse> DeleteUserAsync(string Id) {
+
+            var user = await _userManager.FindByIdAsync(Id);
+
+            if (user==null)
+            {
+                return new() { Error = "Not user with this Id", HasError = true };
+            }
+
+            var deleteResponse = await _userManager.DeleteAsync(user);
+
+            if (deleteResponse.Errors.Count() > 0)
+            {
+                foreach (var error in deleteResponse.Errors)
+                {
+                    return new() { HasError = true,
+                    Error = error.Description};
+                }
+            }
+
+            return new() { HasError = false };
 
         }
 
