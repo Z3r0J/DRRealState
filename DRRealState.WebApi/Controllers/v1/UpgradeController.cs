@@ -7,6 +7,7 @@ using DRRealState.Core.Application.Features.Upgrade.Queries.GetAllUpgradeByIdQue
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Net.Mime;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ namespace DRRealState.WebApi.Controllers.v1
 {
     [ApiVersion("1.0")]
     [ApiController]
+    [SwaggerTag("Upgrade Maintenance")]
     public class UpgradeController : BaseAPIController
     {
         [Authorize(Roles = "ADMINISTRATOR,DEVELOPER")]
@@ -22,6 +24,9 @@ namespace DRRealState.WebApi.Controllers.v1
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpgradeResponse))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [SwaggerOperation(
+            Summary = "List of Upgrades",
+            Description = "Get a List of Upgrades register on the system. (Only Administrator and Developer can use this endpoint)")]
         public async Task<IActionResult> Get()
         {
 
@@ -40,6 +45,9 @@ namespace DRRealState.WebApi.Controllers.v1
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpgradeResponse))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [SwaggerOperation(
+            Summary = "Upgrade By Id",
+            Description = "Get an Upgrade with this Id register on the system. (Only Administrator and Developer can use this endpoint)")]
         public async Task<IActionResult> Get(int id)
         {
 
@@ -59,6 +67,9 @@ namespace DRRealState.WebApi.Controllers.v1
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Consumes(MediaTypeNames.Application.Json)]
+        [SwaggerOperation(
+            Summary = "Create a Upgrade",
+            Description = "Create a new Upgrade on the system. (Only Administrator can use this endpoint)")]
         public async Task<IActionResult> Post([FromBody] CreateUpgradeCommands command)
         {
 
@@ -84,6 +95,9 @@ namespace DRRealState.WebApi.Controllers.v1
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Consumes(MediaTypeNames.Application.Json)]
+        [SwaggerOperation(
+            Summary = "Update an Upgrade",
+            Description = "Update an existing Upgrade with new Value on the system. (Only Administrator can use this endpoint)")]
         public async Task<IActionResult> Put(int id, [FromBody] UpdateUpgradeCommands command)
         {
             try
@@ -110,6 +124,9 @@ namespace DRRealState.WebApi.Controllers.v1
         [HttpDelete("Delete/{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [SwaggerOperation(
+            Summary = "Delete a Property Type",
+            Description = "Delete an Upgrade on the system. (Only Administrator can use this endpoint)")]
         public async Task<IActionResult> Delete(int id)
         {
             try

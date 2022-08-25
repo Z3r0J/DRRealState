@@ -37,7 +37,8 @@ namespace DRRealState.WebApi.Controllers
         [HttpPost("register-administrator")]
         [SwaggerOperation(
             Summary = "Register an Administrator",
-            Description = "Register an Administrator to use the endpoint include on the API (Only use by the an Administrator)")]
+            Description = "Register an Administrator to use the endpoints included on the API (Only use by the an Administrator)")]
+        [Consumes(MediaTypeNames.Application.Json)]
         public async Task<IActionResult> RegisterAdministratorAsync([FromBody]RegisterRequest request) {
 
             return Ok(await _accountServices.RegisterAdministratorAsync(request));
@@ -47,7 +48,8 @@ namespace DRRealState.WebApi.Controllers
         [HttpPost("register-developer")]
         [SwaggerOperation(
             Summary = "Register a Developer",
-            Description = "Register a Developer to use the endpoint include on the API (Only use by the an Administrator)")]
+            Description = "Register a Developer to use the endpoints included on the API (Only use by the an Administrator)")]
+        [Consumes(MediaTypeNames.Application.Json)]
         public async Task<IActionResult> RegisterDeveloperAsync([FromBody]RegisterRequest request) {
 
             return Ok(await _accountServices.RegisterDeveloperAsync(request));

@@ -7,6 +7,7 @@ using DRRealState.Core.Application.Features.SaleTypes.Queries.GetSaleTypeByIdQue
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Net.Mime;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ namespace DRRealState.WebApi.Controllers.v1
 {
     [ApiVersion("1.0")]
     [ApiController]
+    [SwaggerTag("Sale Type Maintenance")]
     public class SaleTypeController : BaseAPIController
     {
         [Authorize(Roles = "ADMINISTRATOR,DEVELOPER")]
@@ -22,6 +24,9 @@ namespace DRRealState.WebApi.Controllers.v1
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SaleTypeResponse))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [SwaggerOperation(
+            Summary = "List of Sale Types",
+            Description = "Get a List of Sale Types register on the system. (Only Administrator and Developer can use this endpoint)")]
         public async Task<IActionResult> Get()
         {
 
@@ -40,6 +45,9 @@ namespace DRRealState.WebApi.Controllers.v1
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SaleTypeResponse))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [SwaggerOperation(
+            Summary = "Sale Type By Id",
+            Description = "Get a Sale Type with this Id register on the system. (Only Administrator and Developer can use this endpoint)")]
         public async Task<IActionResult> GetById(int id)
         {
 
@@ -58,6 +66,9 @@ namespace DRRealState.WebApi.Controllers.v1
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Consumes(MediaTypeNames.Application.Json)]
+        [SwaggerOperation(
+            Summary = "Create a Sale Type",
+            Description = "Create a new Sale Type on the system. (Only Administrator can use this endpoint)")]
         public async Task<IActionResult> Post([FromBody] CreateSaleTypeCommand command)
         {
 
@@ -84,6 +95,9 @@ namespace DRRealState.WebApi.Controllers.v1
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Consumes(MediaTypeNames.Application.Json)]
+        [SwaggerOperation(
+            Summary = "Update a Sale Type",
+            Description = "Update an existing Sale Type with new Value on the system. (Only Administrator can use this endpoint)")]
         public async Task<IActionResult> Put(int id, [FromBody] UpdateSaleTypeCommand command)
         {
             try
@@ -109,6 +123,9 @@ namespace DRRealState.WebApi.Controllers.v1
         [HttpDelete("Delete/{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [SwaggerOperation(
+            Summary = "Delete a Sale Type",
+            Description = "Delete a Sale Type in the system and all property related with this sale type. (Only Administrator can use this endpoint)")]
         public async Task<IActionResult> Delete(int id)
         {
             try

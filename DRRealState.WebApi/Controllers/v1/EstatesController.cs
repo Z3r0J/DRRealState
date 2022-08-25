@@ -5,6 +5,7 @@ using DRRealState.Core.Application.Features.Estates.Queries.GetEstatesByIdQuery;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Threading.Tasks;
 
@@ -12,6 +13,7 @@ namespace DRRealState.WebApi.Controllers.v1
 {
     [ApiVersion("1.0")]
     [ApiController]
+    [SwaggerTag("Estates Maintenance")]
     public class EstatesController : BaseAPIController
     {
         [Authorize(Roles = "ADMINISTRATOR,DEVELOPER")]
@@ -19,6 +21,9 @@ namespace DRRealState.WebApi.Controllers.v1
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(EstatesResponse))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [SwaggerOperation(
+            Summary = "List of Estates",
+            Description = "Get a list of estates register on the system. (Only Administrator and Developer can use this endpoint)")]
         public async Task<IActionResult> Get() {
 
             try
@@ -37,6 +42,9 @@ namespace DRRealState.WebApi.Controllers.v1
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(EstatesResponse))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [SwaggerOperation(
+            Summary = "Estate By Code",
+            Description = "Get an estate with this code register on the system. (Only Administrator and Developer can use this endpoint)")]
         public async Task<IActionResult> GetByCode(string code) {
 
             try
@@ -55,6 +63,9 @@ namespace DRRealState.WebApi.Controllers.v1
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(EstatesResponse))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [SwaggerOperation(
+            Summary = "Estate By Id",
+            Description = "Get an estate with this Id register on the system. (Only Administrator and Developer can use this endpoint)")]
         public async Task<IActionResult> GetById(int id) {
 
             try
