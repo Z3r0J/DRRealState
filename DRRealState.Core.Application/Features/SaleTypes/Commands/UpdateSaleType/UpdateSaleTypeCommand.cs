@@ -17,15 +17,12 @@ namespace DRRealState.Core.Application.Features.SaleTypes.Commands.UpdateSaleTyp
     /// </summary>
     public class UpdateSaleTypeCommand : IRequest<SaleTypeUpdateResponse>
     {
-        ///<example>Id= 1</example>
         [SwaggerParameter(Description = "Id of Sale Type to Update")]
         public int Id { get; set; }
 
-        ///<example>FOR RENT</example>
         [SwaggerParameter(Description = "New Name of Sale Type to Update")]
         public string Name { get; set; }
 
-        ///<example>Here can add Only Estates FOR RENT</example>
         [SwaggerParameter(Description = "New Description of Sale Type to Update")]
         public string Description { get; set; }
     }
