@@ -12,20 +12,14 @@ namespace DRRealState.Core.Application.Features.PropertyTypes.Commands.UpdatePro
     /// </summary>
     public class PropertyTypeUpdateResponse
     {
-        /// <example>
-        /// 1
-        /// </example>
+        ///<example>Id= 1</example>
         [SwaggerParameter(Description = "Id of Updated Property Type")]
         public int Id { get; set; }
 
-        /// <example>
-        /// string
-        /// </example>
+        ///<example>House</example>
         [SwaggerParameter(Description = "Name of Updated Property Type")]
         public string Name { get; set; }
-        /// <example>
-        /// string
-        /// </example>
+        ///<example>The House is black.</example>
         [SwaggerParameter(Description = "Description of Updated Property Type")]
         public string Description { get; set; }
     }

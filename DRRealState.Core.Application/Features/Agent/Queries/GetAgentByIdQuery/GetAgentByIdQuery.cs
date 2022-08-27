@@ -17,6 +17,7 @@ namespace DRRealState.Core.Application.Features.Agent.Queries.GetAgentByIdQuery
     /// </summary>
     public class GetAgentByIdQuery : IRequest<AgentResponse>
     {
+        ///<example>Id= 43</example>
         [SwaggerParameter(Description ="Agent Id to search on the system.")]
         public string Id { get; set; }
     }

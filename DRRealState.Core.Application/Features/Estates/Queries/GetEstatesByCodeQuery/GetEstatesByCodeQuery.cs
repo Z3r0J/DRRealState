@@ -18,9 +18,7 @@ namespace DRRealState.Core.Application.Features.Estates.Queries.GetEstatesByCode
     /// </summary>
     public class GetEstatesByCodeQuery :IRequest<EstatesResponse>
     {
-        /// <example>
-        /// 178985
-        /// </example>
+        ///<example>178985</example>
         [SwaggerParameter(Description="Estates Code to Search on the System.")]
         
         public string Code { get; set; }

@@ -17,14 +17,10 @@ namespace DRRealState.Core.Application.Features.PropertyTypes.Commands.CreatePro
     /// </summary>
     public class CreatePropertiesTypeCommand : IRequest<int>
     {
-        /// <example>
-        /// APARTMENT
-        /// </example>
+        ///<example>APARTMENT</example>
         [SwaggerParameter(Description="Name of Property Type")]
         public string Name { get; set; }
-        /// <example>
-        /// Here can add Only Apartment
-        /// </example>
+        ///<example>Here can add Only Apartment</example>
         [SwaggerParameter(Description="Description of Property ype")]
         public string Description { get; set; }
     }

@@ -17,14 +17,10 @@ namespace DRRealState.Core.Application.Features.Upgrade.Commands.CreateUpgrade
     /// </summary>
     public class CreateUpgradeCommands : IRequest<int>
     {
-        /// <example>
-        /// Bathroom
-        /// </example>
+        ///<example>Bathroom</example>
         [SwaggerParameter(Description = "Name of the Upgrade")]
         public string Name { get; set; }
-        /// <example>
-        /// Bathroom Upgrade
-        /// </example>
+        /// <example>Bathroom Upgrade</example>
         [SwaggerParameter(Description = "Description of the Upgrade")]
         public string Description { get; set; }
     }

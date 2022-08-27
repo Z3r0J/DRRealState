@@ -18,6 +18,7 @@ namespace DRRealState.Core.Application.Features.Agent.Queries.GetEstatesByAgentI
     /// </summary>
     public class GetEstatesByAgentIdQuery : IRequest<IList<EstatesResponse>>
     {
+        ///<example>Id= 2</example>
         [SwaggerParameter(Description = "Agent Id to search all related estates on the system.")]
         public string AgentId { get; set; }
     }

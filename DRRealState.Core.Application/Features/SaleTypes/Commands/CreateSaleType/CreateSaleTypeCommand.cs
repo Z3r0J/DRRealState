@@ -17,14 +17,10 @@ namespace DRRealState.Core.Application.Features.SaleTypes.Commands.CreateSaleTyp
     /// </summary>
     public class CreateSaleTypeCommand : IRequest<int>
     {
-        /// <example>
-        /// FOR RENT
-        /// </example>
+        ///<example>FOR RENT</example>
         [SwaggerParameter(Description = "Name of Sale Type")]
         public string Name { get; set; }
-        /// <example>
-        /// Here can add Only Estates FOR RENT
-        /// </example>
+        ///<example>Here can add Only Estates FOR RENT</example>
         [SwaggerParameter(Description = "Description of Sale Type")]
         public string Description { get; set; }
     }

@@ -17,9 +17,7 @@ namespace DRRealState.Core.Application.Features.PropertyTypes.Queries.GetPropert
      /// </summary>
     public class GetPropertiesTypeByIdQuery : IRequest<PropertyTypeResponse>
     {
-        /// <example>
-        /// 1
-        /// </example>
+        ///<example>Id= 1</example>
         [SwaggerParameter(Description = "Property Type Id to Search on the System.")]
         public int Id { get; set; }
     }
