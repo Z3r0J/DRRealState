@@ -93,7 +93,7 @@
             <img src="@(ViewBag.Agent.PhotoUrl==null?"../../Images/user.png":ViewBag.Agent.PhotoUrl)" class="pane-img"/>
             </div>
             <div class="container-name">
-                            <h6 class="text-name">@ViewBag.Agent.FirstName @ViewBag.Agent.LastName</h6>
+                            <h6 class="text-name"><a asp-action="Details" asp-controller="Agent" asp-route-id="@ViewBag.Agent.Id">@ViewBag.Agent.FirstName @ViewBag.Agent.LastName</a></h6>
                             <span class="text-agency">DR Real Estate</span>
             </div>
             </div>
