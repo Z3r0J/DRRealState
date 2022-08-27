@@ -90,7 +90,7 @@
     }
     else{
 
-                 @foreach(EstateViewModel item in Model)
+                 @foreach(EstateViewModel item in Model.OrderByDescending(x=>x.Id))
                     {
                     <div class="property-item col-lg-4 col-md-6 col-12 mb-40 p-5">
                 <div class="property-inner">
