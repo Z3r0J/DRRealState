@@ -7,23 +7,20 @@ using System.Threading.Tasks;
 
 namespace DRRealState.Core.Application.DTOS.Upgrade
 {
+    /// <summary>
+    /// Parameters to a Upgrade.
+    /// </summary>
     public class UpgradeResponse
     {
-        ///<example>
-        ///Id = 1
-        ///</example>
+        ///<example>Id= 1</example>
         [SwaggerParameter(Description = "This is the Id of the Upgrade in the system.")]
         public int Id { get; set; }
 
-        ///<example>
-        ///'Direct Sale'
-        ///</example>
+        ///<example>'Direct Sale'</example>
         [SwaggerParameter(Description = "The name of the Upgrade on the system.")]
         public string Name { get; set; }
 
-        ///<example>
-        ///This type of property is the most used.
-        ///</example>
+        ///<example>This type of property is the most used.</example>
         [SwaggerParameter(Description = "Description for by Upgrade in the system.")]
         public string Description { get; set; }
     }

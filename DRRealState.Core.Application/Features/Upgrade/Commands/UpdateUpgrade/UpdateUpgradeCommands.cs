@@ -17,10 +17,15 @@ namespace DRRealState.Core.Application.Features.Upgrade.Commands.UpdateUpgrade
     /// </summary>
     public class UpdateUpgradeCommands : IRequest<UpgradeResponse>
     {
+        ///<example>Id= 1</example>
         [SwaggerParameter(Description = "Id of Upgrade to Update")]
         public int Id { get; set; }
+
+        ///<example>Bathroom</example>
         [SwaggerParameter(Description = "New Name of Upgrade to Update")]
         public string Name { get; set; }
+
+        /// <example>Bathroom Upgrade</example>
         [SwaggerParameter(Description = "New Description of Upgrade to Update")]
         public string Description { get; set; }
 

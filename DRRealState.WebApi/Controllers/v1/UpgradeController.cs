@@ -125,7 +125,7 @@ namespace DRRealState.WebApi.Controllers.v1
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [SwaggerOperation(
-            Summary = "Delete a Property Type",
+            Summary = "Delete a Upgrade",
             Description = "Delete an Upgrade on the system. (Only Administrator can use this endpoint)")]
         public async Task<IActionResult> Delete(int id)
         {

@@ -16,9 +16,7 @@ namespace DRRealState.Core.Application.Features.PropertyTypes.Commands.DeletePro
     /// </summary>
     public class DeletePropertiesTypeByIdCommand : IRequest<int>
     {
-        /// <example>
-        /// 1
-        /// </example>
+        ///<example>Id= 2</example>
         [SwaggerParameter(Description="Id of Property Type to delete")]
         public int Id { get; set; }
     }

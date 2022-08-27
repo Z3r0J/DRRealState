@@ -7,17 +7,16 @@ using System.Threading.Tasks;
 
 namespace DRRealState.Core.Application.DTOS.Account
 {
+    /// <summary>
+    /// Authentication parameters in the system.
+    /// </summary>
     public class AuthenticationRequest
     {
-        ///<example>
-        ///walterC2190@email.com.do
-        ///</example>
+        ///<example>example@example.com.do</example>
         [SwaggerParameter(Description = "Request Email in the system.")]
         public string Email { get; set; }
 
-        ///<example>
-        ///New Password
-        ///</example>
+        ///<example>Insert Password</example>
         [SwaggerParameter(Description = "Request Pasword in the system.")]
         public string Password { get; set; }
     }

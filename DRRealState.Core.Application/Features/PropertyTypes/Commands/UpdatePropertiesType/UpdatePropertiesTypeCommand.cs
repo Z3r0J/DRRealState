@@ -17,10 +17,15 @@ namespace DRRealState.Core.Application.Features.PropertyTypes.Commands.UpdatePro
     /// </summary>
     public class UpdatePropertiesTypeCommand : IRequest<PropertyTypeUpdateResponse>
     {
+        ///<example>Id= 3</example>
         [SwaggerParameter(Description = "Id of Property Type to Update")]
         public int Id { get; set; }
+
+        ///<example>example</example>
         [SwaggerParameter(Description = "New Name of Property Type to Update")]
         public string Name { get; set; }
+
+        ///<example>It has more Upgrade.</example>
         [SwaggerParameter(Description = "New Description of Property Type to Update")]
         public string Description { get; set; }
     }

@@ -15,9 +15,7 @@ namespace DRRealState.Core.Application.Features.SaleTypes.Commands.DeleteSaleTyp
     /// </summary>
     public class DeleteSaleTypeByIdCommand : IRequest<int>
     {
-        /// <example>
-        /// 1
-        /// </example>
+        ///<example>Id= 1</example>
         [SwaggerParameter(Description = "Id of Sale Type to delete")]
         public int Id { get; set; }
     }

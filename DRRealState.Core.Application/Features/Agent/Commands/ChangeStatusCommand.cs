@@ -15,9 +15,12 @@ namespace DRRealState.Core.Application.Features.Agent.Commands
     /// </summary>
     public class ChangeStatusCommand : IRequest<string>
     {
+        ///<example>Id= 232</example>
         [SwaggerParameter(Description ="Agent Id to Change Status")]
         public string Id { get; set; }
-        [SwaggerParameter(Description = "True o False")]
+
+        ///<example>True/False</example>
+        [SwaggerParameter(Description = "True or False")]
         public bool Status { get; set; }
     }
 

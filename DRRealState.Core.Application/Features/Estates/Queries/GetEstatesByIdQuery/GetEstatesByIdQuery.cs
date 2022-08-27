@@ -18,9 +18,7 @@ namespace DRRealState.Core.Application.Features.Estates.Queries.GetEstatesByIdQu
     /// </summary>
     public class GetEstatesByIdQuery : IRequest<EstatesResponse>
     {
-        /// <example>
-        /// 1
-        /// </example>
+        ///<example> Id= 1</example>
         [SwaggerParameter(Description = "Estates Id to Search on the System.")]
         public int Id { get; set; }
     }

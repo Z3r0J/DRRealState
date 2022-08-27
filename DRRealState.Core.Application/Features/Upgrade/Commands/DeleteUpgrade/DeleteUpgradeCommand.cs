@@ -15,9 +15,7 @@ namespace DRRealState.Core.Application.Features.Upgrade.Commands.DeleteUpgrade
     /// </summary>
     public class DeleteUpgradeCommand :IRequest<int>
     {
-        /// <example>
-        /// 1
-        /// </example>
+        ///<example>Id= 1</example>
         [SwaggerParameter(Description = "Id of Upgrade to delete")]
         public int Id { get; set; }
     }
