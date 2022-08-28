@@ -93,6 +93,14 @@ namespace DRRealState.Core.Application.Mapping
                    .ForMember(x => x.Modified, opt => opt.Ignore())
                    .ForMember(x => x.ModifiedBy, opt => opt.Ignore());
 
+            CreateMap<PropertiesType, CreatePropertiesTypeCommand>()
+                   .ReverseMap()
+                   .ForMember(x => x.Created, opt => opt.Ignore())
+                   .ForMember(x => x.Estates, opt => opt.Ignore())
+                   .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+                   .ForMember(x => x.Modified, opt => opt.Ignore())
+                   .ForMember(x => x.ModifiedBy, opt => opt.Ignore());
+
             CreateMap<PropertiesType, PropertyTypeResponse>()
                    .ReverseMap()
                    .ForMember(x => x.Created, opt => opt.Ignore())
